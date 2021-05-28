@@ -1,0 +1,76 @@
+.main {
+  width: 95%;
+  margin: 0 auto;
+
+  .categories-and-slideshow {
+    background-color: white;
+    border-radius: 10px;
+    margin: 10px auto;
+    //height: 300px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    .categories {
+      padding: 30px;
+      width: 15%;
+      max-width: 300px;
+    }
+
+  }
+
+  .slideshow {
+    flex: 1;
+    padding: 30px;
+    width: 60%;
+  }
+
+  .recommendTopic {
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 1px 2px 0 rgb(32 33 36 / 28%);
+    .title {
+      color: rgba(0,0,0,0.7);
+      margin:0 0 10px 10px;
+    }
+    .content {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+
+      div {
+        padding: 15px 30px;
+        width: 200px;
+        text-align: center;
+        border-radius: 10px;
+        background-color: #00C0EF;
+
+        span {
+          text-align: center;
+          color: white;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  .topCourses {
+    padding: 10px;
+
+    .content {
+
+      display: flex;
+      justify-content: flex-start;
+    }
+
+  }
+
+  .latestCourses {
+
+  }
+
+  .mostEnrollCourses {
+
+  }
+}

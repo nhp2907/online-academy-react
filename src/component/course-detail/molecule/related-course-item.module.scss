@@ -1,0 +1,74 @@
+.relatedCourseItem {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px 0;
+  margin: 0 20px;
+  border-bottom: 1px solid #d9d9d9;
+
+  &:last-child {
+    border: none;
+  }
+
+  .image {
+    width: 150px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    margin: 0 20px 0 10px;
+
+    img {
+      max-width:100%;
+      max-height:100%;
+    }
+  }
+
+  .info {
+    display: flex;
+    align-items: center;
+    flex: 1;
+
+    .basicInfo {
+      width: 50%;
+
+      .name {
+      }
+
+      .statusAndTime {
+        .status {
+
+        }
+
+        .time {
+
+        }
+      }
+    }
+
+    .ratingContainer {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      width: 50%;
+
+      span {
+        margin-right: 10px;
+      }
+
+      .rating {
+
+      }
+
+      .numOfMember {
+
+      }
+
+      .cost {
+        span {
+          text-decoration: line-through;
+        }
+      }
+    }
+
+  }
+}

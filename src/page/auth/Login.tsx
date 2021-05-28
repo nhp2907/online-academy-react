@@ -1,37 +1,64 @@
-import React, {useState} from 'react'
+import React, {MouseEvent, useState} from 'react'
 import styles from './css/login.module.scss'
 import rocketSvg from '../../img/rocket.svg'
 import {Link} from "react-router-dom";
 import {login} from '../../service/auth.service'
+import CommonInput from "../../component/common/CommonInput";
+import {useDispatch} from "react-redux";
+import {setAuth} from '../../redux/auth/auth.slice'
+import {AppDispatch} from "../../redux/store";
+
 interface Props {
 
 }
 
 const Login: React.FC<Props> = ({}) => {
 
-    const [username, setUserName] = useState<string>('')
+    const [username, setUsername] = useState<string>('')
     const [password, setPassword] = useState<string>('')
+    const dispatch = useDispatch();
+    const validateUsername = (text: string): string => {
+        return text.length < 3 ? 'Enter username' : '';
+    }
 
-    const handleLogin = async () => {
-        const data = await login(username, password);
+    const validatePassword = (text: string): string => {
+        return text.length < 3 ? 'Enter password' : '';
+    }
+
+    const handleLogin = async (e: MouseEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        try {
+            const data = await login(username, password);
+            console.log('login data: ', data);
+            dispatch(setAuth(data));
+
+            window.location.href = '/'
+        } catch (err: any) {
+            console.log(err);
+        }
     }
 
     return (
         <div className={styles.container}>
             <div className={styles["forms-container"]}>
                 <div className={styles["signin-signup"]}>
-                    <form action="/signin" method="POST" id="sign-in-form" className={styles["sign-in-form"]}>
+                    <form action="" method="POST" id="sign-in-form" className={styles["sign-in-form"]}>
                         <h2 className={styles.title}>Sign in</h2>
-                        <div className={styles["input-field"]}>
-                            <i className="fas fa-user"></i>
-                            <input type="text" placeholder="Username" name="username"/>
-                        </div>
-                        <div className={styles["input-field"]}>
-                            <i className="fas fa-lock"></i>
-                            <input type="password" placeholder="Password" name="password"/>
-                        </div>
+                        <CommonInput value={username} placeholder={'Username'}
+                                     onChange={e => setUsername(e.target.value)}
+                                     validate={text => validateUsername(text)}
+                                     containerClassName={styles['input-field-container']}
+                                     errorMessageClassName={styles['error']}
+                                     inputContainerClassName={styles["input-field"]}/>
+
+                        <CommonInput value={password} placeholder={'Username'}
+                                     onChange={e => setPassword(e.target.value)}
+                                     validate={text => validatePassword(text)}
+                                     containerClassName={styles['input-field-container']}
+                                     errorMessageClassName={styles['error']}
+                                     inputContainerClassName={styles["input-field"]}/>
                         <input type="submit" value="Login" className={`${styles["btn"]} ${styles["solid"]}`}
-                        onClick={handleLogin}/>
+                               onClick={handleLogin}/>
                         <p className={styles["social-text"]}>Or Sign in with social platforms</p>
                         <div className={styles["social-text"]}>
                             <a href="#">

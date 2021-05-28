@@ -29,6 +29,7 @@ const Signup: React.FC<Props> = ({}) => {
         // console.log(toast);
         // @ts-ignore
         toast.current.show({severity: 'success', summary: 'Success Message', detail: 'Order submitted'});
+        window.location.href = '/';
         // const userLoginResponseDto = await login(username, password);
         // setSignUpSuccess(true);
         // eslint-disable-next-line no-restricted-globals
@@ -55,7 +56,8 @@ const Signup: React.FC<Props> = ({}) => {
     const validatePassword = (text: string) => {
         // const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ -/:-@\[-`{-~]).{6,64}$/
         // return re.test(text) ? '' : 'Password is invalid';
-        return text.length > 5 ? '' : 'Password is invalid';
+        // return text.length > 5 ? '' : 'Password is invalid';
+    return ''
     }
     const validateRepeatPassword = (pass: string, repeat: string) => {
         return pass === repeat ? '' : 'Password does not match';
@@ -68,13 +70,8 @@ const Signup: React.FC<Props> = ({}) => {
             && !validatePassword(password)
             && !validateRepeatPassword(password, repeatPassword)
     }
-    if (signUpSuccess) {
-        return (<>
-            <Redirect to={'/login'}/>
-        </>)
-    }
-    return (
 
+    return (
         <div className={styles.container}>
             <Toast ref={toast} />
             <div className={styles["forms-container"]}>

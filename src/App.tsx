@@ -3,12 +3,15 @@ import './App.css';
 import {Provider} from "react-redux";
 import store from "./redux/store";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import {Home} from "./page/home/Home";
 import Login from "./page/auth/Login";
 import Signup from "./page/auth/Signup";
 
+import './assets/_override.scss'
 import 'primereact/resources/themes/saga-blue/theme.css'
 import 'primereact/resources/primereact.min.css'
+
+import {HomePage} from "./page/home/HomePage";
+import CourseDetailPage from "./page/course-detail/CourseDetailPage";
 
 function App() {
     return (
@@ -16,9 +19,10 @@ function App() {
             <div className="App">
                 <Router>
                     <Switch>
-                        <Route path={'/'} exact component={Home}/>
-                        <Route path={'/login'} exact component={Login}/>
-                        <Route path={'/signup'} exact component={Signup}/>
+                        <Route path={'/'} exact component={HomePage}/>
+                        <Route path={'/login'}  component={Login}/>
+                        <Route path={'/signup'}  component={Signup}/>
+                        <Route path={'/course/:id'} exact component={CourseDetailPage}/>
                     </Switch>
                 </Router>
             </div>

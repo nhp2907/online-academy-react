@@ -74,6 +74,22 @@ input {
           margin-bottom: 10px;
         }
 
+        .input-field-container {
+          max-width: 380px;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          .title {
+            font-size: 14px;
+          }
+
+          .error {
+            color: red;
+            margin-left: 5px;
+          }
+        }
+
         .input-field {
           max-width: 380px;
           width: 100%;

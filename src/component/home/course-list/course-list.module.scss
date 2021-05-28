@@ -1,0 +1,16 @@
+.courseList {
+  padding: 10px;
+  margin: 20px 0;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 1px 2px 0 rgb(32 33 36 / 28%);
+  overflow-y: scroll;
+  .title {
+    margin:0 0 10px 10px;
+    color: rgba(0,0,0,0.7)
+  }
+  .content {
+    display: flex;
+    justify-content: flex-start;
+  }
+}
