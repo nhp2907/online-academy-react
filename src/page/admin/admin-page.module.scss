@@ -1,0 +1,53 @@
+.main {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 15% 85%;
+
+  .sideNav {
+    background-color: #333D49;
+
+    .user {
+      background-color: #02192d;
+      padding: 20px 15px;
+
+      .name {
+        color: white;
+        font-weight: bold;
+        font-size: 1.2rem;
+      }
+    }
+
+    ul {
+      width: 100%;
+
+      li {
+        margin: 2px 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-self: center;
+
+        a {
+          width: 100%;
+          padding: 0.9rem;
+          color: white;
+          text-decoration: none;
+          padding-left: 15px;
+
+          &:hover {
+            background-color: #506275;
+          }
+        }
+      }
+    }
+
+    .active {
+      background-color: #65809d;
+    }
+  }
+
+  .controlContainer {
+
+  }
+}
