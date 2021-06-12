@@ -1,7 +1,7 @@
-import React, {useEffect, useRef} from 'react';
+import React from 'react';
 import './App.css';
-import {Provider, useSelector} from "react-redux";
-import store, {persistor, RootState} from "./redux/store";
+import {Provider} from "react-redux";
+import store, {persistor} from "./redux/store";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import Login from "./page/auth/Login";
 import Signup from "./page/auth/Signup";
@@ -14,8 +14,14 @@ import 'primeicons/primeicons.css'
 import {HomePage} from "./page/home/HomePage";
 import CourseDetailPage from "./page/course-detail/CourseDetailPage";
 import {PersistGate} from "redux-persist/integration/react";
-import {Toast, ToastMessageType} from "primereact/toast";
 import SearchCourseResultPage from "./page/search-course-result-page/SearchCourseResultPage";
+import ManagementPage from "./page/management-page/ManagementPage";
+import {
+    adminDefaultRoute,
+    adminRouteList,
+    instructorDefaultRoute,
+    instructorRouteList
+} from "./config/managementRouteConfig";
 
 function App() {
     return (
@@ -25,10 +31,22 @@ function App() {
                     <Router>
                         <Switch>
                             <Route path={'/'} exact component={HomePage}/>
-                            <Route path={'/login'} component={Login}/>
-                            <Route path={'/signup'} component={Signup}/>
+                            <Route path={'/login'} exact component={Login}/>
+                            <Route path={'/signup'} exact component={Signup}/>
                             <Route path={'/course/:id'} exact component={CourseDetailPage}/>
-                            <Route path={'/course'}  component={SearchCourseResultPage}/>
+                            <Route path={'/course'} exact component={SearchCourseResultPage}/>
+                            <Route path={'/course'} exact component={SearchCourseResultPage}/>
+                            {/*<Route path={'/admin'}  component={AdminPage}/>*/}
+                            <Route path={'/admin'}
+                                   render={(p) => <ManagementPage defaultRoute={adminDefaultRoute}
+                                                                  routes={adminRouteList} roles={['admin']}
+                                                                  redirectUrl={'/'}/>}
+                            />
+                            <Route path={'/instructor'}
+                                   render={(p) => <ManagementPage defaultRoute={instructorDefaultRoute}
+                                                                  routes={instructorRouteList} roles={['instructor']}
+                                                                  redirectUrl={'/'}/>}
+                            />
                         </Switch>
                     </Router>
                 </div>
