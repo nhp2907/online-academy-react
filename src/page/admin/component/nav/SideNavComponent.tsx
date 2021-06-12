@@ -13,12 +13,12 @@ const SideNavComponent: React.FC<Props> = ({list}) => {
     return (
         <div className={styles.sideNav}>
             <div className={styles.user}>
-                <span className={styles.name}>{user?.firstName || '' + user?.lastName || ''}</span>
+                <h1 className={styles.name}>{user?.firstName || '' + user?.lastName || ''}</h1>
             </div>
             <ul>
                 {
                     list.map((l) => (
-                        <li>
+                        <li key={l.path}>
                             <NavLink activeClassName={styles.active} to={l.path}>
                                 {l.name}
                             </NavLink>

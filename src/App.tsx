@@ -16,8 +16,6 @@ import CourseDetailPage from "./page/course-detail/CourseDetailPage";
 import {PersistGate} from "redux-persist/integration/react";
 import SearchCourseResultPage from "./page/search-course-result-page/SearchCourseResultPage";
 import AdminPage from "./page/admin/AdminPage";
-import SideNavComponent from "./page/admin/component/nav/SideNavComponent";
-import UserManagementComponent from "./page/admin/component/controls/user-management/UserManagementComponent";
 
 function App() {
     return (

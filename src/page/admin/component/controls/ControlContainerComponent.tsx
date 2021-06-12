@@ -1,20 +1,25 @@
 import React from 'react'
 
-interface Props {
+import styles from '../../admin-page.module.scss'
+import {RouteComponentProps} from "react-router";
+
+interface Props extends RouteComponentProps {
     title: string
-    component: React.ComponentType<any>
+    component?: React.FC<any>
+    render: (props: { _?: React.ReactNode } | void) => React.ReactNode;
 }
 
-const ControlContainerComponent: React.FC<Props> = ({title, component}) => {
+const ControlContainerComponent: React.FC<Props> = ({render}) => {
     return (
-        <div>
-            <h1>{title}</h1>
+        <div className={styles.controlContainer}>
+            <div className={styles.title}>
+                <h1 className={styles.name}>{'props.title'}</h1>
+            </div>
             <div>
-                {/*{component}*/}
+                {render()}
             </div>
         </div>
-    );
+    )
 }
-
 
 export default ControlContainerComponent;

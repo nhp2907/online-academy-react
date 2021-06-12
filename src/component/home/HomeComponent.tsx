@@ -6,9 +6,6 @@ import NormalSectionComponent from "./NormalSectionComponent";
 import styles from '../../page/home/home.module.scss'
 import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
-import Course from "../../model/Course";
-import CourseComponent from "./course/CourseComponent";
-import {Carousel} from "primereact/carousel";
 import {Toast} from "primereact/toast";
 
 interface Props {

@@ -48,6 +48,15 @@
   }
 
   .controlContainer {
-
+    .title {
+      background-color: #042a4e;
+      padding: 20px 15px;
+      .name {
+        //color: rgba(0, 0, 0, 0.7);
+        color: white;
+        font-weight: bold;
+        font-size: 1.2rem;
+      }
+    }
   }
 }
