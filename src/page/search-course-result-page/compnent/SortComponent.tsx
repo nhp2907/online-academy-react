@@ -3,10 +3,11 @@ import React, {useState} from 'react'
 interface Props {
     header: string;
     sortOptions: { code: string; label: string }[]
-    initValue?: 'desc' | 'asce' | ''
+    initValue?: 'desc' | 'asce' | '',
+    onChange: (value: string) => void
 }
 
-const SortComponent: React.FC<Props> = ({header, initValue = '', sortOptions}) => {
+const SortComponent: React.FC<Props> = ({header, initValue = '', sortOptions, onChange}) => {
     const [sortOptionIndex, setSortOptionIndex] = useState(0);
     const getIcon = () => {
         const {code} = sortOptions[sortOptionIndex];
@@ -24,12 +25,22 @@ const SortComponent: React.FC<Props> = ({header, initValue = '', sortOptions}) =
         return label;
     }
 
+    const onChange_ = (e: any) => {
+        setSortOptionIndex(sortOptionIndex === (sortOptions.length - 1) ? 0 : sortOptionIndex + 1);
+        onChange(sortOptions[sortOptionIndex].code)
+    }
+
     return (
         <div>
             <div>
                 <div style={{display: 'flex', alignItems: "center"}}
-                     onClick={e => setSortOptionIndex(sortOptionIndex === (sortOptions.length - 1) ? 0 : sortOptionIndex + 1)}>
-                    <span style={{marginRight: '1.4rem', display: 'inline-block', width: 40,fontWeight: 500}}>{header}</span>
+                     onClick={onChange_}>
+                    <span style={{
+                        marginRight: '1.4rem',
+                        display: 'inline-block',
+                        width: 40,
+                        fontWeight: 500
+                    }}>{header}</span>
                     <div className={'div-hover'}>
                         <i className={getIcon()} style={{fontSize: 14}}/>
                         <span style={{marginLeft: '0.5rem', fontSize: 14}}>{getLabel()}</span>

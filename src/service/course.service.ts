@@ -14,6 +14,11 @@ export const getCourseById = async (id: string) => {
 }
 
 export const searchCourse = async (kw: string): Promise<Course[]> => {
-    const {data} = await api.get<Course[]>(`/api/course/?kw=${kw}`)
+    const {data} = await api.get<Course[]>(`/api/course/search?kw=${kw}`)
+    return data;
+}
+
+export const coursesByCategoryName = async  (cateName: string) : Promise<Course[]> => {
+    const {data } = await  api.get(`/api/course?category=${cateName}`);
     return data;
 }

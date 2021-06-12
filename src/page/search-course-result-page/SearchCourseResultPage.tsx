@@ -24,12 +24,6 @@ const SearchCourseResultPage : React.FC<Props> = ({}) => {
     }
 
     const toastRef: RefObject<Toast> = useRef<Toast>(null);
-    const showMessage = (message: ToastMessageType) => {
-        console.log('toastRef', toastRef);
-        if (toastRef && toastRef.current) {
-            toastRef.current.show(message);
-        }
-    }
 
     return (
         <div className={styles.page}>

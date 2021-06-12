@@ -35,7 +35,9 @@ const RelatedCourseItem: React.FC<Props> = ({item}) => {
                     </div>
                     <div className={styles.cost}>
                         <h4>{item.price} {item.concurrency}</h4>
-                        <span>{item.prePrice} {item.concurrency}</span>
+                        {
+                            item.prePrice ? <span>{item.prePrice} {item.concurrency}</span> : ''
+                        }
                     </div>
                 </div>
             </div>

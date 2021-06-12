@@ -5,7 +5,7 @@
   grid-template-columns: 3fr 4fr 3fr;
   align-items: center;
   background: #333d49;
-  height: 4rem;
+  height: 6%;
 
   .left-side {
     display: flex;
@@ -144,6 +144,7 @@
           padding: 0.5rem;
           margin-right: 20px;
           border: 1px solid green;
+
           .list {
             border: 1px solid red;
             position: absolute;

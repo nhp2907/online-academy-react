@@ -1,18 +1,20 @@
 .main {
   width: 100%;
   padding: 1rem 10%;
-  margin: 0 auto;
   background-color: white;
-  border: 1px solid red;
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  height: 90%;
+  border: 1px solid red;
+
   .header {
     padding: 10px;
     font-size: 1.3rem;
     font-weight: bold;
     color: rgba(0, 0, 0, 0.7);
+    margin-left: 20%;
   }
 
   .content {
@@ -20,6 +22,7 @@
     margin: 1rem;
     grid-template-columns: 20% 80%;
     flex: 1;
+    max-height: 90%;
 
     .filter {
       height: 100%;
@@ -29,6 +32,8 @@
 
     .listCourse {
       padding: 0 2rem;
+      overflow-y: scroll;
+      max-height: 100%;
     }
   }
 }

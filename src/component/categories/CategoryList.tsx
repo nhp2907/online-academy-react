@@ -4,16 +4,17 @@ import {RootState} from "../../redux/store";
 import styles from '../../page/home/home.module.scss'
 
 import {TieredMenu} from 'primereact/tieredmenu';
-import {MenuItem} from "primereact/api";
+import {MenuItem, MenuItemCommandParams} from "primereact/api";
 import {Button} from "primereact/button";
 import Category from "../../model/Category";
+import {useHistory} from 'react-router-dom';
 
 interface Props {
 
 }
 
 const CategoryList: React.FC<Props> = ({}) => {
-
+    const history = useHistory();
     const categoriesRef = useRef(null);
     const [categoryItems, setCategoryItems] = useState<MenuItem[]>([]);
 
@@ -29,7 +30,9 @@ const CategoryList: React.FC<Props> = ({}) => {
     const mapCateToItemDisplay = async (cate: Category) => {
         const item: MenuItem = {
             label: cate.name,
-            icon: cate.icon
+            icon: cate.icon,
+            name: cate.name,
+            command: categoryItemCommand
         }
         if (cate.subs) {
             const subItems = await Promise.all(cate.subs.map((sub: Category) => mapCateToItemDisplay(sub)));
@@ -43,10 +46,16 @@ const CategoryList: React.FC<Props> = ({}) => {
     const categoryItemsPromise: Promise<MenuItem>[] = useSelector((state: RootState) =>
         state.categories.list.map((cate: Category) => mapCateToItemDisplay(cate)));
 
+    function categoryItemCommand (e: MenuItemCommandParams) {
+        history.push(`/course?category=${e.item.name}`)
+    }
+
     const sampleItems: MenuItem[] = [
         {
+            name: '',
             label: 'File',
             icon: 'pi pi-fw pi-file',
+            command: categoryItemCommand,
             items: [
                 {
                     label: 'New',
