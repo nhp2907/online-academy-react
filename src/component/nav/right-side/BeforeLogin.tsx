@@ -2,6 +2,7 @@ import React, {useEffect} from 'react'
 import {User} from "../../../model/User";
 import {NavLink} from 'react-router-dom'
 import styles from '../nav.module.scss'
+import {Button} from "primereact/button";
 
 interface Props {
     user?: User
@@ -11,19 +12,16 @@ const BeforeLogin: React.FC<Props> = ({user}) => {
     useEffect(() => console.log(styles))
     return (
         <div className={styles['before-sign-in']}>
-            <div className={styles['my-teach']}>
-                <a href="#" className={styles['nav-link']}>Teach on Udemy</a>
-                <div className={styles['my-teach-content']}>
-                    <p>Turn what you know into an opportunity and reach millions around the world.</p>
-                    <a href="#" className={`${styles['content-btn']} ${styles['nav-link']}`}>Learn More</a>
-                </div>
+            <div>
+                <NavLink to={'/login'}>
+                    <Button label="Log in" className="p-button-text"
+                            style={{color: 'white', fontWeight: "bold", marginRight: 10}}/>
+                </NavLink>
+                <NavLink to={'/signup'}>
+                    <Button label="Sign up" className="p-button-secondary  p-text-bold"
+                            style={{fontWeight: 'bold'}}/>
+                </NavLink>
             </div>
-            <NavLink to={'/signup'}>
-                <a href="auth" className={styles['nav-link']}>Sign Up</a>
-            </NavLink>
-            <NavLink to={'/login'}>
-                <a href="auth" className={styles['nav-link']}>Sign In</a>
-            </NavLink>
         </div>
     );
 }

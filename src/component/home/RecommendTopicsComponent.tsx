@@ -13,7 +13,7 @@ const RecommendTopicsComponent: React.FC<Props> = ({}) => {
             <div className={styles.content}>
             {
                 topics.map((topic: string)  =>(
-                    <div><span>{topic}</span></div>
+                    <div key={topic}><span key={topic}>{topic}</span></div>
                 ))
             }
             </div>

@@ -1,10 +1,11 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import HomeState from "./HomeState";
 import Course from "../../model/Course";
+import {ToastMessageType} from "primereact/toast";
 
 const sampleCourse = {
     id: 'abcdyx',
-    rating : 4.5,
+    rating: 4.5,
     numReview: 1000,
     concurrency: '$',
     name: 'React',
@@ -22,10 +23,10 @@ const sampleCourse = {
     estimateContentLength: 10
 
 }
-const initialState : HomeState = {
-    topCourses: [sampleCourse,sampleCourse,sampleCourse, sampleCourse,sampleCourse,sampleCourse],
-    latestCourses: [sampleCourse,sampleCourse,sampleCourse, sampleCourse,sampleCourse,sampleCourse],
-    mostEnrollCourses: [sampleCourse,sampleCourse,sampleCourse, sampleCourse,sampleCourse,sampleCourse]
+const initialState: HomeState = {
+    topCourses: [sampleCourse, sampleCourse, sampleCourse, sampleCourse, sampleCourse, sampleCourse],
+    latestCourses: [sampleCourse, sampleCourse, sampleCourse, sampleCourse, sampleCourse, sampleCourse],
+    mostEnrollCourses: [sampleCourse, sampleCourse, sampleCourse, sampleCourse, sampleCourse, sampleCourse]
 }
 
 const homeSlice = createSlice({
@@ -40,10 +41,16 @@ const homeSlice = createSlice({
         },
         setMostEnrollCourses: (state: HomeState, action: PayloadAction<Course []>) => {
             state.mostEnrollCourses = action.payload
+        },
+        setToastMessage: (state: HomeState, action: PayloadAction<ToastMessageType>) => {
+            state.message = action.payload
+        },
+        setShowMessage: (state: HomeState, action: PayloadAction<(m: ToastMessageType) => void>) => {
+            state.showToastMessage = action.payload
         }
     }
 })
 
-export const {setTopCourses, setLatestCourses, setMostEnrollCourses} = homeSlice.actions
+export const {setTopCourses, setLatestCourses, setMostEnrollCourses, setToastMessage, setShowMessage} = homeSlice.actions
 const homeReducer = homeSlice.reducer;
 export default homeReducer;

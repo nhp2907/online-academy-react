@@ -1,18 +1,18 @@
-import * as React from 'react';
-import {RefObject, useLayoutEffect, useRef} from 'react';
+import React, {RefObject, useLayoutEffect, useRef} from 'react'
 import Nav from "../../component/nav/Nav";
-import Profile from "../../component/profile/Profile";
-import HomeComponent from "../../component/home/HomeComponent";
-import * as homeService from '../../service/home.service'
-import styles from '../style.module.css'
 import {useDispatch} from "react-redux";
-import {setCategories} from '../../redux/categories/categorySlice';
+import * as homeService from "../../service/home.service";
+import {setCategories} from "../../redux/categories/categorySlice";
 import {Toast, ToastMessageType} from "primereact/toast";
-import {setShowMessage} from '../../redux/home/homeSlice';
+import styles from "../style.module.css";
+import {setShowMessage} from "../../redux/home/homeSlice";
+import SearchResultMainComponent from "./compnent/SearchResultMainComponent";
 
-type Props = {};
+interface Props {
 
-export const HomePage = (props: Props) => {
+}
+
+const SearchCourseResultPage : React.FC<Props> = ({}) => {
     const dispatch = useDispatch();
     useLayoutEffect(() => {
         onPageLoad().then(r => console.log(r));
@@ -24,6 +24,12 @@ export const HomePage = (props: Props) => {
     }
 
     const toastRef: RefObject<Toast> = useRef<Toast>(null);
+    const showMessage = (message: ToastMessageType) => {
+        console.log('toastRef', toastRef);
+        if (toastRef && toastRef.current) {
+            toastRef.current.show(message);
+        }
+    }
 
     return (
         <div className={styles.page}>
@@ -35,8 +41,10 @@ export const HomePage = (props: Props) => {
                 return toastRef;
             }}/>
             <Nav/>
-            <HomeComponent/>
-            <Profile/>
+            <SearchResultMainComponent />
         </div>
     );
-};
+}
+
+
+export default SearchCourseResultPage;

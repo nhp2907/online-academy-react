@@ -11,7 +11,6 @@ interface Props {
 const NormalSectionComponent : React.FC<Props> = ({}) => {
     return (
         <div className={`${styles['categories-and-slideshow']}`}>
-            <CategoryList />
             <SlideShowComponent />
         </div>
     );

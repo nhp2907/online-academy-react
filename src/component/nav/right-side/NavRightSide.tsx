@@ -1,14 +1,16 @@
 import React from 'react'
-import {User} from "../../../model/User";
 import BeforeLogin from "./BeforeLogin";
 import AfterLogin from "./AfterLogin";
 import styles from "../nav.module.scss";
+import {useSelector} from "react-redux";
+import {RootState} from "../../../redux/store";
 
 interface Props {
-    user?: User
 }
 
-const NavRightSide: React.FC<Props> = ({user}) => {
+const NavRightSide: React.FC<Props> = ({}) => {
+    const user = useSelector((state: RootState) => state.auth.user);
+
     return (
         <div id={'right-side'} className={styles['right-side']}>
             {
