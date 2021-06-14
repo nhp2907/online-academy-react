@@ -1,4 +1,5 @@
 export interface User {
+    id?: string;
     username: string;
     firstName: string;
     lastName: string;
@@ -6,4 +7,5 @@ export interface User {
     password: string;
     role?: string
     roleId?: number
+    image?: string
 }

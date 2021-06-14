@@ -1,8 +1,6 @@
 import {User} from "../model/User";
-import axios from 'axios';
 import UserLoginResponseDto from "../dto/UserLoginResponseDto";
 import api from './api'
-import {useDispatch} from "react-redux";
 
 export const signup = async (user: User): Promise<User> => {
     console.log(user)
@@ -12,7 +10,6 @@ export const signup = async (user: User): Promise<User> => {
 }
 
 export const login = async (username: string, password: string): Promise<UserLoginResponseDto> => {
-    const {data} = await api.post('/api/auth/login', {username, password});
-
+    const {data} = await api.post<UserLoginResponseDto>('/api/auth/login', {username, password});
     return data;
 }

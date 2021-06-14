@@ -15,10 +15,13 @@ export const authSlice = createSlice({
             state.user = action.payload;
         },
         setToken: (state: AuthState, action: PayloadAction<string>) => {
+            localStorage.setItem("token", action.payload);
             state.token = action.payload;
         },
-        setAuth: (state :AuthState, action: PayloadAction<AuthState>) => {
+        setAuth: (state: AuthState, action: PayloadAction<AuthState>) => {
             state.token = action.payload.token;
+            // @ts-ignore
+            localStorage.setItem("token", action.payload.token);
             state.user = action.payload.user;
         }
     }
