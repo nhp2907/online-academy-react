@@ -1,0 +1,34 @@
+.main {
+  height: 100%;
+  animation: main-load;
+  animation-duration: 0.2s;
+
+  .header {
+    margin: 0.5rem 1rem;
+    //padding: 1rem 0;
+    height: 5%;
+    border-bottom: 1px solid #ececec;
+    display: flex;
+    align-items: center;
+
+    h3 {
+
+    }
+  }
+
+  .listCourseContainer {
+    max-height: 90%;
+    overflow-y: auto;
+    margin: 10px;
+  }
+
+  @keyframes main-load {
+    0% {
+      opacity: 0.1;
+    }
+    100% {
+
+      opacity: 1;
+    }
+  }
+}

@@ -15,7 +15,13 @@ import {HomePage} from "./page/home/HomePage";
 import CourseDetailPage from "./page/course-detail/CourseDetailPage";
 import {PersistGate} from "redux-persist/integration/react";
 import SearchCourseResultPage from "./page/search-course-result-page/SearchCourseResultPage";
-import AdminPage from "./page/admin/AdminPage";
+import ManagementPage from "./page/management-page/ManagementPage";
+import {
+    adminDefaultRoute,
+    adminRouteList,
+    instructorDefaultRoute,
+    instructorRouteList
+} from "./config/managementRouteConfig";
 
 function App() {
     return (
@@ -30,7 +36,17 @@ function App() {
                             <Route path={'/course/:id'} exact component={CourseDetailPage}/>
                             <Route path={'/course'} exact component={SearchCourseResultPage}/>
                             <Route path={'/course'} exact component={SearchCourseResultPage}/>
-                            <Route path={'/admin'}  component={AdminPage}/>
+                            {/*<Route path={'/admin'}  component={AdminPage}/>*/}
+                            <Route path={'/admin'}
+                                   render={(p) => <ManagementPage defaultRoute={adminDefaultRoute}
+                                                                  routes={adminRouteList} roles={['admin']}
+                                                                  redirectUrl={'/'}/>}
+                            />
+                            <Route path={'/instructor'}
+                                   render={(p) => <ManagementPage defaultRoute={instructorDefaultRoute}
+                                                                  routes={instructorRouteList} roles={['instructor']}
+                                                                  redirectUrl={'/'}/>}
+                            />
                         </Switch>
                     </Router>
                 </div>

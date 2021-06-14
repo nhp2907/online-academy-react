@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import FilterComponent from "./FilterComponent";
-import ListCourseComponent from "./ListCourseComponent";
+import ListCourseComponent from "../../../component/common/list-course/ListCourseComponent";
 import '../../style.module.css'
 import styles from '../search-result-page.module.scss'
 import Course from "../../../model/Course";
@@ -31,12 +31,10 @@ const SearchResultMainComponent: React.FC<Props> = ({}) => {
         }
     })
 
-    useEffect(() => {
-
-    })
-
     const searchCourse_: (kw: string) => Promise<Course[]> = async (kw: string): Promise<Course[]> => {
-        return await searchCourse(kw)
+        const courses1 = await searchCourse(kw);
+        console.log('search course ressult: ', courses1)
+        return courses1
     }
 
     return (
@@ -52,7 +50,7 @@ const SearchResultMainComponent: React.FC<Props> = ({}) => {
                     console.log('filter courses', filteredCourse);
                     setCourses(filteredCourse)
                 }}/>
-                <ListCourseComponent courses={courses}/>
+                <ListCourseComponent emptyMessage={"No course match your keyword!"} courses={courses}/>
             </div>
         </div>
     );
