@@ -24,7 +24,7 @@ const ManagementPage: React.FC<Props> = ({routes, defaultRoute, roles, redirectU
         return <Route key={route.path + route.name} path={route.path} exact
                       render={(props) => <ControlContainerComponent {...props} title={route.name}
                                                                     render={(p) =>
-                                                                        <route.component {...p}/>}/>}/>
+                                                                        <route.component user={user} {...p}/>}/>}/>
     }
     return (
         <div className={styles.main}>

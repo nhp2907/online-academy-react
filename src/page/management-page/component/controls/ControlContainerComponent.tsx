@@ -15,7 +15,7 @@ const ControlContainerComponent: React.FC<Props> = ({title, render}) => {
             <div className={styles.title}>
                 <h1 className={styles.name}>{title}</h1>
             </div>
-            <div>
+            <div className={styles.control}>
                 {render()}
             </div>
         </div>

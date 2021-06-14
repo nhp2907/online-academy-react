@@ -1,4 +1,4 @@
-import api from './api'
+import api, {searchByCriteria} from './api'
 import Course from "../model/Course";
 
 
@@ -18,7 +18,13 @@ export const searchCourse = async (kw: string): Promise<Course[]> => {
     return data;
 }
 
-export const coursesByCategoryName = async  (cateName: string) : Promise<Course[]> => {
-    const {data } = await  api.get(`/api/course?category=${cateName}`);
+export const searchCourseByCriteria = async (dto: any): Promise<Course[]> => {
+    const {data} = await searchByCriteria<Course[]>(`/api/course`, dto)
     return data;
 }
+
+export const coursesByCategoryName = async (cateName: string): Promise<Course[]> => {
+    const {data} = await api.get(`/api/course?category=${cateName}`);
+    return data;
+}
+
