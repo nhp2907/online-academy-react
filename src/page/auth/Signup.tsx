@@ -1,10 +1,8 @@
 import React, {MouseEventHandler, useRef, useState} from 'react'
-import {Redirect} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import styles from "./css/signup.module.scss";
 import rocketSvg from "../../img/rocket.svg";
 import CommonInput from '../../component/common/CommonInput';
-import {login, signup} from "../../service/auth.service";
-import {User} from "../../model/User";
 import {Toast} from "primereact/toast";
 
 interface Props {
@@ -57,7 +55,7 @@ const Signup: React.FC<Props> = ({}) => {
         // const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ -/:-@\[-`{-~]).{6,64}$/
         // return re.test(text) ? '' : 'Password is invalid';
         // return text.length > 5 ? '' : 'Password is invalid';
-    return ''
+        return ''
     }
     const validateRepeatPassword = (pass: string, repeat: string) => {
         return pass === repeat ? '' : 'Password does not match';
@@ -73,7 +71,7 @@ const Signup: React.FC<Props> = ({}) => {
 
     return (
         <div className={styles.container}>
-            <Toast ref={toast} />
+            <Toast ref={toast}/>
             <div className={styles["forms-container"]}>
                 <div className={styles["signin-signup"]}>
                     <form action="/signup" name="signUpForm" method="POST" id="sign-up-form"
@@ -145,7 +143,8 @@ const Signup: React.FC<Props> = ({}) => {
 
                         <input type="submit" className={styles["btn"]} value="Sign up" disabled={!inputValid()}
                                onClick={handleSubmit}/>
-                        <p className="social-text">Or Sign up with social platforms</p>
+                        <p className={styles['social-text']} style={{textAlign: 'center'}}>Or Sign up with social
+                            platforms</p>
                         <div className="social-media">
                             <a href="#">
                                 <i className="fab fa-facebook-f"></i>
@@ -169,8 +168,14 @@ const Signup: React.FC<Props> = ({}) => {
                     <div className={styles["content"]}>
                         <h1>Welcome</h1>
                         <p>
-                            Don't have an account?<b/>Let's sign up and start learning!
+                            Already have an account?<b/>Let's login and start learning!
                         </p>
+
+                        <Link to={'/login'}>
+                            <button className={`${styles["btn"]} ${styles["transparent"]}`} id="sign-up-btn">
+                                Login
+                            </button>
+                        </Link>
                         <img src="" alt=""/>
                     </div>
                     <img src={rocketSvg} className={styles["image"]} alt=""/>

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Route} from "react-router-dom";
+import {Redirect, Route} from "react-router-dom";
 import styles from './management-page.module.scss'
 import SideNavComponent from './component/nav/SideNavComponent';
 import UserManagementComponent from './component/controls/user-management/UserManagementComponent';
@@ -7,19 +7,21 @@ import ControlContainerComponent from './component/controls/ControlContainerComp
 import ManagementRoute from "./model/ManagementRoute";
 import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
+import UserRole from "../../model/UserRole";
 
 interface Props {
     routes: ManagementRoute[],
     defaultRoute: ManagementRoute
-    roles: string[],
+    roles: UserRole[],
     redirectUrl: string;
 }
 
 const ManagementPage: React.FC<Props> = ({routes, defaultRoute, roles, redirectUrl}) => {
     const user = useSelector((state: RootState) => state.auth.user);
-    // if (!user || roles.find(s => s === user.role)) {
-    //     return <Redirect to={redirectUrl}/>
-    // }
+    console.log('user', user);
+    if (!user || roles.find(s => s === user.role)) {
+        return <Redirect to={redirectUrl}/>
+    }
     const renderRoute = (route: ManagementRoute) => {
         return <Route key={route.path + route.name} path={route.path} exact
                       render={(props) => <ControlContainerComponent {...props} title={route.name}

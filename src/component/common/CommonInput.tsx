@@ -15,8 +15,9 @@ interface Props {
 }
 
 
-const CommonInput: React.FC<Props> = ({name, placeholder, icon, type, value, onChange, validate, inputContainerClassName, containerClassName, titleClassName,errorMessageClassName}) => {
+const CommonInput: React.FC<Props> = ({name, placeholder, icon, type, value, onChange, validate, inputContainerClassName, containerClassName, titleClassName, errorMessageClassName}) => {
     const [isFirstTime, setIsFirstTime] = useState(true);
+    const [errorMessage, setErrorMessage] = useState<string>('');
     useEffect(() => {
         // console.log('Common input update');
         const timer = setTimeout(() => {
@@ -28,16 +29,17 @@ const CommonInput: React.FC<Props> = ({name, placeholder, icon, type, value, onC
         }, 1000);
         return () => clearTimeout(timer);
     }, [value])
-    const [errorMessage, setErrorMessage] = useState<string>('');
     return (
         <div className={containerClassName}>
-            {name ? <span className={titleClassName}>{name}</span> :''}
-            <div className={inputContainerClassName}>
+            {name ? <label className={titleClassName}>{name}</label> : ''}
+            <div className={inputContainerClassName || 'p-field'}>
                 <i/>
-                <input value={value} type={type ? type : 'text'} placeholder={placeholder}
-                       onChange={onChange}/>
+                <input
+                    className={inputContainerClassName || `p-inputtext p-component ${errorMessage ? 'p-invalid' : ''}`}
+                    value={value} type={type ? type : 'text'} placeholder={placeholder}
+                    onChange={onChange}/>
             </div>
-            {errorMessage ? <span className={errorMessageClassName}>{errorMessage}</span> : ''}
+            {errorMessage ? <small className={errorMessageClassName || 'p-error'}>{errorMessage}</small> : ''}
         </div>
     );
 }

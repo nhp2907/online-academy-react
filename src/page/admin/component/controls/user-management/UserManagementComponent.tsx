@@ -4,13 +4,13 @@ import {DataTable} from 'primereact/datatable';
 import {Column} from 'primereact/column';
 import {Toast} from 'primereact/toast';
 import {Button} from 'primereact/button';
-import {Toolbar} from 'primereact/toolbar';
 import {Dialog} from 'primereact/dialog';
 import {InputText} from 'primereact/inputtext';
-import './data-table.css';
+import './data-table.scss';
 import * as userService from '../../../../../service/user.service'
 import {User} from "../../../../../model/User";
 import SpinnerComponent from "../../../../../component/common/SpinnerComponent";
+import UserInputComponent from "./component/UserInputComponent";
 
 interface Props {
 
@@ -24,7 +24,6 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
         id: '',
         firstName: '',
         lastName: '',
-        role: '',
         password: '',
         email: '',
         username: '',
@@ -32,9 +31,9 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
     };
 
     const [users, setUsers] = useState<User[]>([]);
-    const [productDialog, setProductDialog] = useState(false);
-    const [deleteProductDialog, setDeleteProductDialog] = useState(false);
-    const [deleteProductsDialog, setDeleteProductsDialog] = useState(false);
+    const [userDialog, setUserDialog] = useState(true);
+    const [deleteUserDialog, setDeleteUserDialog] = useState(false);
+    const [deleteManyUserDialog, setDeleteUsersDialog] = useState(false);
     const [user, setUser] = useState<User>(emptyUser);
     const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
     const [submitted, setSubmitted] = useState(false);
@@ -60,63 +59,63 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
     const openNew = () => {
         setUser(emptyUser);
         setSubmitted(false);
-        setProductDialog(true);
+        setUserDialog(true);
     }
 
     const hideDialog = () => {
         setSubmitted(false);
-        setProductDialog(false);
+        setUserDialog(false);
     }
 
-    const hideDeleteProductDialog = () => {
-        setDeleteProductDialog(false);
+    const hideDeleteUserDialog = () => {
+        setDeleteUserDialog(false);
     }
 
-    const hideDeleteProductsDialog = () => {
-        setDeleteProductsDialog(false);
+    const hideDeleteUsersDialog = () => {
+        setDeleteUsersDialog(false);
     }
 
-    const saveProduct = () => {
+    const saveUser = () => {
         setSubmitted(true);
 
         if (user.firstName.trim()) {
-            let _products = [...users];
-            let _product = {...user};
+            let _users = [...users];
+            let _user = {...user};
             if (user.id) {
                 const index = findIndexById(user.id);
 
                 // @ts-ignore
-                toast.current.show({severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000});
+                toast.current.show({severity: 'success', summary: 'Successful', detail: 'User Updated', life: 3000});
             } else {
-                // _product.id = createId();
-                // _product.image = 'product-placeholder.svg';
-                // _products.push(_product);
+                // _user.id = createId();
+                // _user.image = 'user-placeholder.svg';
+                // _users.push(_user);
                 // @ts-ignore
-                toast.current.show({severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000});
+                toast.current.show({severity: 'success', summary: 'Successful', detail: 'User Created', life: 3000});
             }
 
-            setUsers(_products);
-            setProductDialog(false);
+            setUsers(_users);
+            setUserDialog(false);
             setUser(emptyUser);
         }
     }
 
-    const editProduct = (user: User) => {
+    const editUser = (user: User) => {
         setUser({...user});
-        setProductDialog(true);
+        setUserDialog(true);
     }
 
-    const confirmDeleteProduct = (user: User) => {
+    const confirmDeleteUser = (user: User) => {
         setUser(user);
-        setDeleteProductDialog(true);
+        setDeleteUserDialog(true);
     }
 
-    const deleteProduct = () => {
-        // let _products = users.filter(val => val.id !== product.id);
-        // setProduct(_products);
-        // setDeleteProductDialog(false);
-        // setProduct(emptyProduct);
-        // toast.current.show({severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000});
+    const deleteUser = () => {
+        // let _users = users.filter(val => val.id !== user.id);
+        // setUser(_users);
+        // setDeleteUserDialog(false);
+        // setUser(emptyUser);
+        // toast.current.show({severity: 'success', summary: 'Successful', detail: 'User Deleted', life: 3000});
     }
 
     const findIndexById = (id: string) => {
@@ -142,21 +141,21 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
 
 
     const confirmDeleteSelected = () => {
-        setDeleteProductsDialog(true);
+        setDeleteUsersDialog(true);
     }
 
-    const deleteSelectedProducts = () => {
+    const deleteSelectedUsers = () => {
         let _users = users.filter(val => !selectedUsers.includes(val));
         setUsers(_users);
-        setDeleteProductsDialog(false);
+        setDeleteUsersDialog(false);
         setSelectedUsers([]);
-        // toast.current.show({severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000});
+        // toast.current.show({severity: 'success', summary: 'Successful', detail: 'Users Deleted', life: 3000});
     }
 
     // const onCategoryChange = (e) => {
-    //     let _product = {...user};
-    //     _product['category'] = e.value;
-    //     setUser(_product);
+    //     let _user = {...user};
+    //     _user['category'] = e.value;
+    //     setUser(_user);
     // }
     //
     const onInputChange = (e: any, key: string) => {
@@ -170,16 +169,17 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
     //
     // const onInputNumberChange = (e, name) => {
     //     const val = e.value || 0;
-    //     let _product = {...user};
-    //     _product[`${name}`] = val;
+    //     let _user = {...user};
+    //     _user[`${name}`] = val;
     //
-    //     setUser(_product);
+    //     setUser(_user);
     // }
 
     const leftToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <Button label="New" icon="pi pi-plus" className="p-button-success p-mr-2" onClick={openNew}/>
+                <Button label="New" icon="pi pi-plus" style={{marginRight: 10}} className="p-button-success p-mr-2"
+                        onClick={openNew}/>
                 <Button label="Delete" icon="pi pi-trash" className="p-button-danger" onClick={confirmDeleteSelected}
                         disabled={!selectedUsers || !selectedUsers.length}/>
             </React.Fragment>
@@ -187,12 +187,8 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
     }
 
     const imageBodyTemplate = (rowData: User) => {
-        return <img src={`showcase/demo/images/product/${rowData.image}`}
-                    alt={rowData.image} className="product-image"/>
-    }
-
-    const priceBodyTemplate = (rowData: User) => {
-        // return formatCurrency(rowData.price);
+        return <img src={`showcase/demo/images/user/${rowData.image}`}
+                    alt={rowData.image} className="user-image"/>
     }
 
     const nameBodyTemplate = (rowData: User) => {
@@ -205,23 +201,32 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
 
     // const statusBodyTemplate = (rowData: User) => {
     //     return <span
-    //         className={`product-badge status-${rowData.inventoryStatus.toLowerCase()}`}>{rowData.inventoryStatus}</span>;
+    //         className={`user-badge status-${rowData.inventoryStatus.toLowerCase()}`}>{rowData.inventoryStatus}</span>;
     // }
 
     const actionBodyTemplate = (rowData: User) => {
         return (
             <React.Fragment>
-                <Button icon="pi pi-pencil" className="p-button-rounded p-button-success p-mr-2"
-                        onClick={() => editProduct(rowData)}/>
-                <Button icon="pi pi-trash" className="p-button-rounded p-button-warning"
-                        onClick={() => confirmDeleteProduct(rowData)}/>
+                <Button icon="pi pi-pencil" style={{marginRight: 10}}
+                        className="p-button-rounded p-button-success p-mr-2"
+                        onClick={() => editUser(rowData)}/>
+                <Button icon="pi pi-trash" className="p-button-rounded p-button-danger"
+                        onClick={() => confirmDeleteUser(rowData)}/>
             </React.Fragment>
         );
     }
 
     const header = (
         <div className="table-header">
-            <h5 className="p-m-0">Manage Products</h5>
+            <div className={'table-header-left'}>
+                {/*<span>Manage users</span>*/}
+                <Button label="New" icon="pi pi-plus" style={{marginRight: 10, fontSize: 15}}
+                        className=" p-button-success p-mr-2"
+                        onClick={openNew}/>
+                <Button label="Delete" icon="pi pi-trash" className="p-button-text p-button-danger" style={{marginRight: 10, fontSize: 15}}
+                        onClick={confirmDeleteSelected}
+                        disabled={!selectedUsers || !selectedUsers.length}/>
+            </div>
             <span className="p-input-icon-left">
                 <i className="pi pi-search"/>
                 <InputText type="search"
@@ -230,22 +235,22 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
             </span>
         </div>
     );
-    const productDialogFooter = (
+    const userDialogFooter = (
         <React.Fragment>
             <Button label="Cancel" icon="pi pi-times" className="p-button-text" onClick={hideDialog}/>
-            <Button label="Save" icon="pi pi-check" className="p-button-text" onClick={saveProduct}/>
+            <Button label="Save" icon="pi pi-check" className="p-button-text" onClick={saveUser}/>
         </React.Fragment>
     );
-    const deleteProductDialogFooter = (
+    const deleteUserDialogFooter = (
         <React.Fragment>
-            <Button label="No" icon="pi pi-times" className="p-button-text" onClick={hideDeleteProductDialog}/>
-            <Button label="Yes" icon="pi pi-check" className="p-button-text" onClick={deleteProduct}/>
+            <Button label="No" icon="pi pi-times" className="p-button-text" onClick={hideDeleteUserDialog}/>
+            <Button label="Yes" icon="pi pi-check" className="p-button-text" onClick={deleteUser}/>
         </React.Fragment>
     );
-    const deleteProductsDialogFooter = (
+    const deleteManyUserDialogFooter = (
         <React.Fragment>
-            <Button label="No" icon="pi pi-times" className="p-button-text" onClick={hideDeleteProductsDialog}/>
-            <Button label="Yes" icon="pi pi-check" className="p-button-text" onClick={deleteSelectedProducts}/>
+            <Button label="No" icon="pi pi-times" className="p-button-text" onClick={hideDeleteUsersDialog}/>
+            <Button label="Yes" icon="pi pi-check" className="p-button-text" onClick={deleteSelectedUsers}/>
         </React.Fragment>
     );
 
@@ -257,7 +262,7 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
             <Toast ref={toast}/>
 
             <div className="card">
-                <Toolbar className="p-mb-4 " left={leftToolbarTemplate}/>
+                {/*<Toolbar className="p-mb-4 " left={leftToolbarTemplate}/>*/}
 
                 <DataTable ref={dt} value={users} selection={selectedUsers}
                            onSelectionChange={(e) => setSelectedUsers(e.value)}
@@ -272,7 +277,7 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
                     <Column header="Image" body={imageBodyTemplate}/>
                     <Column field={'username'} header="username" sortable/>
                     <Column field={'firstName'} header="Name" sortable body={nameBodyTemplate}/>
-                    <Column field={'email'} header="Email" sortable filter/>
+                    <Column field={'email'} header="Email" sortable/>
                     <Column field={'role'} header="Role" sortable/>
                     <Column field={'status'} header="Status" sortable/>
                     {/*<Column field="rating" header="Reviews" body={ratingBodyTemplate} sortable/>*/}
@@ -281,20 +286,21 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
                 </DataTable>
             </div>
 
-            <Dialog visible={productDialog} style={{width: '450px'}} header="Product Details" modal className="p-fluid"
-                    footer={productDialogFooter} onHide={hideDialog}>
-                {user.image && <img src={`showcase/demo/images/product/${user.image}`}
-                                    alt={user.image} className="product-image"/>}
-                <div className="p-field">
-                    <label htmlFor="name">Fristname</label>
-                    <InputText id="name" value={user.firstName} onChange={(e) => onInputChange(e, 'name')} required
-                               autoFocus className={classNames({'p-invalid': submitted && !user.firstName})}/>
-                    {submitted && !user.firstName && <small className="p-error">Name is required.</small>}
-                </div>
+            <Dialog visible={userDialog} style={{width: '450px'}} header="User Details" modal className="p-fluid"
+                    footer={userDialogFooter} onHide={hideDialog}>
+                {user.image && <img src={`showcase/demo/images/user/${user.image}`}
+                                    alt={user.image} className="user-image"/>}
+                                    <UserInputComponent />
+                {/*<div className="p-field">*/}
+                {/*    <label htmlFor="name">Fristname</label>*/}
+                {/*    <InputText id="name" value={user.firstName} onChange={(e) => onInputChange(e, 'name')} required*/}
+                {/*               autoFocus className={classNames({'p-invalid': submitted && !user.firstName})}/>*/}
+                {/*    {submitted && !user.firstName && <small className="p-error">Name is required.</small>}*/}
+                {/*</div>*/}
 
-                <div className="p-field">
-                    <label className="p-mb-3">Category</label>
-                    <div className="p-formgrid p-grid">
+                {/*<div className="p-field">*/}
+                {/*    <label className="p-mb-3">Category</label>*/}
+                {/*    <div className="p-formgrid p-grid">*/}
                         {/*<div className="p-field-radiobutton p-col-6">*/}
                         {/*    <RadioButton inputId="category1" name="category" value="Accessories"*/}
                         {/*                 onChange={onCategoryChange} checked={user.category === 'Accessories'}/>*/}
@@ -315,10 +321,10 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
                         {/*                 checked={user.category === 'Fitness'}/>*/}
                         {/*    <label htmlFor="category4">Fitness</label>*/}
                         {/*</div>*/}
-                    </div>
-                </div>
+                {/*    </div>*/}
+                {/*</div>*/}
 
-                <div className="p-formgrid p-grid">
+                {/*<div className="p-formgrid p-grid">*/}
                     {/*<div className="p-field p-col">*/}
                     {/*    <label htmlFor="price">Price</label>*/}
                     {/*    <InputNumber id="price" value={user.price}*/}
@@ -330,22 +336,22 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
                     {/*    <InputNumber id="quantity" value={user.quantity}*/}
                     {/*                 onValueChange={(e) => onInputNumberChange(e, 'quantity')} integeronly/>*/}
                     {/*</div>*/}
-                </div>
+                {/*</div>*/}
             </Dialog>
 
-            <Dialog visible={deleteProductDialog} style={{width: '450px'}} header="Confirm" modal
-                    footer={deleteProductDialogFooter} onHide={hideDeleteProductDialog}>
+            <Dialog visible={deleteUserDialog} style={{width: '450px'}} header="Confirm" modal
+                    footer={deleteUserDialogFooter} onHide={hideDeleteUserDialog}>
                 <div className="confirmation-content">
                     <i className="pi pi-exclamation-triangle p-mr-3" style={{fontSize: '2rem'}}/>
                     {user && <span>Are you sure you want to delete <b>{user.firstName}</b>?</span>}
                 </div>
             </Dialog>
 
-            <Dialog visible={deleteProductsDialog} style={{width: '450px'}} header="Confirm" modal
-                    footer={deleteProductsDialogFooter} onHide={hideDeleteProductsDialog}>
+            <Dialog visible={deleteManyUserDialog} style={{width: '450px'}} header="Confirm" modal
+                    footer={deleteManyUserDialogFooter} onHide={hideDeleteUsersDialog}>
                 <div className="confirmation-content">
                     <i className="pi pi-exclamation-triangle p-mr-3" style={{fontSize: '2rem'}}/>
-                    {user && <span>Are you sure you want to delete the selected products?</span>}
+                    {user && <span>Are you sure you want to delete the selected users?</span>}
                 </div>
             </Dialog>
         </div>

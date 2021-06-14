@@ -80,6 +80,8 @@ input {
           display: flex;
           flex-direction: column;
           align-items: flex-start;
+          margin: 10px 0;
+
           .title {
             font-size: 14px;
           }
@@ -94,7 +96,6 @@ input {
           max-width: 380px;
           width: 100%;
           background-color: #f0f0f0;
-          margin: 10px 0;
           height: 55px;
           border-radius: 55px;
           display: grid;
@@ -124,9 +125,10 @@ input {
               color: #aaa;
               font-weight: 500;
             }
+
             &:-webkit-autofill {
-              -webkit-box-shadow:200px 200px 100px #F0F0F0 inset;
-              box-shadow:200px 200px 100px #F0F0F0 inset;
+              -webkit-box-shadow: 200px 200px 100px #F0F0F0 inset;
+              box-shadow: 200px 200px 100px #F0F0F0 inset;
             }
 
             &:-webkit-autofill::first-line {
@@ -233,7 +235,7 @@ input {
   border: none;
   outline: none;
   height: 49px;
-  border-radius: 49px;
+  border-radius: 49px !important;
   color: #fff;
   text-transform: uppercase;
   font-weight: 600;
@@ -253,6 +255,7 @@ input {
     font-weight: 600;
     font-size: 0.8rem;
   }
+
   &:disabled {
     background-color: #4d84e2;
     cursor: not-allowed;
@@ -317,7 +320,7 @@ input {
       height: 1500px;
       transform: translateX(-50%);
       left: 30%;
-      bottom: 78%;
+      bottom: 73%;
       right: initial;
       top: initial;
     }
@@ -325,10 +328,18 @@ input {
     .forms-container {
       .signin-signup {
         width: 100%;
-        top: 68%;
+        top: 62%;
         transform: translate(-50%, -100%);
         left: 50%;
         margin-top: 250px;
+
+        .input-field-container {
+          height: 45px;
+
+          .input-field {
+            height: 45px;
+          }
+        }
       }
     }
 
@@ -360,7 +371,10 @@ input {
         }
 
         .content {
-          padding-right: 15%;
+          //padding-right: 15%;
+          h1 {
+            font-size: 1.4rem;
+          }
         }
 
         h3 {
@@ -428,8 +442,31 @@ input {
   .container {
     padding: 1.5rem;
 
+    .forms-container {
+      .signin-signup {
+        top: 58%;
+        form {
+          padding: 0 2rem;
+          h2 {
+            font-size: 1.3rem;
+          }
+        }
+        .input-field-container {
+          height: 45px;
+
+          .input-field {
+            height: 45px;
+          }
+        }
+      }
+    }
+
     .panels-container {
       padding: 0px;
+
+      .content {
+        transform: translateY(-25%);
+      }
     }
   }
 
@@ -441,5 +478,24 @@ input {
   .container.sign-up-mode:before {
     bottom: 28%;
     left: 50%;
+  }
+
+  .input-field-container {
+    height: 40px;
+
+    .input-field {
+      height: 40px;
+    }
+  }
+
+}
+
+@media (max-width: 375px) { // iphoneX
+  .input-field-container {
+    height: 40px;
+    width: 80vw;
+  }
+  .input-field {
+    height: 40px;
   }
 }

@@ -22,6 +22,7 @@ import {
     instructorDefaultRoute,
     instructorRouteList
 } from "./config/managementRouteConfig";
+import UserRole from "./model/UserRole";
 
 function App() {
     return (
@@ -39,12 +40,12 @@ function App() {
                             {/*<Route path={'/admin'}  component={AdminPage}/>*/}
                             <Route path={'/admin'}
                                    render={(p) => <ManagementPage defaultRoute={adminDefaultRoute}
-                                                                  routes={adminRouteList} roles={['admin']}
+                                                                  routes={adminRouteList} roles={[UserRole.Admin]}
                                                                   redirectUrl={'/'}/>}
                             />
                             <Route path={'/instructor'}
                                    render={(p) => <ManagementPage defaultRoute={instructorDefaultRoute}
-                                                                  routes={instructorRouteList} roles={['instructor']}
+                                                                  routes={instructorRouteList} roles={[UserRole.Instructor]}
                                                                   redirectUrl={'/'}/>}
                             />
                         </Switch>

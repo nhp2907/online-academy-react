@@ -59,7 +59,7 @@ const Login: React.FC<Props> = ({}) => {
                                      inputContainerClassName={styles["input-field"]}/>
                         <input type="submit" value="Login" className={`${styles["btn"]} ${styles["solid"]}`}
                                onClick={handleLogin}/>
-                        <p className={styles["social-text"]}>Or Sign in with social platforms</p>
+                        <p className={styles["social-text"]} style={{textAlign: 'center'}}>Or Sign in with social platforms</p>
                         <div className={styles["social-text"]}>
                             <a href="#">
                                 <i className="fab fa-facebook-f"></i>
