@@ -10,10 +10,16 @@
     border-bottom: 1px solid #ececec;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 
     h3 {
 
     }
+    a {
+      margin-right: 30px;
+      text-decoration: none;
+    }
+
   }
 
   .listCourseContainer {

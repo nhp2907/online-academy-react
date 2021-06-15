@@ -5,6 +5,7 @@ import CourseManagementComponent from "../page/admin/component/controls/course-m
 import ManagementRoute from "../page/management-page/model/ManagementRoute";
 import InstructorCourseManagementComponent
     from "../page/instructor/controls-component/course-management/InstructorCourseManagementComponent";
+import InstructorCourseDetailComponent from "../page/instructor/controls-component/course-detail/InstructorCourseDetailComponent";
 
 
 export const adminRouteList: ManagementRoute[] = [
@@ -40,13 +41,23 @@ export const instructorRouteList: ManagementRoute[] = [
         path: '/instructor/course',
         component: InstructorCourseManagementComponent,
         icon: 'books',
-        name: 'Course management'
+        name: 'Course management',
+        redirectUrl: '/'
+    },
+    {
+        path: '/instructor/course/:id',
+        component: InstructorCourseDetailComponent,
+        icon: 'user',
+        name: 'Course detail',
+        redirectUrl: '/instructor',
+        hidden: true
     },
     {
         path: '/instructor/profile',
         component: InstructorCourseManagementComponent,
         icon: 'user',
-        name: 'Profile'
+        name: 'Profile',
+        redirectUrl: '/'
     }
 ]
 

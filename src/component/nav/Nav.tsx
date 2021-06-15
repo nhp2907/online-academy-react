@@ -36,7 +36,7 @@ const Nav: React.FC<Props> = ({}: Props) => {
                         <div className={styles.center}>
                             <i className="fas fa-search"></i>
                             <form onSubmit={handleFormSubmit}>
-                                <input type="text" value={searchKw} onChange={e => setSearchKw(e.target.value)}
+                                <input type="text" value={searchKw} onChange={e => setSearchKw(e.target.value)} autoFocus={true}
                                        placeholder="Search for anything"/>
                             </form>
                         </div>

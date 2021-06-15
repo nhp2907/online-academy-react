@@ -51,14 +51,14 @@ const Login: React.FC<Props> = ({}) => {
                 <div className={styles["signin-signup"]}>
                     <form action="" method="POST" id="sign-in-form" className={styles["sign-in-form"]}>
                         <h2 className={styles.title}>Sign in</h2>
-                        <CommonInput value={username} placeholder={'Username'}
+                        <CommonInput value={username} placeholder={'Username'} autoFocus
                                      onChange={e => setUsername(e.target.value)}
                                      validate={text => validateUsername(text)}
                                      containerClassName={styles['input-field-container']}
                                      errorMessageClassName={styles['error']}
                                      inputContainerClassName={styles["input-field"]}/>
 
-                        <CommonInput value={password} placeholder={'Username'} type={'password'}
+                        <CommonInput value={password} placeholder={'Password'} type={'password'}
                                      onChange={e => setPassword(e.target.value)}
                                      validate={text => validatePassword(text)}
                                      containerClassName={styles['input-field-container']}

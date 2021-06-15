@@ -18,8 +18,7 @@ interface Props {
 
 const ManagementPage: React.FC<Props> = ({routes, defaultRoute, roles, redirectUrl}) => {
     const user = useSelector((state: RootState) => state.auth.user);
-    console.log('user', user);
-    if (!user || roles.find(s => s === user.role)) {
+    if (!user || !roles.find(s => s === user.roleId)) {
         return <Redirect to={redirectUrl}/>
     }
     const renderRoute = (route: ManagementRoute) => {

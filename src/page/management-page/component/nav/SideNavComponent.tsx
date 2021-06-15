@@ -3,9 +3,10 @@ import {NavLink} from 'react-router-dom'
 import styles from '../../management-page.module.scss'
 import {useSelector} from "react-redux";
 import {RootState} from "../../../../redux/store";
+import ManagementRoute from "../../model/ManagementRoute";
 
 interface Props {
-    list: any[]
+    list: ManagementRoute[]
 }
 
 const SideNavComponent: React.FC<Props> = ({list}) => {
@@ -17,10 +18,11 @@ const SideNavComponent: React.FC<Props> = ({list}) => {
             </div>
             <ul>
                 {
-                    list.map((l) => (
-                        <li key={l.path}>
-                            <NavLink activeClassName={styles.active} to={l.path}>
-                                {l.name}
+                    list.map((route) => (
+                        route.hidden ? '' :
+                        <li key={route.path}>
+                            <NavLink activeClassName={styles.active} to={route.path}>
+                                {route.name}
                             </NavLink>
                         </li>))
                 }

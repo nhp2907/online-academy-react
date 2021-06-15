@@ -13,13 +13,15 @@ interface Props {
     onChange?: ChangeEventHandler<HTMLInputElement>;
     validate: (text: string) => string;
     disabled?: boolean
+    autoFocus?: boolean
 }
 
 
-const CommonInput: React.FC<Props> = ({name, placeholder, icon, type, value, onChange, validate, inputContainerClassName, containerClassName, titleClassName, errorMessageClassName, disabled}) => {
+const CommonInput: React.FC<Props> = ({name, placeholder, icon, autoFocus, type, value, onChange, validate, inputContainerClassName, containerClassName, titleClassName, errorMessageClassName, disabled}) => {
     const [isFirstTime, setIsFirstTime] = useState(true);
     const [errorMessage, setErrorMessage] = useState<string>('');
     useEffect(() => {
+        console.log('autofocus', autoFocus)
         // console.log('Common input update');
         const timer = setTimeout(() => {
             if (isFirstTime) {
@@ -35,10 +37,10 @@ const CommonInput: React.FC<Props> = ({name, placeholder, icon, type, value, onC
             {name ? <label className={titleClassName}>{name}</label> : ''}
             <div className={inputContainerClassName || 'p-field'}>
                 <i/>
-                <input
-                    className={inputContainerClassName || `p-inputtext p-component ${errorMessage ? 'p-invalid' : ''}`}
-                    value={value} type={type ? type : 'text'} placeholder={placeholder}
-                    onChange={onChange} disabled={disabled}/>
+                <input autoFocus={autoFocus == true}
+                       className={inputContainerClassName || `p-inputtext p-component ${errorMessage ? 'p-invalid' : ''}`}
+                       value={value} type={type ? type : 'text'} placeholder={placeholder}
+                       onChange={onChange} disabled={disabled}/>
             </div>
             {errorMessage ? <small className={errorMessageClassName || 'p-error'}>{errorMessage}</small> : ''}
         </div>

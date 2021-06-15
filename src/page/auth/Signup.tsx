@@ -83,7 +83,7 @@ const Signup: React.FC<Props> = ({}) => {
                           className={styles["sign-up-form"]}
                           autoComplete="asldfa">
                         <h2 className={styles.title}>Sign up</h2>
-                        <CommonInput value={username} placeholder={'Username'}
+                        <CommonInput value={username} placeholder={'Username'} autoFocus
                                      onChange={e => setUsername(e.target.value)}
                                      validate={text => validateUsername(text)}
                                      containerClassName={styles['input-field-container']}
