@@ -3,7 +3,7 @@ import React, {ChangeEventHandler, useEffect, useState} from 'react'
 interface Props {
     name?: string;
     placeholder?: string;
-    type?: string;
+    type?: 'text' | 'password' | 'select'
     icon?: string;
     value: string;
     inputContainerClassName?: string;
@@ -12,10 +12,11 @@ interface Props {
     errorMessageClassName?: string;
     onChange?: ChangeEventHandler<HTMLInputElement>;
     validate: (text: string) => string;
+    disabled?: boolean
 }
 
 
-const CommonInput: React.FC<Props> = ({name, placeholder, icon, type, value, onChange, validate, inputContainerClassName, containerClassName, titleClassName, errorMessageClassName}) => {
+const CommonInput: React.FC<Props> = ({name, placeholder, icon, type, value, onChange, validate, inputContainerClassName, containerClassName, titleClassName, errorMessageClassName, disabled}) => {
     const [isFirstTime, setIsFirstTime] = useState(true);
     const [errorMessage, setErrorMessage] = useState<string>('');
     useEffect(() => {
@@ -37,7 +38,7 @@ const CommonInput: React.FC<Props> = ({name, placeholder, icon, type, value, onC
                 <input
                     className={inputContainerClassName || `p-inputtext p-component ${errorMessage ? 'p-invalid' : ''}`}
                     value={value} type={type ? type : 'text'} placeholder={placeholder}
-                    onChange={onChange}/>
+                    onChange={onChange} disabled={disabled}/>
             </div>
             {errorMessage ? <small className={errorMessageClassName || 'p-error'}>{errorMessage}</small> : ''}
         </div>

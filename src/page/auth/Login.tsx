@@ -51,7 +51,7 @@ const Login: React.FC<Props> = ({}) => {
                                      errorMessageClassName={styles['error']}
                                      inputContainerClassName={styles["input-field"]}/>
 
-                        <CommonInput value={password} placeholder={'Username'}
+                        <CommonInput value={password} placeholder={'Username'} type={'password'}
                                      onChange={e => setPassword(e.target.value)}
                                      validate={text => validatePassword(text)}
                                      containerClassName={styles['input-field-container']}

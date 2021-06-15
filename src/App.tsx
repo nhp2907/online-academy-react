@@ -23,6 +23,7 @@ import {
     instructorRouteList
 } from "./config/managementRouteConfig";
 import UserRole from "./model/UserRole";
+import UserProfilePage from "./page/user-profile/UserProfilePage";
 
 function App() {
     return (
@@ -45,9 +46,11 @@ function App() {
                             />
                             <Route path={'/instructor'}
                                    render={(p) => <ManagementPage defaultRoute={instructorDefaultRoute}
-                                                                  routes={instructorRouteList} roles={[UserRole.Instructor]}
+                                                                  routes={instructorRouteList}
+                                                                  roles={[UserRole.Instructor]}
                                                                   redirectUrl={'/'}/>}
                             />
+                            <Route path={'/profile'} exact component={UserProfilePage}/>
                         </Switch>
                     </Router>
                 </div>
