@@ -1,4 +1,7 @@
+@import "./src/assets/animation";
+
 .main {
+  @include pageLoadRightAnimation(0.3s);
   width: 100%;
   padding: 1rem 10%;
   background-color: white;

@@ -4,32 +4,34 @@ import {MenuItem} from "primereact/api";
 import {Menu} from "primereact/menu";
 import {useDispatch} from "react-redux";
 import {setAuth} from '../../../redux/auth/auth.slice';
+import {useHistory} from 'react-router-dom';
 
 interface Props {
 
 }
 
 const ProfileComponent: React.FC<Props> = ({}) => {
+    const history = useHistory();
     const dispatch = useDispatch();
     let items: MenuItem[] = [
-        {
-            label: 'Options',
-            items: [{
-                icon: 'pi pi-fw pi-user',
-                label: 'View profile',
-                command: () => {
-                    window.location.hash = "/fileupload";
-                }
-            },
-                {label: 'Delete', icon: 'pi pi-fw pi-trash', url: 'http://primetek.com.tr'}]
-        },
+        // {
+        //     label: 'Options',
+        //     items: [{
+        //         icon: 'pi pi-fw pi-user',
+        //         label: 'View profile',
+        //         command: () => {
+        //             history.push('/profile');
+        //         }
+        //     },
+        //         {label: 'Delete', icon: 'pi pi-fw pi-trash', url: 'http://primetek.com.tr'}]
+        // },
         {
             label: 'Account',
             items: [{
                 icon: 'pi pi-fw pi-user',
                 label: 'View profile',
                 command: () => {
-                    window.location.hash = "/";
+                    history.push('/profile');
                 }
             },
                 {
@@ -44,7 +46,7 @@ const ProfileComponent: React.FC<Props> = ({}) => {
                         return (
                             /* custom element */
                             <a className={options.className} target={item.target} onClick={options.onClick}>
-                                <span className={`${options.iconClassName}`} style={{color: "red"}} />
+                                <span className={`${options.iconClassName}`} style={{color: "red"}}/>
                                 <span className={options.labelClassName} style={{color: "red"}}>{item.label}</span>
                             </a>
                         );

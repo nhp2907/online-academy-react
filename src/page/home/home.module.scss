@@ -1,5 +1,9 @@
+@import "./src/assets/animation";
+
 .main {
+  @include pageLoadAnimation(0.5s);
   width: 95%;
+  height: 90%;
   margin: 0 auto;
 
   .categories-and-slideshow {

@@ -1,15 +1,18 @@
 import React, {MouseEventHandler, useRef, useState} from 'react'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import styles from "./css/signup.module.scss";
 import rocketSvg from "../../img/rocket.svg";
 import CommonInput from '../../component/common/CommonInput';
 import {Toast} from "primereact/toast";
+import {RootState} from "../../redux/store";
+import { useSelector } from 'react-redux';
 
 interface Props {
 
 }
 
 const Signup: React.FC<Props> = ({}) => {
+    const user = useSelector((s: RootState) => s.auth.user);
     const toast = useRef<Toast>(null);
     const [signUpSuccess, setSignUpSuccess] = useState(false);
     const handleSubmit: MouseEventHandler<HTMLElement> = async (event) => {
@@ -68,7 +71,9 @@ const Signup: React.FC<Props> = ({}) => {
             && !validatePassword(password)
             && !validateRepeatPassword(password, repeatPassword)
     }
-
+    if (user) {
+        return <Redirect to={'/'}/>
+    }
     return (
         <div className={styles.container}>
             <Toast ref={toast}/>

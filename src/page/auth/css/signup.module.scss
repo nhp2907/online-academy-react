@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
 
+@import '../../../assets/animation.scss';
 * {
   margin: 0;
   padding: 0;
@@ -12,6 +13,7 @@ input {
 }
 
 .container {
+  @include pageLoadAnimation(0.1s);
   position: relative;
   width: 100%;
   background-color: #fff;
@@ -19,6 +21,7 @@ input {
   overflow: hidden;
 
   &:before {
+    animation: beforeDown0-90 0.3s;
     content: "";
     position: absolute;
     height: 2000px;
@@ -32,6 +35,7 @@ input {
   }
 
   .forms-container {
+    @include slideLeftAnimation(0.3s);
     position: absolute;
     width: 100%;
     height: 100%;
@@ -497,5 +501,15 @@ input {
   }
   .input-field {
     height: 40px;
+  }
+}
+@keyframes beforeDown0-90 {
+  from {
+    top: 0;
+    right: 0;
+  }
+  to {
+    top: 90%;
+    right: 48%;
   }
 }

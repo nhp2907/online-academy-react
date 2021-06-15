@@ -1,22 +1,24 @@
-import React, {MouseEvent, useState} from 'react'
+import React, {MouseEvent, useRef, useState} from 'react'
 import styles from './css/login.module.scss'
 import rocketSvg from '../../img/rocket.svg'
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import {login} from '../../service/auth.service'
 import CommonInput from "../../component/common/CommonInput";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {setAuth} from '../../redux/auth/auth.slice'
-import {AppDispatch} from "../../redux/store";
+import {AppDispatch, RootState} from "../../redux/store";
+import { Toast } from 'primereact/toast';
 
 interface Props {
 
 }
 
 const Login: React.FC<Props> = ({}) => {
-
+    const user = useSelector((s: RootState) => s.auth.user);
     const [username, setUsername] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const dispatch = useDispatch();
+    const toast = useRef<Toast>(null);
     const validateUsername = (text: string): string => {
         return text.length < 3 ? 'Enter username' : '';
     }
@@ -31,15 +33,20 @@ const Login: React.FC<Props> = ({}) => {
             const data = await login(username, password);
             console.log('login data: ', data);
             dispatch(setAuth(data));
-
-            window.location.href = '/'
         } catch (err: any) {
-            console.log(err);
+            // @ts-ignore
+            toast.current.show({severity: 'error', summary: "Login failed", detail: err.response.data.message});
+            console.log( err.constructor.name);
         }
+    }
+
+    if (user) {
+        return <Redirect to={'/'} />
     }
 
     return (
         <div className={styles.container}>
+            <Toast ref={toast}/>
             <div className={styles["forms-container"]}>
                 <div className={styles["signin-signup"]}>
                     <form action="" method="POST" id="sign-in-form" className={styles["sign-in-form"]}>
