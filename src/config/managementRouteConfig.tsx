@@ -5,7 +5,11 @@ import CourseManagementComponent from "../page/admin/component/controls/course-m
 import ManagementRoute from "../page/management-page/model/ManagementRoute";
 import InstructorCourseManagementComponent
     from "../page/instructor/controls-component/course-management/InstructorCourseManagementComponent";
-import InstructorCourseDetailComponent from "../page/instructor/controls-component/course-detail/InstructorCourseDetailComponent";
+import InstructorCourseDetailComponent
+    from "../page/instructor/controls-component/course-detail/InstructorCourseDetailComponent";
+import InstructorProfileComponent from "../page/instructor/controls-component/instructor-profile/InstructorProfile";
+import {RootState} from "../redux/store";
+import { useSelector } from "react-redux";
 
 
 export const adminRouteList: ManagementRoute[] = [
@@ -50,11 +54,12 @@ export const instructorRouteList: ManagementRoute[] = [
         icon: 'user',
         name: 'Course detail',
         redirectUrl: '/instructor',
-        hidden: true
+        hidden: true,
+        render: props => <InstructorCourseDetailComponent {...props} /> // course owro ddaau ra?
     },
     {
         path: '/instructor/profile',
-        component: InstructorCourseManagementComponent,
+        component: InstructorProfileComponent,
         icon: 'user',
         name: 'Profile',
         redirectUrl: '/'

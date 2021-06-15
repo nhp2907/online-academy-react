@@ -1,15 +1,14 @@
 import React from 'react'
-import {Redirect, Route} from "react-router-dom";
+import {Redirect, Route, RouteComponentProps} from "react-router-dom";
 import styles from './management-page.module.scss'
 import SideNavComponent from './component/nav/SideNavComponent';
-import UserManagementComponent from './component/controls/user-management/UserManagementComponent';
 import ControlContainerComponent from './component/controls/ControlContainerComponent';
 import ManagementRoute from "./model/ManagementRoute";
 import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
 import UserRole from "../../model/UserRole";
 
-interface Props {
+interface Props extends RouteComponentProps {
     routes: ManagementRoute[],
     defaultRoute: ManagementRoute
     roles: UserRole[],
@@ -21,11 +20,15 @@ const ManagementPage: React.FC<Props> = ({routes, defaultRoute, roles, redirectU
     if (!user || !roles.find(s => s === user.roleId)) {
         return <Redirect to={redirectUrl}/>
     }
+    const renderControlComponent = (props: any) => {
+
+    }
     const renderRoute = (route: ManagementRoute) => {
         return <Route key={route.path + route.name} path={route.path} exact
-                      render={(props) => <ControlContainerComponent {...props} title={route.name}
-                                                                    render={(p) =>
-                                                                        <route.component user={user} {...p}/>}/>}/>
+                      render={(props) => <ControlContainerComponent  {...props} title={route.name}
+                                                                     component={route.component}
+                                                                     render={route.render}/>}
+        />
     }
     return (
         <div className={styles.main}>

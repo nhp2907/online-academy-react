@@ -6,13 +6,14 @@ import {searchCourseByCriteria} from "../../../../service/course.service";
 import styles from './instructor-course.module.scss'
 import {ProgressSpinner} from "primereact/progressspinner";
 import {Button} from 'primereact/button';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 
 interface Props {
     user: User | null
 }
 
 const InstructorCourseManagementComponent: React.FC<Props> = ({user}) => {
+    const history = useHistory();
     const [courses, setCourses] = useState<Course[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
@@ -43,7 +44,11 @@ const InstructorCourseManagementComponent: React.FC<Props> = ({user}) => {
                 </Link>
             </div>
             <div className={styles.listCourseContainer}>
-                <ListCourseComponent showIndex emptyMessage={`You don't have any course!`} courses={courses}/>
+                <ListCourseComponent
+                    itemOnClick={(course: Course) => {
+                        history.push(`/instructor/course/${course.id}`)
+                    }}
+                    showIndex emptyMessage={`You don't have any course!`} courses={courses}/>
             </div>
         </div>
     );

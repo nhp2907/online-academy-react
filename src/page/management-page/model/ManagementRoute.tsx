@@ -1,10 +1,12 @@
 import React from 'react'
-import { RouteComponentProps } from 'react-router-dom';
+import ControlComponentProps from "./ControlComponentProps";
+
 export default interface ManagementRoute {
     path: string;
     component: React.FC<any>
-    icon:string;
+    icon: string;
     name: string,
     redirectUrl?: string,
     hidden?: boolean // is hide from the nav bar, navigate by code or other <Link />
+    render?: (props: ControlComponentProps | null) => React.ReactNode
 }

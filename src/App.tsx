@@ -40,12 +40,12 @@ function App() {
                             <Route path={'/course'} exact component={SearchCourseResultPage}/>
                             {/*<Route path={'/admin'}  component={AdminPage}/>*/}
                             <Route path={'/admin'}
-                                   render={(p) => <ManagementPage defaultRoute={adminDefaultRoute}
+                                   render={(p) => <ManagementPage {...p} defaultRoute={adminDefaultRoute}
                                                                   routes={adminRouteList} roles={[UserRole.Admin]}
                                                                   redirectUrl={'/'}/>}
                             />
                             <Route path={'/instructor'}
-                                   render={(p) => <ManagementPage defaultRoute={instructorDefaultRoute}
+                                   render={(p) => <ManagementPage {...p} defaultRoute={instructorDefaultRoute}
                                                                   routes={instructorRouteList}
                                                                   roles={[UserRole.Instructor]}
                                                                   redirectUrl={'/'}/>}

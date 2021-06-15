@@ -9,6 +9,7 @@ import {RootState} from "../../redux/store";
 import ProfilePrivacyComponent from "./component/profile-privacy/ProfilePrivacyComponent";
 import {Link} from 'react-router-dom';
 import logo from '../../assets/img/logo.svg'
+import UserProfileComponent from "./component/UserProfileComponent";
 
 interface Props {
 
@@ -32,17 +33,7 @@ const UserProfilePage: React.FC<Props> = ({}) => {
                 <span>profile</span>
             </div>
             <div className={styles.tabViewContainer}>
-                <TabView activeIndex={1} className={'profile-tabview'}>
-                    <TabPanel header="Profile info">
-                        <ProfileInfoComponent user={user}/>
-                    </TabPanel>
-                    <TabPanel header="Profile picture">
-                        <ProfilePictureComponent/>
-                    </TabPanel>
-                    <TabPanel header="Privacy">
-                        <ProfilePrivacyComponent/>
-                    </TabPanel>
-                </TabView>
+                <UserProfileComponent user={user}/>
             </div>
         </div>
     );

@@ -9,9 +9,10 @@ interface Props {
     courses: Course[]
     emptyMessage?: string,
     showIndex?: boolean
+    itemOnClick?: (course: Course) => void
 }
 
-const ListCourseComponent: React.FC<Props> = ({courses, emptyMessage, showIndex}) => {
+const ListCourseComponent: React.FC<Props> = ({courses, itemOnClick, emptyMessage, showIndex}) => {
     return (
         <div className={styles.listCourse}>
             {
@@ -20,7 +21,11 @@ const ListCourseComponent: React.FC<Props> = ({courses, emptyMessage, showIndex}
                     courses.map((c: Course) => (
                         <div className={styles.courseItem}>
                             {showIndex != false ? <span>{courses.indexOf(c) + 1}</span> : ''}
-                            <div style={{flex: 1}}>
+                            <div style={{flex: 1}} onClick={e => {
+                                if (itemOnClick) {
+                                    itemOnClick(c);
+                                }
+                            }}>
                                 <RelatedCourseItem key={c.id} item={c}/>
                             </div>
                         </div>

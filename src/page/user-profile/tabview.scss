@@ -2,6 +2,9 @@
   height: 100%;
   .p-tabview-nav {
     //height: 10% !important;
+    .p-tabview-nav-link {
+      box-shadow: none !important;
+    }
   }
 
   .p-tabview-panels {
@@ -11,7 +14,6 @@
     }
   }
 }
-
 
 @media (max-width: 750px) {
   .profile-tabview {
