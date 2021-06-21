@@ -3,6 +3,7 @@ import React from 'react'
 import styles from './course-detail.module.scss'
 import Course from "../../model/Course";
 import RelatedCourseItem from "./molecule/RelatedCourseItem";
+import { Card } from 'primereact/card';
 
 interface Props {
     courses: Course[]
@@ -10,7 +11,7 @@ interface Props {
 
 const RelatedCourseComponent: React.FC<Props> = ({courses}) => {
     return (
-        <div className={styles.relatedCourse}>
+        <Card className={styles.relatedCourse}>
             <h3 className={styles.title}>Related courses</h3>
             <div className={styles.content}>
                 {
@@ -19,7 +20,7 @@ const RelatedCourseComponent: React.FC<Props> = ({courses}) => {
                     </>)
                 }
             </div>
-        </div>
+        </Card>
     );
 }
 

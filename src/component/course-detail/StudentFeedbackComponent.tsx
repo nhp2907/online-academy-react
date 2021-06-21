@@ -2,6 +2,7 @@ import React from 'react'
 
 import styles from './course-detail.module.scss'
 import CourseFeedBackInfo from "../../model/CourseFeedBackInfo";
+import { Card } from 'primereact/card';
 
 interface Props {
     item: CourseFeedBackInfo
@@ -9,7 +10,7 @@ interface Props {
 
 const StudentFeedbackComponent: React.FC<Props> = ({item: {percents, rating, numReview}}) => {
     return (
-        <div className={styles.studentFeedBack}>
+        <Card className={styles.studentFeedBack}>
             <h3 className={styles.title}>Student feedback</h3>
             <div className={styles.content}>
                 <div className={styles.left}>
@@ -23,7 +24,7 @@ const StudentFeedbackComponent: React.FC<Props> = ({item: {percents, rating, num
                     }
                 </div>
             </div>
-        </div>
+        </Card>
     );
 }
 

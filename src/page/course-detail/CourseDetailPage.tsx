@@ -12,6 +12,8 @@ import StudentFeedbackComponent from "../../component/course-detail/StudentFeedb
 import CourseFeedBackInfo from "../../model/CourseFeedBackInfo";
 import ReviewsComponent from "../../component/course-detail/ReviewsComponent";
 import CourseReview from "../../model/CourseReview";
+import Nav from "../../component/nav/Nav";
+import BuyTabComponent from "../../component/course-detail/BuyTabComponent";
 
 interface Props {
 
@@ -47,7 +49,9 @@ const CourseDetailPage: React.FC<Props> = ({}) => {
     ]
     return (
         <div className={styles.courseDetailPage}>
+            <Nav />
             <CourseInfoComponent/>
+            <BuyTabComponent />
             <CourseContentComponent/>
             <InstructorInfoComponent/>
             <RelatedCourseComponent courses={topCourses}/>

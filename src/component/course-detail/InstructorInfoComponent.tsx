@@ -3,6 +3,7 @@ import React from 'react'
 import styles from './course-detail.module.scss'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar, faAward, faUsers, faVideo} from '@fortawesome/free-solid-svg-icons'
+import { Card } from 'primereact/card';
 interface Props {
 
 }
@@ -16,7 +17,7 @@ const InstructorInfoComponent: React.FC<Props> = ({}) => {
         numCourse: 18
     }
     return (
-        <div className={styles.instructor}>
+        <Card className={styles.instructor}>
             <h3 className={styles.title}>Instructor</h3>
             <div className={styles.content}>
                 <h3 className={styles.name}>{instructor.name}</h3>
@@ -30,7 +31,7 @@ const InstructorInfoComponent: React.FC<Props> = ({}) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </Card>
     );
 }
 
