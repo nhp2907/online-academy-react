@@ -11,8 +11,7 @@ interface Props {
 
 const RelatedCourseComponent: React.FC<Props> = ({courses}) => {
     return (
-        <Card className={styles.relatedCourse}>
-            <h3 className={styles.title}>Related courses</h3>
+        <Card className={styles.relatedCourse} title={'Related courses'}>
             <div className={styles.content}>
                 {
                     courses.map((c: Course) => <>

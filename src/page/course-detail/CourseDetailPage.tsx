@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import CourseInfoComponent from "../../component/course-detail/CourseInfoComponent";
 
 import styles from '../../component/course-detail/course-detail.module.scss'
@@ -14,6 +14,10 @@ import ReviewsComponent from "../../component/course-detail/ReviewsComponent";
 import CourseReview from "../../model/CourseReview";
 import Nav from "../../component/nav/Nav";
 import BuyTabComponent from "../../component/course-detail/BuyTabComponent";
+import {getCourseById} from "../../service/course.service";
+import Course from "../../model/Course";
+import Instructor from "../../model/Instructor";
+import {getInstructorById} from '../../service/instructor.service'
 
 interface Props {
 
@@ -26,17 +30,21 @@ interface RouteParams {
 
 const CourseDetailPage: React.FC<Props> = ({}) => {
     const params: RouteParams = useParams()
+    const [course, setCourse] = useState<Course | null>(null);
+    const [instructor, setInstructor] = useState<Instructor | null>(null);
+
     useEffect(() => {
-        console.log(params.id);
+        getCourseById(params.id).then((c: Course) => setCourse(course));
+        getInstructorById(course?.instructorId || '').then(instructor => setInstructor(instructor));
     })
 
     const {topCourses} = useSelector((state: RootState) => state.home)
-    const feedBack:CourseFeedBackInfo = {
+    const feedBack: CourseFeedBackInfo = {
         percents: [80, 10, 5, 3, 2],
         numReview: 300,
         rating: 4.9
     }
-    const review:CourseReview = {
+    const review: CourseReview = {
         content: 'This course is fantastic! I learned so much so far, and I knew nothing about any programming languages. Thanks Jose!!',
         createId: 'trunghoangto',
         createImage: '',
@@ -49,11 +57,11 @@ const CourseDetailPage: React.FC<Props> = ({}) => {
     ]
     return (
         <div className={styles.courseDetailPage}>
-            <Nav />
+            <Nav/>
             <CourseInfoComponent/>
-            <BuyTabComponent />
+            <BuyTabComponent/>
             <CourseContentComponent/>
-            <InstructorInfoComponent/>
+            <InstructorInfoComponent instructor={instructor}/>
             <RelatedCourseComponent courses={topCourses}/>
             <StudentFeedbackComponent item={feedBack}/>
             <ReviewsComponent items={reviews}/>

@@ -1,5 +1,6 @@
 export default interface Course {
     id: string;
+    instructorId?: string;
     name: string;
     author: string;
     price: number;

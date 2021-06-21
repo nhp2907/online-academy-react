@@ -10,8 +10,7 @@ interface Props {
 
 const StudentFeedbackComponent: React.FC<Props> = ({item: {percents, rating, numReview}}) => {
     return (
-        <Card className={styles.studentFeedBack}>
-            <h3 className={styles.title}>Student feedback</h3>
+        <Card className={styles.studentFeedBack} title={'Student feedback'}>
             <div className={styles.content}>
                 <div className={styles.left}>
                     <h2>{rating}</h2>
