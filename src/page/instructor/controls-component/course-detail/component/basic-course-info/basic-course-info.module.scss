@@ -1,0 +1,49 @@
+.courseBasicInfo {
+  width: 90%;
+  .section1 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 40% 40%;
+    .imageUploadContainer {
+      width: 80%;
+      height: 90%;
+    }
+
+  }
+  .quillContainer {
+    background-color: transparent;
+    // nothing
+  }
+
+  .commonInputContainer {
+    margin: 0.8rem 0;
+    input, select {
+      width: 90% !important;
+    }
+  }
+
+  .buttonContainer {
+    margin: 1rem 0;
+  }
+
+  // Common style change
+  select {
+    display: inline-block;
+    width: 90%;
+    padding: 0.5rem;
+    outline: none;
+    border-radius: 3px;
+    border: 1px solid #CED4DA;
+    font-size: 0.9rem;
+
+    &:focus {
+      border: 1px solid #2196F3;
+      box-shadow: 0 0 1px 3px #A6D5FA ;
+    }
+
+    option {
+      font-size: 0.9rem;
+    }
+  }
+
+}

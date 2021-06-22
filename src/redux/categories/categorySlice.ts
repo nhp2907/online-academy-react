@@ -3,31 +3,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import Category from "../../model/Category";
 
 const initialState: CategoryState = {
-    list: [{
-        id: 1,
-        name: 'Web development',
-        icon: 'book',
-        subs: [
-            {
-                id: 1,
-                name: "Python",
-                icon: 'book',
-                subs : []
-            },
-            {
-                id: 2,
-                name: "Java",
-                icon: 'book',
-                subs : []
-            },
-            {
-                id: 3,
-                name: "Javascript",
-                icon: 'book',
-                subs : []
-            }
-        ]
-    }]
+    list: []
 }
 
 const categorySlice = createSlice({

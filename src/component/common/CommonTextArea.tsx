@@ -3,22 +3,20 @@ import React, {ChangeEventHandler, useEffect, useState} from 'react'
 interface Props {
     name?: string;
     placeholder?: string;
-    type?: 'text' | 'password' | 'select' | 'number' | 'textarea'
     icon?: string;
     value: string | number;
     inputContainerClassName?: string;
     titleClassName?: string;
     containerClassName?: string;
     errorMessageClassName?: string;
-    onChange?: ChangeEventHandler<HTMLInputElement>;
+    onChange?: ChangeEventHandler<HTMLTextAreaElement>;
     validate: (text: any) => string;
     disabled?: boolean
     autoFocus?: boolean
-    required?: boolean
 }
 
 
-const CommonInput: React.FC<Props> = ({name, placeholder, icon, autoFocus, type, value, onChange, validate, inputContainerClassName, containerClassName, titleClassName, errorMessageClassName, disabled, required}) => {
+const CommonTextArea: React.FC<Props> = ({name, placeholder, icon, autoFocus, value, onChange, validate, inputContainerClassName, containerClassName, titleClassName, errorMessageClassName, disabled}) => {
     const [isFirstTime, setIsFirstTime] = useState(true);
     const [errorMessage, setErrorMessage] = useState<string>('');
     useEffect(() => {
@@ -35,17 +33,17 @@ const CommonInput: React.FC<Props> = ({name, placeholder, icon, autoFocus, type,
     }, [value])
     return (
         <div className={containerClassName}>
-            {name ? <label className={`${titleClassName} ${required == true ? 'required' : ''}`}>{name}</label> : ''}
+            {name ? <label className={titleClassName}>{name}</label> : ''}
             <div className={inputContainerClassName || 'p-field'}>
                 <i/>
-                <input autoFocus={autoFocus == true}
-                       className={inputContainerClassName || `p-inputtext p-component ${errorMessage ? 'p-invalid' : ''}`}
-                       value={value} type={type ? type : 'text'} placeholder={placeholder}
-                       onChange={onChange} disabled={disabled}/>
+                <textarea autoFocus={autoFocus == true}
+                          className={inputContainerClassName || `p-inputtext p-inputtextarea p-component ${errorMessage ? 'p-invalid' : ''}`}
+                          value={value} placeholder={placeholder}
+                          onChange={onChange} disabled={disabled}/>
             </div>
             {errorMessage ? <small className={errorMessageClassName || 'p-error'}>{errorMessage}</small> : ''}
         </div>
     );
 }
 
-export default CommonInput;
+export default CommonTextArea;

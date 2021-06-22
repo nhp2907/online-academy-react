@@ -28,3 +28,24 @@ export const coursesByCategoryName = async (cateName: string): Promise<Course[]>
     return data;
 }
 
+export const createCourse = async (dto: any): Promise<Course> => {
+    console.log(dto);
+    const {data} = await api.post<Course>('/api/course', dto);
+    return data;
+}
+
+export const updateCourse = async (dto: any): Promise<Course> => {
+    const {data} = await api.post<Course>('/api/course', dto);
+    return data;
+}
+export const uploadCourseImage = async (courseId: string, dto: FormData) :Promise<any> => {
+    console.log('formdata', dto)
+    const {data} = await api.post<Course>(`/api/course/${courseId}/image`, dto, {
+        headers: {
+
+        }
+    });
+    return data;
+}
+
+

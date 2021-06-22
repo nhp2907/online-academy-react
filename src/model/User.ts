@@ -1,7 +1,8 @@
 import UserRole from "./UserRole";
+import {BaseModel} from "./BaseModel";
 
-export interface User {
-    id: string;
+export interface User extends BaseModel {
+    id?: string;
     username: string;
     firstName: string;
     lastName: string;

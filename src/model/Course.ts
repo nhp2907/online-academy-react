@@ -1,5 +1,9 @@
-export default interface Course {
-    id: string;
+import {BaseModel} from "./BaseModel";
+
+export default interface Course extends BaseModel{
+    id: string | null;
+    instructorId?: string,
+    categoryId?: string;
     name: string;
     author: string;
     price: number;

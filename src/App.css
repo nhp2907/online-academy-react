@@ -41,3 +41,8 @@
 .p-tabview-nav .p-tabview-nav-link {
     box-shadow: none;
 }
+
+.required:after {
+    content:" *";
+    color: red;
+}
