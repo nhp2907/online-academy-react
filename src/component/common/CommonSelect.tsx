@@ -25,7 +25,7 @@ const CommonSelect: React.FC<Props> = ({name, items, placeholder, icon, value, o
                 <select onChange={onChange} value={value}>
                     <option hidden disabled value={''}>{placeholder}</option>
                     {
-                        items.map((item: any) => <option value={item.value}>{item.label}</option>)
+                        items.map((item: any) => <option key={item.value} value={item.value}>{item.label}</option>)
                     }
                 </select>
             </div>

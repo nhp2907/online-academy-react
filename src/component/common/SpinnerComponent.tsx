@@ -1,15 +1,14 @@
+import {ProgressSpinner} from 'primereact/progressspinner';
 import React from 'react'
 
 interface Props {
 
 }
 
-const SpinnerComponent : React.FC<Props> = ({}) => {
-    return (
-        <div>
-            <h1>SpinnerComponent works</h1>
-        </div>
-    );
+const SpinnerComponent: React.FC<Props> = ({}) => {
+    return (<div style={{display: "flex", justifyContent: "center", alignItems: "center", height: "100%"}}>
+        <ProgressSpinner animationDuration=".6s"/>
+    </div>)
 }
 
 

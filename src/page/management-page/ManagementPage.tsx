@@ -1,12 +1,14 @@
-import React from 'react'
+import React, {RefObject, useRef} from 'react'
 import {Redirect, Route, RouteComponentProps} from "react-router-dom";
 import styles from './management-page.module.scss'
 import SideNavComponent from './component/nav/SideNavComponent';
 import ControlContainerComponent from './component/controls/ControlContainerComponent';
 import ManagementRoute from "./model/ManagementRoute";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
 import UserRole from "../../model/UserRole";
+import {Toast, ToastMessageType} from 'primereact/toast';
+import {setShowMessage} from "../../redux/home/homeSlice";
 
 interface Props extends RouteComponentProps {
     routes: ManagementRoute[],
@@ -17,6 +19,9 @@ interface Props extends RouteComponentProps {
 
 const ManagementPage: React.FC<Props> = ({routes, defaultRoute, roles, redirectUrl}) => {
     const user = useSelector((state: RootState) => state.auth.user);
+    const toastRef: RefObject<Toast> = useRef<Toast>(null);
+    const dispatch = useDispatch();
+
     if (!user || !roles.find(s => s === user.roleId)) {
         return <Redirect to={redirectUrl}/>
     }
@@ -32,13 +37,20 @@ const ManagementPage: React.FC<Props> = ({routes, defaultRoute, roles, redirectU
     }
     return (
         <div className={styles.main}>
+            <Toast ref={t => {
+                dispatch(setShowMessage((message: ToastMessageType) => {
+                    // @ts-ignore
+                    t.show(message);
+                }))
+                return toastRef;
+            }}/>
             <SideNavComponent list={routes}/>
-            <div className={styles.controlContainer}>
-                {renderRoute(defaultRoute)}
-                {
-                    routes.map((manageRoute: ManagementRoute) => renderRoute(manageRoute))
-                }
-            </div>
+            {/*<div className={styles.controlContainer}>*/}
+            {renderRoute(defaultRoute)}
+            {
+                routes.map((manageRoute: ManagementRoute) => renderRoute(manageRoute))
+            }
+            {/*</div>*/}
         </div>
     );
 }

@@ -13,6 +13,7 @@ import Instructor from '../../../../model/Instructor';
 import Course from "../../../../model/Course";
 import {getCourseById} from "../../../../service/course.service";
 import SpinnerComponent from "../../../../component/common/SpinnerComponent";
+import {getInstructorDetail} from "../../../../service/instructor.service";
 
 interface Props extends ControlComponentProps {
 }
@@ -49,14 +50,20 @@ const InstructorCourseDetailComponent: React.FC<Props> = ({}) => {
     const params: RouteParams = useParams()
 
     useEffect(() => {
-        loadData().then(r => console.log(r));
-        console.log(params.id)
-
+        loadData().then(r => setIsLoading(false));
     }, [user, params])
 
     const loadData = async () => {
-        const course_ = await getCourseById(params.id);
-        setCourse(course_)
+        if (params.id) {
+            if (params.id === 'new') {
+
+            } else {
+                const course_ = await getCourseById(params.id);
+                setCourse(course_)
+            }
+        }
+        const instructor_ = await getInstructorDetail(user?.id || '');
+        setInstructor(instructor_)
     }
 
     if (isLoading) {

@@ -1,15 +1,15 @@
 import Course from "../model/Course";
 
 export const validateName = (name: string) => {
-    return name.length === 0 ? "Name is required" : '';
+    return name?.length === 0 ? "Name is required" : '';
 }
 
 export const validateHeadline = (headline: string) => {
-    return headline.length === 0 ? "Headline is required" : '';
+    return headline?.length === 0 ? "Headline is required" : '';
 }
 
-export const validateDescription = (headline: string) => {
-    return headline.length === 0 ? "Description is required" : '';
+export const validateDescription = (description: string) => {
+    return !description || description === "<p><br></p>" ? "Description is required" : '';
 }
 
 export const validatePrice = (headline: number) => {

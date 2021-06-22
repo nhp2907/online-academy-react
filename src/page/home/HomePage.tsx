@@ -16,11 +16,11 @@ export const HomePage = (props: Props) => {
     const dispatch = useDispatch();
     useLayoutEffect(() => {
         onPageLoad().then(r => console.log(r));
-    })
+    }, [])
 
     const onPageLoad = async () => {
-        const categories = await homeService.getCategories();
-        dispatch(setCategories(categories))
+        // const categories = await homeService.getCategories();
+        // dispatch(setCategories(categories))
     }
 
     const toastRef: RefObject<Toast> = useRef<Toast>(null);

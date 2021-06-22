@@ -15,10 +15,11 @@ interface Props {
     disabled?: boolean
     autoFocus?: boolean
     required?: boolean
+    inputStyle?: any
 }
 
 
-const CommonInput: React.FC<Props> = ({name, placeholder, icon, autoFocus, type, value, onChange, validate, inputContainerClassName, containerClassName, titleClassName, errorMessageClassName, disabled, required}) => {
+const CommonInput: React.FC<Props> = ({name, placeholder, icon, inputStyle, autoFocus, type, value, onChange, validate, inputContainerClassName, containerClassName, titleClassName, errorMessageClassName, disabled, required}) => {
     const [isFirstTime, setIsFirstTime] = useState(true);
     const [errorMessage, setErrorMessage] = useState<string>('');
     useEffect(() => {
@@ -38,7 +39,7 @@ const CommonInput: React.FC<Props> = ({name, placeholder, icon, autoFocus, type,
             {name ? <label className={`${titleClassName} ${required == true ? 'required' : ''}`}>{name}</label> : ''}
             <div className={inputContainerClassName || 'p-field'}>
                 <i/>
-                <input autoFocus={autoFocus == true}
+                <input autoFocus={autoFocus == true} style={inputStyle}
                        className={inputContainerClassName || `p-inputtext p-component ${errorMessage ? 'p-invalid' : ''}`}
                        value={value} type={type ? type : 'text'} placeholder={placeholder}
                        onChange={onChange} disabled={disabled}/>

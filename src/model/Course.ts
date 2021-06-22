@@ -4,6 +4,7 @@ export default interface Course extends BaseModel{
     id: string | null;
     instructorId?: string,
     categoryId?: string;
+    subCategoryId?: string;
     name: string;
     author: string;
     price: number;

@@ -19,8 +19,8 @@ const SearchCourseResultPage : React.FC<Props> = ({}) => {
     })
 
     const onPageLoad = async () => {
-        const categories = await homeService.getCategories();
-        dispatch(setCategories(categories))
+        // const categories = await homeService.getCategories();
+        // dispatch(setCategories(categories))
     }
 
     const toastRef: RefObject<Toast> = useRef<Toast>(null);

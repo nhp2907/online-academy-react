@@ -46,3 +46,6 @@
     content:" *";
     color: red;
 }
+.p-tooltip {
+    font-size: 14px !important;
+}

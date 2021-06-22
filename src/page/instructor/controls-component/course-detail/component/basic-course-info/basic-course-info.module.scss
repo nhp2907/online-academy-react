@@ -1,16 +1,19 @@
 .courseBasicInfo {
   width: 90%;
   .section1 {
+    height: 400px;
     width: 100%;
     display: grid;
-    grid-template-columns: 40% 40%;
+    grid-template-columns: 40% 50%;
     .imageUploadContainer {
+      padding: 0.5rem;
       width: 80%;
-      height: 90%;
+      height: 350px;
     }
 
   }
   .quillContainer {
+    height: 300px;
     background-color: transparent;
     // nothing
   }
@@ -23,6 +26,8 @@
   }
 
   .buttonContainer {
+    display: flex;
+    justify-content: flex-end;
     margin: 1rem 0;
   }
 

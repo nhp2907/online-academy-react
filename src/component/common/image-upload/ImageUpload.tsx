@@ -1,6 +1,8 @@
 import React, {useEffect, useRef} from 'react'
 import './upload-image.scss'
 
+import coverImage from '../../../assets/img/image-placeholder.png'
+
 interface Props {
     imageUrl?: string
     onChange?: (e: any) => void
@@ -33,11 +35,10 @@ const ImageUpload: React.FC<Props> = ({imageUrl, onChange, title}) => {
     useEffect(() => {
     }, [])
     return (
-        <div className={'oar-image-upload-component-container'}>
-            <h2>{title}</h2>
-            <div className={'image-container p-shadow-7'}>
+        <div className="oar-image-upload-component-container">
+            <div className="image-container p-shadow-7">
                 <img src={imageUrl} alt="" ref={imageRef}
-                     onError={(e) => e.currentTarget.src = 'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'}/>
+                     onError={(e) => e.currentTarget.src = coverImage}/>
                 <div className="file-input-container">
                     <label htmlFor="fileInput">
                         <span>Upload image</span>

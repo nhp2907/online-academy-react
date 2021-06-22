@@ -17,9 +17,7 @@ const InstructorCourseManagementComponent: React.FC<Props> = ({user}) => {
     const [courses, setCourses] = useState<Course[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
-        setTimeout(() => {
             loadData().then(r => setIsLoading(false))
-        }, 200);
     }, [])
 
     const loadData = async () => {
