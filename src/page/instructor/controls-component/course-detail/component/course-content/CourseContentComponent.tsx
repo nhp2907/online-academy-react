@@ -8,16 +8,23 @@ import CourseChapter from "../../../../../../model/CourseChapter";
 import styles from './course-content.module.scss'
 import './override.scss'
 import AddChapterComponent from "./component/AddChapterComponent";
+import {useDispatch, useSelector} from 'react-redux';
+import {createChapter} from '../../../../../../redux/instructor/instructSlice';
+import {RootState} from "../../../../../../redux/store";
+import {createCourseChapter} from "../../../../../../service/course.service";
+import Course from "../../../../../../model/Course";
 
 interface Props {
-
+    courseInfo?: Course
 }
 
-const CourseContentComponent: React.FC<Props> = ({}) => {
-    const [chapters, setChapters] = useState<CourseChapter[]>([]);
+const CourseContentComponent: React.FC<Props> = ({courseInfo}) => {
+    const chapters_: CourseChapter[] = useSelector((s: RootState) => s.instructor.editingCourse.chapters)
+    const dispatch = useDispatch();
+    const [chapters, setChapters] = useState<CourseChapter[]>(chapters_);
     const [activeIndex, setActiveIndex] = useState<number[]>([]);
     const [addVideoChapterVisible, setAddVideoChapterVisible] = useState(false);
-    const [addChapterVisible, setAddChapterVisible] = useState(true);
+    const [addChapterVisible, setAddChapterVisible] = useState(false);
     const onClick = (itemIndex: number) => {
         let _activeIndex = activeIndex ? [...activeIndex] : [];
 
@@ -35,7 +42,7 @@ const CourseContentComponent: React.FC<Props> = ({}) => {
         setActiveIndex(_activeIndex);
     }
 
-    const renderHeader = (title: string, fn: () => void) => {
+    const renderHeader = (title: string) => {
         return (
             <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
                 <span style={{marginRight: 17}}>{title}</span>
@@ -47,52 +54,39 @@ const CourseContentComponent: React.FC<Props> = ({}) => {
             </div>
         )
     }
-
-    const addChapterVideo = (chapterId: string) => {
-
-    }
-
-    return (
-        <div className={`${styles.courseContent} instructor-course-content`}>
-            <div className={styles.header}>
-                <h3>Chapters</h3>
-                <Button label={'Add chapter'} icon={'pi pi-plus'}
-                        onClick={() => setAddChapterVisible(true)}/>
+    if (!courseInfo || courseInfo.id == null) {
+        return <span>Your course info is not ready!</span>
+    } else {
+        return (
+            <div className={`${styles.courseContent} instructor-course-content`}>
+                <div className={styles.header}>
+                    <h3>Chapters</h3>
+                    <Button label={'Add chapter'} icon={'pi pi-plus'}
+                            onClick={() => {
+                                setAddChapterVisible(true)
+                            }}/>
+                </div>
+                <Accordion multiple activeIndex={[0]}>
+                    {
+                        chapters.map((chapter: CourseChapter) =>
+                            <AccordionTab key={chapter.id} header={renderHeader(chapter.name)}>
+                                <CourseChapterComponent item={chapter}/>
+                            </AccordionTab>
+                        )
+                    }
+                </Accordion>
+                <Dialog header={'Add chapter'} visible={addChapterVisible} onHide={() => setAddChapterVisible(false)}>
+                    <AddChapterComponent onChapterCreate={async (chapter: CourseChapter) => {
+                        setChapters([...chapters, chapter])
+                        setAddChapterVisible(false);
+                        // @ts-ignore
+                        await createCourseChapter(courseInfo.id, chapter);
+                        dispatch(createChapter(chapter))
+                    }}/>
+                </Dialog>
             </div>
-
-            <Accordion multiple activeIndex={[0]}>
-                {
-                    chapters.map((chapter: CourseChapter) =>
-                        <AccordionTab header={renderHeader(chapter.name, () => addChapterVideo(chapter.id ?? ""))}>
-                            <CourseChapterComponent item={chapter}/>
-                        </AccordionTab>
-                    )
-                }
-                {/*<AccordionTab header={renderHeader('Chapter 1', () => addChapterVideo(''))}>*/}
-                {/*    <CourseChapterComponent/>*/}
-                {/*</AccordionTab>*/}
-                {/*<AccordionTab header={renderHeader('Chapter 1', () => addChapterVideo(''))}>*/}
-                {/*    cc*/}
-                {/*</AccordionTab>*/}
-                {/*<AccordionTab header={renderHeader('Chapter 1', () => addChapterVideo(''))}>*/}
-                {/*    cc*/}
-                {/*</AccordionTab>*/}
-                {/*<AccordionTab header={renderHeader('Chapter 1', () => addChapterVideo(''))}>*/}
-                {/*</AccordionTab>*/}
-            </Accordion>
-            <Dialog visible={addVideoChapterVisible} onHide={() => setAddVideoChapterVisible(false)}>
-
-            </Dialog>
-
-            <Dialog header={'Add chapter'} visible={addChapterVisible} onHide={() => setAddChapterVisible(false)}>
-                <AddChapterComponent onChapterCreate={(chapter: CourseChapter) => {
-                    setChapters([...chapters, chapter])
-                    setAddChapterVisible(false);
-                }}/>
-            </Dialog>
-
-        </div>
-    );
+        );
+    }
 }
 
 

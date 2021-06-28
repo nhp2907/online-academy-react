@@ -1,5 +1,7 @@
-import api, {searchByCriteria} from './api'
+import api, {post, searchByCriteria} from './api'
 import Course from "../model/Course";
+import CourseChapter from "../model/CourseChapter";
+import CourseVideoInfo from "../model/CourseVideoInfo";
 
 
 export const getCourseList = async (tag: string) => {
@@ -48,4 +50,13 @@ export const uploadCourseImage = async (courseId: string, dto: FormData) :Promis
     return data;
 }
 
+export const createCourseChapter = async (courseId: string, chapter: CourseChapter) : Promise<CourseChapter> => {
+    const {data} = await post<CourseChapter>(`/coruse/${courseId}/chapter`, chapter);
+    return data;
+}
+
+export const createCourseVideo = async (courseId: string, video: CourseVideoInfo) : Promise<CourseChapter> => {
+    const {data} = await post<CourseChapter>(`/coruse/${courseId}/video`, video);
+    return data;
+}
 

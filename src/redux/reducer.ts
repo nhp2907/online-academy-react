@@ -7,19 +7,23 @@ import AuthState from "./auth/AuthState";
 import CategoryState from "./categories/CategoryState";
 import HomeState from "./home/HomeState";
 import CartState from "./cart/CartState";
+import instructorReducer from "./instructor/instructSlice";
+import InstructorState from "./instructor/InstructorState";
 
 export interface RootReducer {
     auth: AuthState
     categories: CategoryState
     home: HomeState
     cart: CartState
+    instructor: InstructorState
 }
 
 const reducers: Reducer<CombinedState<RootReducer>> = combineReducers({
     auth: authReducer,
     categories: categoriesReducer,
     home: homeReducer,
-    cart: cartReducer
+    cart: cartReducer,
+    instructor: instructorReducer
 })
 
 

@@ -72,12 +72,12 @@ const InstructorCourseDetailComponent: React.FC<Props> = ({}) => {
 
     return (
         <div className={styles.instructorCourseDetail}>
-            <TabView activeIndex={0} className={'profile-tabview'}>
+            <TabView activeIndex={1} className={'profile-tabview'}>
                 <TabPanel header="Basic info">
                     <BasicCourseInfoComponent course={course} instructor={instructor}/>
                 </TabPanel>
                 <TabPanel header="Content">
-                    <CourseContentComponent/>
+                    <CourseContentComponent courseInfo={course}/>
                 </TabPanel>
                 <TabPanel header="Public">
                     <PublicCourseComponent/>

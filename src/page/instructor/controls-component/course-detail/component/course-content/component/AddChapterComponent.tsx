@@ -16,13 +16,7 @@ const AddChapterComponent: React.FC<Props> = ({onChapterCreate}) => {
                          validate={(text: string) => text.length > 0 ? '' : 'Name is required'}/>
             <div style={{marginTop: 10, float: 'right'}}>
                 <Button label={'Add'} disabled={name.length == 0} onClick={() => onChapterCreate({
-                    name, videos: [
-                        {
-                            id: '1',
-                            name: 'video 1',
-                            videoUrl: 'videoUrl'
-                        }
-                    ]
+                    name, videos: []
                 })}/>
             </div>
         </div>

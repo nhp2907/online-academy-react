@@ -35,7 +35,7 @@ const Login: React.FC<Props> = ({}) => {
             dispatch(setAuth(data));
         } catch (err: any) {
             // @ts-ignore
-            toast.current.show({severity: 'error', summary: "Login failed", detail: err.response.data.message});
+            toast.current.show({severity: 'error', summary: "Login failed", detail: err?.response?.data.message || 'Something broken!'});
             console.log( err.constructor.name);
         }
     }

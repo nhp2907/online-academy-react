@@ -1,10 +1,29 @@
-.instructor-course-content{
-    .p-accordion-header-text {
-        flex: 1;
-    }
-    .p-button-rounded {
-        height: 30px !important;
-        width: 30px !important;
-        border-radius: 15px !important;
-    }
+.instructor-course-content {
+  .p-accordion-header-text {
+    flex: 1;
+  }
+
+  .p-button-rounded {
+    height: 30px !important;
+    width: 30px !important;
+    border-radius: 15px !important;
+  }
+}
+
+.file-upload-label {
+  //display: block;
+  background-color: #4d84e2;
+  padding: 10px;
+  //margin: 5px !important;
+  border-radius: 3px;
+  //width: 150px;
+  &:hover {
+    cursor: pointer;
+  }
+
+  span { // icon
+    color: white;
+    padding: 7px;
+    border-radius: 3px;
+  }
 }
