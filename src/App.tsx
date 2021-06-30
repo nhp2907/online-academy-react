@@ -24,35 +24,14 @@ import {
 } from "./config/managementRouteConfig";
 import UserRole from "./model/UserRole";
 import UserProfilePage from "./page/user-profile/UserProfilePage";
+import PageContainer from "./page/PageContainer";
 
 function App() {
     return (
         <Provider store={store}>
             <PersistGate persistor={persistor}>
                 <div className="App">
-                    <Router>
-                        <Switch>
-                            <Route path={'/'} exact component={HomePage}/>
-                            <Route path={'/login'} exact component={Login}/>
-                            <Route path={'/signup'} exact component={Signup}/>
-                            <Route path={'/course/:id'} exact component={CourseDetailPage}/>
-                            <Route path={'/course'} exact component={SearchCourseResultPage}/>
-                            <Route path={'/course'} exact component={SearchCourseResultPage}/>
-                            {/*<Route path={'/admin'}  component={AdminPage}/>*/}
-                            <Route path={'/admin'}
-                                   render={(p) => <ManagementPage {...p} defaultRoute={adminDefaultRoute}
-                                                                  routes={adminRouteList} roles={[UserRole.Admin]}
-                                                                  redirectUrl={'/'}/>}
-                            />
-                            <Route path={'/instructor'}
-                                   render={(p) => <ManagementPage {...p} defaultRoute={instructorDefaultRoute}
-                                                                  routes={instructorRouteList}
-                                                                  roles={[UserRole.Instructor]}
-                                                                  redirectUrl={'/'}/>}
-                            />
-                            <Route path={'/profile'} exact component={UserProfilePage}/>
-                        </Switch>
-                    </Router>
+                    <PageContainer />
                 </div>
             </PersistGate>
         </Provider>

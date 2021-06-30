@@ -23,7 +23,6 @@ const CommonInput: React.FC<Props> = ({name, placeholder, icon, inputStyle, auto
     const [isFirstTime, setIsFirstTime] = useState(true);
     const [errorMessage, setErrorMessage] = useState<string>('');
     useEffect(() => {
-        console.log('autofocus', autoFocus)
         // console.log('Common input update');
         const timer = setTimeout(() => {
             if (isFirstTime) {

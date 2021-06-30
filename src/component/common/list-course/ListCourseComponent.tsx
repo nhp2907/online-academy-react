@@ -19,7 +19,7 @@ const ListCourseComponent: React.FC<Props> = ({courses, itemOnClick, emptyMessag
                 courses.length == 0 ?
                     <EmptyListComponent message={emptyMessage}/> :
                     courses.map((c: Course) => (
-                        <div className={styles.courseItem}>
+                        <div className={styles.courseItem} key={c.id}>
                             {showIndex != false ? <span>{courses.indexOf(c) + 1}</span> : ''}
                             <div style={{flex: 1}} onClick={e => {
                                 if (itemOnClick) {

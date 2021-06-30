@@ -1,4 +1,4 @@
-import api, {post, searchByCriteria} from './api'
+import api, {get, post, searchByCriteria} from './api'
 import Course from "../model/Course";
 import CourseChapter from "../model/CourseChapter";
 import CourseVideoInfo from "../model/CourseVideoInfo";
@@ -37,26 +37,29 @@ export const createCourse = async (dto: any): Promise<Course> => {
 }
 
 export const updateCourse = async (dto: any): Promise<Course> => {
-    const {data} = await api.post<Course>('/api/course', dto);
+    const {data} = await api.put<Course>('/api/course', dto);
     return data;
 }
-export const uploadCourseImage = async (courseId: string, dto: FormData) :Promise<any> => {
+export const uploadCourseImage = async (courseId: string, dto: FormData): Promise<any> => {
     console.log('formdata', dto)
     const {data} = await api.post<Course>(`/api/course/${courseId}/image`, dto, {
-        headers: {
-
-        }
+        headers: {}
     });
     return data;
 }
 
-export const createCourseChapter = async (courseId: string, chapter: CourseChapter) : Promise<CourseChapter> => {
-    const {data} = await post<CourseChapter>(`/coruse/${courseId}/chapter`, chapter);
+export const createCourseChapter = async (courseId: string, chapter: CourseChapter): Promise<CourseChapter> => {
+    const {data} = await post<CourseChapter>(`/api/course/${courseId}/chapter`, chapter);
     return data;
 }
 
-export const createCourseVideo = async (courseId: string, video: CourseVideoInfo) : Promise<CourseChapter> => {
-    const {data} = await post<CourseChapter>(`/coruse/${courseId}/video`, video);
+export const createCourseVideo = async (courseId: string, video: CourseVideoInfo): Promise<CourseChapter> => {
+    const {data} = await post<CourseChapter>(`/api/course/${courseId}/video`, video);
+    return data;
+}
+
+export const getCourseChaptersApi = async (courseId: string): Promise<CourseChapter[]> => {
+    const {data} = await get<CourseChapter[]>(`/api/course/${courseId}/chapter`);
     return data;
 }
 

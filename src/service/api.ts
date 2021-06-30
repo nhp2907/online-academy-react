@@ -15,7 +15,7 @@ export function get<T>(path: string): Promise<AxiosResponse<T>> {
     try {
         return axios.get<T>(path);
     } catch (err) {
-        throw new Error(err.response.data);
+        throw new Error(err.response.data.message);
     }
 }
 
@@ -23,7 +23,7 @@ export function post<T>(path: string, body: any): Promise<AxiosResponse<T>> {
     try {
         return axios.post<T>(path, body);
     } catch (err) {
-        throw new Error(err.response.data);
+        throw new Error(err.response.data.message);
     }
 }
 
@@ -31,7 +31,7 @@ export function put<T>(path: string, body: any): Promise<AxiosResponse<T>> {
     try {
         return axios.put<T>(path, body);
     } catch (err) {
-        throw new Error(err.response.data);
+        throw new Error(err.response.data.message);
     }
 }
 
@@ -39,7 +39,7 @@ export function httpDelete<T>(path: string, body: any): Promise<AxiosResponse<T>
     try {
         return axios.delete<T>(path, body);
     } catch (err) {
-        throw new Error(err.response.data);
+        throw new Error(err.response.data.message);
     }
 }
 

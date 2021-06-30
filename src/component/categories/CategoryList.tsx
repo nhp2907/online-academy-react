@@ -1,5 +1,5 @@
 import React, {MouseEventHandler, useEffect, useRef, useState} from 'react'
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
 import styles from '../../page/home/home.module.scss'
 
@@ -8,18 +8,25 @@ import {MenuItem, MenuItemCommandParams} from "primereact/api";
 import {Button} from "primereact/button";
 import Category from "../../model/Category";
 import {useHistory} from 'react-router-dom';
+import {getCategories} from "../../service/home.service";
+import {setCategories} from '../../redux/categories/categorySlice';
 
 interface Props {
 
 }
 
 const CategoryList: React.FC<Props> = ({}) => {
+    const dispatch = useDispatch();
     const history = useHistory();
     const categoriesRef = useRef(null);
     const [categoryItems, setCategoryItems] = useState<MenuItem[]>([]);
 
     useEffect(() => {
-        console.log('categoryItemsPromise', categoryItemsPromise);
+        getCategories().then(cates => {
+            const categoriesItems = cates.map(c => mapCateToItemDisplay(c));
+            dispatch(setCategories(cates))
+            setCategoryItems(categoriesItems);
+        })
         Promise.all(categoryItemsPromise).then(res => {
             // setCategories(res)
             setCategoryItems(res);
@@ -27,7 +34,7 @@ const CategoryList: React.FC<Props> = ({}) => {
         })
     }, [])
 
-    const mapCateToItemDisplay = async (cate: Category) => {
+    const mapCateToItemDisplay = (cate: Category) : MenuItem => {
         const item: MenuItem = {
             label: cate.name,
             icon: cate.icon,
@@ -35,7 +42,7 @@ const CategoryList: React.FC<Props> = ({}) => {
             command: categoryItemCommand
         }
         if (cate.subs) {
-            const subItems = await Promise.all(cate.subs.map((sub: Category) => mapCateToItemDisplay(sub)));
+            const subItems = (cate.subs.map((sub: Category) => mapCateToItemDisplay(sub)));
             if (subItems && subItems.length > 0) {
                 item.items = subItems;
             }
@@ -43,10 +50,10 @@ const CategoryList: React.FC<Props> = ({}) => {
         return item;
     }
 
-    const categoryItemsPromise: Promise<MenuItem>[] = useSelector((state: RootState) =>
+    const categoryItemsPromise: MenuItem[] = useSelector((state: RootState) =>
         state.categories.list.map((cate: Category) => mapCateToItemDisplay(cate)));
 
-    function categoryItemCommand (e: MenuItemCommandParams) {
+    function categoryItemCommand(e: MenuItemCommandParams) {
         history.push(`/course?category=${e.item.name}`)
     }
 

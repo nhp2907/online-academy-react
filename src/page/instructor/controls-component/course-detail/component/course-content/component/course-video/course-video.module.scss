@@ -1,0 +1,25 @@
+.courseVideo {
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+  border-bottom: 1px solid #f1f1f1;
+  button {
+    margin-right: 15px;
+  }
+  .svgContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    padding: 10px;
+    border-radius: 50%;
+    line-height: 1;
+    background-color: red;
+  }
+
+&:last-child {
+  border-bottom: none;
+}
+
+}
