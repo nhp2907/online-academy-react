@@ -28,8 +28,10 @@
       height: 400px;
       width: 100%;
       display: grid;
-      grid-template-columns: 40% 50%;
-
+      grid-template-columns: 50% 50%;
+      .info {
+        padding: 4px;
+      }
       .imageUploadContainer {
         padding: 0.5rem;
         width: 80%;

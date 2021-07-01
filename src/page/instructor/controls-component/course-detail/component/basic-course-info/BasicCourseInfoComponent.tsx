@@ -11,9 +11,9 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import ImageUpload from "../../../../../../component/common/image-upload/ImageUpload";
 import {Button} from 'primereact/button';
-import {createCourse, updateCourse as updateCourseApi} from "../../../../../../service/course.service";
+import {createCourse, getCourseImageApi, updateCourse as updateCourseApi, uploadCourseImageApi} from "../../../../../../service/course.service";
 import Instructor from "../../../../../../model/Instructor";
-import { useHistory } from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 
 interface Props {
     instructor: Instructor | null,
@@ -31,9 +31,7 @@ const BasicCourseInfoComponent: React.FC<Props> = ({course, instructor}) => {
 
     // filter categories and sub categories
     useEffect(() => {
-        console.log('coursecate id', updateCourse.categoryId);
         const selectedLeve1Cate = categories.find(c => c.id === updateCourse.categoryId);
-        console.log('selecte cate 1: ', selectedLeve1Cate);
         // @ts-ignore
         const level2Cates = selectedLeve1Cate?.subs.map(c => (
             {
@@ -41,7 +39,6 @@ const BasicCourseInfoComponent: React.FC<Props> = ({course, instructor}) => {
                 value: c.id
             }
         )) || []
-        console.log('leve2 cate id', level2Cates);
         setCategoriesLevel2(level2Cates)
     }, [updateCourse.categoryId, updateCourse.subCategoryId])
 
@@ -59,12 +56,17 @@ const BasicCourseInfoComponent: React.FC<Props> = ({course, instructor}) => {
     const handleSubmit = async () => {
         try {
             let message = '';
+            const formData = new FormData();
+            // @ts-ignore
+            formData.append('image', imageFile);
             if (updateCourse.id) {
                 const updatedCourse = await updateCourseApi(updateCourse);
+                await uploadCourseImageApi(updateCourse.id || '', formData)
                 message = 'Course is updated';
             } else {
                 updateCourse.instructorId = instructor?.id;
                 const course = await createCourse(updateCourse);
+                await uploadCourseImageApi(course.id || '', formData)
                 setUpdateCourse(course);
                 message = 'Create course successfully!';
                 history.push(`/instructor/course/${course.id}`)
@@ -85,19 +87,12 @@ const BasicCourseInfoComponent: React.FC<Props> = ({course, instructor}) => {
             })
         }
 
-
-        // let formData = new FormData();
-        // console.log('image file', imageFile);
-        // formData.append('imageFile', imageFile ?? '', imageFile?.name);
-        // await uploadCourseImage('newCourse.id', formData);
-
         if (updateCourse.id) {
 
         }
     }
 
     const inputValid = () => {
-        console.log(validatePrice(updateCourse.price))
         return !validateName(updateCourse.name)
             && !validateHeadline(updateCourse.headline)
             && !validatePrice(updateCourse.price)
@@ -108,7 +103,7 @@ const BasicCourseInfoComponent: React.FC<Props> = ({course, instructor}) => {
         <div className={styles.scroller}>
             <div className={styles.courseBasicInfo}>
                 <div className={styles.section1}>
-                    <div>
+                    <div className={styles.info}>
                         <CommonInput name={'Title'} value={updateCourse.name} required
                                      containerClassName={styles.commonInputContainer}
                                      validate={courseValidator.validateName}
@@ -148,7 +143,7 @@ const BasicCourseInfoComponent: React.FC<Props> = ({course, instructor}) => {
                     </div>
                     <div className={styles.imageUploadContainer}>
                         <label>Cover photo</label>
-                        <ImageUpload title={'Image'} imageUrl={course.image}
+                        <ImageUpload title={'Image'} imageUrl={updateCourse.image}
                                      onChange={f => setImageFile(f)}/>
                     </div>
                 </div>

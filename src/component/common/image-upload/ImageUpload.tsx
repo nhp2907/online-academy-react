@@ -2,9 +2,10 @@ import React, {useEffect, useRef} from 'react'
 import './upload-image.scss'
 
 import coverImage from '../../../assets/img/image-placeholder.png'
+import { apiUrl } from '../../../config/evironment';
 
 interface Props {
-    imageUrl?: string
+    imageUrl?: any
     onChange?: (e: any) => void
     title?: string
 }
@@ -15,7 +16,6 @@ const ImageUpload: React.FC<Props> = ({imageUrl, onChange, title}) => {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
             if (onChange) {
-                console.log('upload file: ', file);
                 onChange(file);
             }
             const url = file.name;
@@ -33,12 +33,14 @@ const ImageUpload: React.FC<Props> = ({imageUrl, onChange, title}) => {
         }
     }
     useEffect(() => {
-    }, [])
+        console.log('image file', imageUrl)
+    })
     return (
         <div className="oar-image-upload-component-container">
             <div className="image-container p-shadow-7">
-                <img src={imageUrl} alt="" ref={imageRef}
-                     onError={(e) => e.currentTarget.src = coverImage}/>
+                <img src={apiUrl + '/' + imageUrl} alt="" ref={imageRef}
+                     // onError={(e) => e.currentTarget.src = coverImage}
+                />
                 <div className="file-input-container">
                     <label htmlFor="fileInput">
                         <span>Upload image</span>

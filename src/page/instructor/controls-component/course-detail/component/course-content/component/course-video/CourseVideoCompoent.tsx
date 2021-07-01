@@ -6,16 +6,20 @@ import {Button} from 'primereact/button';
 
 interface Props {
     item: CourseVideoInfo
+    index: number
+    deleteAction: (item: CourseVideoInfo, index: number) => void;
 }
 
-const CourseVideoComponent: React.FC<Props> = ({item}) => {
+const CourseVideoComponent: React.FC<Props> = ({item, index, deleteAction}) => {
     return (
         <div className={styles.courseVideo}>
-            {/*<div className={styles.svgContainer}>*/}
-            {/*<FontAwesomeIcon icon={faPlay}/>*/}
-            {/*</div>*/}
+            <span className={styles.index}>{`${index + 1}.`}</span>
             <Button className={'p-button-rounded p-button-secondary'} icon={'pi pi-play'}/>
-            <span>{item.name}</span>
+            <span className={styles.name}>{item.name}</span>
+            <Button className={`${styles.deleteButton} p-button-rounded p-button-danger`} icon={'pi pi-trash'}
+                    onClick={(e: any) => {
+                        deleteAction(item, index);
+                    }}/>
         </div>
     );
 }

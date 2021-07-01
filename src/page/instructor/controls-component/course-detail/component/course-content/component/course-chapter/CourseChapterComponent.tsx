@@ -1,18 +1,53 @@
 import {Button} from 'primereact/button';
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import CourseChapter from "../../../../../../../../model/CourseChapter";
 import CourseVideoInfo from "../../../../../../../../model/CourseVideoInfo";
 import CourseVideoComponent from "../course-video/CourseVideoCompoent";
 import {Dialog} from 'primereact/dialog';
 import AddVideoComponent from "../course-video/AddVideoComponent";
+import {createCourseVideoApi, getCourseVideoApi} from '../../../../../../../../service/course.service';
+import {RootState} from "../../../../../../../../redux/store";
+import {useSelector} from 'react-redux';
 
 interface Props {
-    item?: CourseChapter,
-    createCourseVideo: (video: CourseVideoInfo) => void
+    item?: CourseChapter
 }
 
-const CourseChapterComponent: React.FC<Props> = ({item, createCourseVideo}) => {
+const CourseChapterComponent: React.FC<Props> = ({item}) => {
+    const showToastMessage = useSelector((s: RootState) => s.home.showToastMessage)
+
+    const [videos, setVideos] = useState<CourseVideoInfo[]>(item?.videos || [])
     const [addVideoVisible, setAddVideoVisible] = useState(false);
+
+    useEffect(() => {
+        fetchData().then(r => {
+        })
+    }, [])
+    const fetchData = async () => {
+        const videos_ = await getCourseVideoApi(item?.courseId, item?.id);
+        setVideos(videos_)
+    }
+
+    const createCourseVideo = async (video: any) => {
+        const formData = new FormData();
+        formData.append('file', video.file);
+        formData.append('name', video.name);
+        formData.append('chapterId', video.chapterId);
+        try {
+            const newVideo = await createCourseVideoApi(item?.courseId || '', formData);
+            setVideos([...videos, newVideo])
+            // @ts-ignore
+            showToastMessage({severity: 'success', summary: 'Add successfully!', detail: 'Add video successfully!'});
+        } catch (err) {
+            // @ts-ignore
+            showToastMessage({severity: 'error', summary: 'Add failed!', detail: err.message})
+        }
+    }
+
+    const deleteAction = (item: any, index: any) => {
+        setVideos(videos.filter(v => v.id !== item.id));
+    }
+
     return (
         <div style={{margin: 10}}>
             <div style={{display: 'flex', alignItems: 'center'}}>
@@ -25,14 +60,15 @@ const CourseChapterComponent: React.FC<Props> = ({item, createCourseVideo}) => {
                         }}
                 />
             </div>
-            {item?.videos?.map((videoInfo: CourseVideoInfo) => (
-                <CourseVideoComponent item={videoInfo}/>
+            {videos.map((videoInfo: CourseVideoInfo, index) => (
+                <CourseVideoComponent key={videoInfo.id} index={index} item={videoInfo} deleteAction={deleteAction}/>
             ))}
             <Dialog header={'Add chapter'} visible={addVideoVisible} onHide={() => setAddVideoVisible(false)}>
-                <AddVideoComponent onCreateVideo={(video: CourseVideoInfo) => {
-                    video = {...video, id: video.length + '1'}
+                <AddVideoComponent onCreateVideo={(newVideo: any) => {
                     setAddVideoVisible(false);
-                    createCourseVideo(video)
+                    createCourseVideo({...newVideo, chapterId: item?.id || '', id: item?.videos?.length || ''})
+                        .then(r => {
+                        })
                 }}/>
             </Dialog>
         </div>
