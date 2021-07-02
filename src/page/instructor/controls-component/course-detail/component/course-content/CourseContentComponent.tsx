@@ -123,10 +123,10 @@ const CourseContentComponent: React.FC<Props> = ({courseInfo}) => {
                 </div>
                 <Dialog header={'Add chapter'} visible={addChapterVisible} onHide={() => setAddChapterVisible(false)}>
                     <AddChapterComponent mode={'Add'} onAction={async (chapter: CourseChapter) => {
-                        setChapters([...chapters, chapter])
                         setAddChapterVisible(false);
                         // @ts-ignore
-                        await createCourseChapter(courseInfo.id, chapter);
+                        const newChapter = await createCourseChapter(courseInfo.id, chapter);
+                        setChapters([...chapters, newChapter])
                         // dispatch(createChapter(chapter))
                     }}/>
                 </Dialog>

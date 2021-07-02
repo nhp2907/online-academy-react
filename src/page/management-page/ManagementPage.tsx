@@ -26,7 +26,10 @@ const ManagementPage: React.FC<Props> = ({routes, defaultRoute, roles, redirectU
         return <Route key={route.path + route.name} path={route.path} exact
                       render={(props) => <ControlContainerComponent  {...props} title={route.name}
                                                                      component={route.component}
-                                                                     render={route.render}/>}
+                                                                     render={route.render}
+                                                                     headerProps={{title: route.name}}
+                                                                     renderHeader={route.renderHeader}
+                      />}
         />
     }
     return (

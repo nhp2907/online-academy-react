@@ -13,7 +13,7 @@ import ImageUpload from "../../../../../../component/common/image-upload/ImageUp
 import {Button} from 'primereact/button';
 import {createCourse, getCourseImageApi, updateCourse as updateCourseApi, uploadCourseImageApi} from "../../../../../../service/course.service";
 import Instructor from "../../../../../../model/Instructor";
-import {useHistory} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 
 interface Props {
     instructor: Instructor | null,
@@ -21,6 +21,7 @@ interface Props {
 }
 
 const BasicCourseInfoComponent: React.FC<Props> = ({course, instructor}) => {
+    const params = useParams();
     const history = useHistory();
     const categories: Category[] = useSelector((state: RootState) => state.categories.list);
     const showToastMessage = useSelector((s: RootState) => s.home.showToastMessage)
@@ -29,6 +30,11 @@ const BasicCourseInfoComponent: React.FC<Props> = ({course, instructor}) => {
     const [imageFile, setImageFile] = useState<File>();
     const [categoriesLevel2, setCategoriesLevel2] = useState<{ value: any, label: any }[]>([])
 
+    // useEffect(() => {
+    //     if (params.id) {
+    //
+    //     }
+    // }, [params])
     // filter categories and sub categories
     useEffect(() => {
         const selectedLeve1Cate = categories.find(c => c.id === updateCourse.categoryId);
@@ -42,16 +48,21 @@ const BasicCourseInfoComponent: React.FC<Props> = ({course, instructor}) => {
         setCategoriesLevel2(level2Cates)
     }, [updateCourse.categoryId, updateCourse.subCategoryId])
 
-    useEffect(() => {
-        const filterCourse: Course = {
-            ...updateCourse,
-            name: updateCourse.name ?? '',
-            description: updateCourse.description ?? '',
-            headline: updateCourse.headline ?? '',
-            price: updateCourse.price ?? 0
-        }
-        setUpdateCourse(filterCourse);
-    }, [])
+    // useEffect(() => {
+    //     const filterCourse: Course = {
+    //         ...course,
+    //         name: course.name || '',
+    //         description: course.description || '',
+    //         headline: course.headline || '',
+    //         price: course.price || 0
+    //     }
+    //     console.log('filter course', filterCourse);
+    //     console.log('test', test)
+    //     setUpdateCourse(filterCourse);
+    //     setTest(filterCourse.headline)
+    //     console.log(test)
+    //     console.log('updatecourse', updateCourse);
+    // }, [course])
 
     const handleSubmit = async () => {
         try {

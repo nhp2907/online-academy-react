@@ -38,8 +38,8 @@ const ImageUpload: React.FC<Props> = ({imageUrl, onChange, title}) => {
     return (
         <div className="oar-image-upload-component-container">
             <div className="image-container p-shadow-7">
-                <img src={apiUrl + '/' + imageUrl} alt="" ref={imageRef}
-                     // onError={(e) => e.currentTarget.src = coverImage}
+                <img src={imageUrl} alt="" ref={imageRef}
+                     onError={(e) => e.currentTarget.src = coverImage}
                 />
                 <div className="file-input-container">
                     <label htmlFor="fileInput">

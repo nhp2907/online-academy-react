@@ -1,15 +1,11 @@
 import UserManagementComponent from "../page/admin/component/controls/user-management/UserManagementComponent";
-import CategoryManagementComponent
-    from "../page/admin/component/controls/category-management/CategoryManagementComponent";
+import CategoryManagementComponent from "../page/admin/component/controls/category-management/CategoryManagementComponent";
 import CourseManagementComponent from "../page/admin/component/controls/course-management/CourseManagementComponent";
 import ManagementRoute from "../page/management-page/model/ManagementRoute";
-import InstructorCourseManagementComponent
-    from "../page/instructor/controls-component/course-management/InstructorCourseManagementComponent";
-import InstructorCourseDetailComponent
-    from "../page/instructor/controls-component/course-detail/InstructorCourseDetailComponent";
+import InstructorCourseManagementComponent from "../page/instructor/controls-component/course-management/InstructorCourseManagementComponent";
+import InstructorCourseDetailComponent from "../page/instructor/controls-component/course-detail/InstructorCourseDetailComponent";
 import InstructorProfileComponent from "../page/instructor/controls-component/instructor-profile/InstructorProfile";
-import {RootState} from "../redux/store";
-import { useSelector } from "react-redux";
+import InstructorCourseDetailHeader from "../page/instructor/controls-component/course-detail/InstructorCourseDetailHeader";
 
 
 export const adminRouteList: ManagementRoute[] = [
@@ -55,7 +51,8 @@ export const instructorRouteList: ManagementRoute[] = [
         name: 'Create new course',
         redirectUrl: '/instructor',
         hidden: true,
-        render: props => <InstructorCourseDetailComponent {...props} /> // course owro ddaau ra?
+        render: props => <InstructorCourseDetailComponent {...props} />,// course owro ddaau ra?
+        renderHeader: props => <InstructorCourseDetailHeader {...props}/>
     },
     {
         path: '/instructor/course/:id',
@@ -64,7 +61,8 @@ export const instructorRouteList: ManagementRoute[] = [
         name: 'Course detail',
         redirectUrl: '/instructor',
         hidden: true,
-        render: props => <InstructorCourseDetailComponent {...props} /> // course owro ddaau ra?
+        render: props => <InstructorCourseDetailComponent {...props} />, // course owro ddaau ra?
+        renderHeader: props => <InstructorCourseDetailHeader {...props}/>
     },
     {
         path: '/instructor/profile',

@@ -5,7 +5,7 @@ import CourseVideoInfo from "../../../../../../../../model/CourseVideoInfo";
 import CourseVideoComponent from "../course-video/CourseVideoCompoent";
 import {Dialog} from 'primereact/dialog';
 import AddVideoComponent from "../course-video/AddVideoComponent";
-import {createCourseVideoApi, getCourseVideoApi} from '../../../../../../../../service/course.service';
+import {createCourseVideoApi, getCourseVideoApi, deleteVideoApi} from '../../../../../../../../service/course.service';
 import {RootState} from "../../../../../../../../redux/store";
 import {useSelector} from 'react-redux';
 
@@ -44,8 +44,14 @@ const CourseChapterComponent: React.FC<Props> = ({item}) => {
         }
     }
 
-    const deleteAction = (item: any, index: any) => {
-        setVideos(videos.filter(v => v.id !== item.id));
+    const deleteAction = async (item: any, index: any) => {
+        try {
+            await deleteVideoApi(item);
+            setVideos(videos.filter(v => v.id !== item.id));
+        } catch (err) {
+            // @ts-ignore
+            showToastMessage({severity: 'error', summary: 'Add failed!', detail: err.message})
+        }
     }
 
     return (

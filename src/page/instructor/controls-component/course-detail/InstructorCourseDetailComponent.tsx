@@ -14,6 +14,7 @@ import Course from "../../../../model/Course";
 import {getCourseById} from "../../../../service/course.service";
 import SpinnerComponent from "../../../../component/common/SpinnerComponent";
 import {getInstructorDetail} from "../../../../service/instructor.service";
+import usePrevious from "../../../../hook/usePrevious";
 
 interface Props extends ControlComponentProps {
 }
@@ -30,7 +31,7 @@ const InstructorCourseDetailComponent: React.FC<Props> = ({}) => {
         id: null,
         categoryId: '',
         instructorId: instructor?.id,
-        name: '',
+        name: 'a',
         author: '',
         price: 0,
         prePrice: 0,
@@ -48,6 +49,14 @@ const InstructorCourseDetailComponent: React.FC<Props> = ({}) => {
         status: ''
     });
     const params: RouteParams = useParams()
+    const previous = usePrevious({course})
+
+    useEffect(() => {
+        getInstructorDetail(user?.id || '').then(instructor_ => setInstructor(instructor_));
+    }, [])
+
+    useEffect(() => {
+    }, [course])
 
     useEffect(() => {
         loadData().then(r => setIsLoading(false));
@@ -59,11 +68,10 @@ const InstructorCourseDetailComponent: React.FC<Props> = ({}) => {
 
             } else {
                 const course_ = await getCourseById(params.id);
+                console.log('course', course_);
                 setCourse(course_)
             }
         }
-        const instructor_ = await getInstructorDetail(user?.id || '');
-        setInstructor(instructor_)
     }
 
     if (isLoading) {

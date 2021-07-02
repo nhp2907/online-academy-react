@@ -94,4 +94,10 @@ export const getCourseVideoApi = async (courseId: any, chapterId: any): Promise<
     return data;
 }
 
+export const deleteVideoApi = async (item: any): Promise<CourseVideoInfo[]> => {
+    const path = `/api/course/${item.courseId}/chapter/${item.chapterId}/video/${item.id}`;
+    const {data} = await httpDelete<CourseVideoInfo[]>(path);
+    return data;
+}
+
 //endregion

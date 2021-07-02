@@ -9,4 +9,5 @@ export default interface ManagementRoute {
     redirectUrl?: string,
     hidden?: boolean // is hide from the nav bar, navigate by code or other <Link />
     render?: (props: ControlComponentProps | null) => React.ReactNode
+    renderHeader?: (props:any) => React.ReactNode
 }
