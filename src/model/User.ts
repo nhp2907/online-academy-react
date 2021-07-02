@@ -9,7 +9,7 @@ export interface User extends BaseModel {
     email: string;
     password: string;
     repeatPassword?: string;
-    role?: UserRole
+    role?: string
     roleId?: number
     image?: string
 }

@@ -5,7 +5,7 @@ interface Props {
     placeholder?: string;
     items: { value: any, label: any }[]
     icon?: string;
-    value?: string;
+    value?: any;
     inputContainerClassName?: string;
     titleClassName?: string;
     containerClassName?: string;

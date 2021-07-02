@@ -1,16 +1,18 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {classNames} from 'primereact/utils';
+import {useSelector} from 'react-redux'
 import {DataTable} from 'primereact/datatable';
 import {Column} from 'primereact/column';
-import {Toast} from 'primereact/toast';
 import {Button} from 'primereact/button';
 import {Dialog} from 'primereact/dialog';
 import {InputText} from 'primereact/inputtext';
 import './data-table.scss';
 import * as userService from '../../../../../service/user.service'
+import {createUserApi, updateUserApi} from '../../../../../service/admin.service'
 import {User} from "../../../../../model/User";
 import SpinnerComponent from "../../../../../component/common/SpinnerComponent";
-import UserInputComponent from "./component/UserInputComponent";
+import UserInputComponent from "./component/user-input/UserInputComponent";
+import {RootState} from "../../../../../redux/store";
+import UserRole from "../../../../../model/UserRole";
 
 interface Props {
 
@@ -19,6 +21,7 @@ interface Props {
 const UserManagementComponent: React.FC<Props> = ({}) => {
 
     const [isLoading, setIsLoading] = useState(true);
+    const showToastMessage = useSelector((s: RootState) => s.home.showToastMessage)
 
     let emptyUser: User = {
         id: '',
@@ -31,14 +34,13 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
     };
 
     const [users, setUsers] = useState<User[]>([]);
-    const [userDialog, setUserDialog] = useState(true);
+    const [userDialog, setUserDialog] = useState(false);
     const [deleteUserDialog, setDeleteUserDialog] = useState(false);
     const [deleteManyUserDialog, setDeleteUsersDialog] = useState(false);
     const [user, setUser] = useState<User>(emptyUser);
     const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
     const [submitted, setSubmitted] = useState(false);
     const [globalFilter, setGlobalFilter] = useState('');
-    const toast = useRef(null);
     const dt = useRef(null);
 
     useEffect(() => {
@@ -75,29 +77,37 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
         setDeleteUsersDialog(false);
     }
 
-    const saveUser = () => {
+    const saveUser = async (userForm: User) => {
+        console.log(userForm);
+        setUser(userForm);
+        console.log('user after set: ', user);
         setSubmitted(true);
+        const _users = [...users]
 
-        if (user.firstName.trim()) {
-            let _users = [...users];
-            let _user = {...user};
+        try {
             if (user.id) {
                 const index = findIndexById(user.id);
+                console.log('user submited')
+                const updateResult = await updateUserApi(user);
+                _users[index] = user;
+                setUsers(_users);
 
                 // @ts-ignore
-                toast.current.show({severity: 'success', summary: 'Successful', detail: 'User Updated', life: 3000});
+                showToastMessage({severity: 'success', summary: 'Successful', detail: 'User Updated', life: 3000});
             } else {
-                // _user.id = createId();
-                // _user.image = 'user-placeholder.svg';
-                // _users.push(_user);
+                const newUser = await createUserApi(user);
+                setUsers([newUser, ...users])
                 // @ts-ignore
-                toast.current.show({severity: 'success', summary: 'Successful', detail: 'User Created', life: 3000});
+                showToastMessage({severity: 'success', summary: 'Successful', detail: 'User Created', life: 3000});
             }
-
-            setUsers(_users);
-            setUserDialog(false);
-            setUser(emptyUser);
+        } catch(err) {
+            // @ts-ignore
+            showToastMessage({severity: 'error', summary: 'Failed', detail: err.response.data.message, life: 3000});
         }
+
+        setUserDialog(false);
+        setUser(emptyUser);
+
     }
 
     const editUser = (user: User) => {
@@ -129,16 +139,6 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
 
         return index;
     }
-
-    const createId = () => {
-        let id = '';
-        let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        for (let i = 0; i < 5; i++) {
-            id += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-        return id;
-    }
-
 
     const confirmDeleteSelected = () => {
         setDeleteUsersDialog(true);
@@ -186,13 +186,12 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
         )
     }
 
-    const imageBodyTemplate = (rowData: User) => {
-        return <img src={`showcase/demo/images/user/${rowData.image}`}
-                    alt={rowData.image} className="user-image"/>
+    const nameBodyTemplate = (rowData: User) => {
+        return <span>{`${rowData.firstName} ${rowData.lastName}`}</span>
     }
 
-    const nameBodyTemplate = (rowData: User) => {
-        return <span>{`${user.firstName} ${user.lastName}`}</span>
+    const idTemplate = (rowData: User) => {
+        return <span>{rowData.id?.substring(1, 8)}</span>
     }
 
     // const ratingBodyTemplate = (rowData: User) => {
@@ -235,12 +234,6 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
             </span>
         </div>
     );
-    const userDialogFooter = (
-        <React.Fragment>
-            <Button label="Cancel" icon="pi pi-times" className="p-button-text" onClick={hideDialog}/>
-            <Button label="Save" icon="pi pi-check" className="p-button-text" onClick={saveUser}/>
-        </React.Fragment>
-    );
     const deleteUserDialogFooter = (
         <React.Fragment>
             <Button label="No" icon="pi pi-times" className="p-button-text" onClick={hideDeleteUserDialog}/>
@@ -259,8 +252,6 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
     }
     return (
         <div className="datatable-crud-demo">
-            <Toast ref={toast}/>
-
             <div className="card">
                 {/*<Toolbar className="p-mb-4 " left={leftToolbarTemplate}/>*/}
 
@@ -273,10 +264,10 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
                            header={header}>
 
                     <Column selectionMode="multiple" headerStyle={{width: '3rem'}}/>
-                    <Column field="id" header="Id" sortable/>
-                    <Column header="Image" body={imageBodyTemplate}/>
-                    <Column field={'username'} header="username" sortable/>
-                    <Column field={'firstName'} header="Name" sortable body={nameBodyTemplate}/>
+                    {/*<Column header="Id" body={idTemplate}/>*/}
+                    {/*<Column header="Image" body={imageBodyTemplate}/>*/}
+                    <Column field={'username'} header="Username" sortable/>
+                    <Column header="Name" body={nameBodyTemplate}/>
                     <Column field={'email'} header="Email" sortable/>
                     <Column field={'role'} header="Role" sortable/>
                     <Column field={'status'} header="Status" sortable/>
@@ -286,57 +277,11 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
                 </DataTable>
             </div>
 
-            <Dialog visible={userDialog} style={{width: '450px'}} header="User Details" modal className="p-fluid"
-                    footer={userDialogFooter} onHide={hideDialog}>
+            <Dialog header="User Details" visible={userDialog} style={{width: '450px'}} modal className="p-fluid"
+                    onHide={hideDialog}>
                 {user.image && <img src={`showcase/demo/images/user/${user.image}`}
                                     alt={user.image} className="user-image"/>}
-                                    <UserInputComponent />
-                {/*<div className="p-field">*/}
-                {/*    <label htmlFor="name">Fristname</label>*/}
-                {/*    <InputText id="name" value={user.firstName} onChange={(e) => onInputChange(e, 'name')} required*/}
-                {/*               autoFocus className={classNames({'p-invalid': submitted && !user.firstName})}/>*/}
-                {/*    {submitted && !user.firstName && <small className="p-error">Name is required.</small>}*/}
-                {/*</div>*/}
-
-                {/*<div className="p-field">*/}
-                {/*    <label className="p-mb-3">Category</label>*/}
-                {/*    <div className="p-formgrid p-grid">*/}
-                        {/*<div className="p-field-radiobutton p-col-6">*/}
-                        {/*    <RadioButton inputId="category1" name="category" value="Accessories"*/}
-                        {/*                 onChange={onCategoryChange} checked={user.category === 'Accessories'}/>*/}
-                        {/*    <label htmlFor="category1">Accessories</label>*/}
-                        {/*</div>*/}
-                        {/*<div className="p-field-radiobutton p-col-6">*/}
-                        {/*    <RadioButton inputId="category2" name="category" value="Clothing"*/}
-                        {/*                 onChange={onCategoryChange} checked={user.category === 'Clothing'}/>*/}
-                        {/*    <label htmlFor="category2">Clothing</label>*/}
-                        {/*</div>*/}
-                        {/*<div className="p-field-radiobutton p-col-6">*/}
-                        {/*    <RadioButton inputId="category3" name="category" value="Electronics"*/}
-                        {/*                 onChange={onCategoryChange} checked={user.category === 'Electronics'}/>*/}
-                        {/*    <label htmlFor="category3">Electronics</label>*/}
-                        {/*</div>*/}
-                        {/*<div className="p-field-radiobutton p-col-6">*/}
-                        {/*    <RadioButton inputId="category4" name="category" value="Fitness" onChange={onCategoryChange}*/}
-                        {/*                 checked={user.category === 'Fitness'}/>*/}
-                        {/*    <label htmlFor="category4">Fitness</label>*/}
-                        {/*</div>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
-
-                {/*<div className="p-formgrid p-grid">*/}
-                    {/*<div className="p-field p-col">*/}
-                    {/*    <label htmlFor="price">Price</label>*/}
-                    {/*    <InputNumber id="price" value={user.price}*/}
-                    {/*                 onValueChange={(e) => onInputNumberChange(e, 'price')} mode="currency"*/}
-                    {/*                 currency="USD" locale="en-US"/>*/}
-                    {/*</div>*/}
-                    {/*<div className="p-field p-col">*/}
-                    {/*    <label htmlFor="quantity">Quantity</label>*/}
-                    {/*    <InputNumber id="quantity" value={user.quantity}*/}
-                    {/*                 onValueChange={(e) => onInputNumberChange(e, 'quantity')} integeronly/>*/}
-                    {/*</div>*/}
-                {/*</div>*/}
+                <UserInputComponent user={user} onSubmit={saveUser} hideModal={() => setUserDialog(false)}/>
             </Dialog>
 
             <Dialog visible={deleteUserDialog} style={{width: '450px'}} header="Confirm" modal

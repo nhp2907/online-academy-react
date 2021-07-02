@@ -37,15 +37,36 @@
     }
 }
 
+select {
+    display: inline-block;
+    padding: 0.6rem;
+    outline: none;
+    border-radius: 3px;
+    border: 1px solid #CED4DA;
+    font-size: 0.9rem;
+    width: 100%;
+}
+
+select:focus {
+    border: 1px solid #2196F3;
+    box-shadow: 0 0 1px 3px #A6D5FA;
+    /*height: 35px;*/
+}
+
+option {
+    font-size: 0.9rem;
+}
+
 /*override lib css*/
 .p-tabview-nav .p-tabview-nav-link {
     box-shadow: none;
 }
 
 .required:after {
-    content:" *";
+    content: " *";
     color: red;
 }
+
 .p-tooltip {
     font-size: 14px !important;
 }
