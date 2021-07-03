@@ -1,8 +1,9 @@
 $marginLeft: 10%;
-$leftWidth: 65%;
+$leftWidth: 60%;
 .courseDetailPage {
   margin-bottom: 50px;
-  background-color: #F0F2F5;
+  background-color: #F8F9FA;
+
   .courseInfo {
     width: 100%;
     background-color: #212932;
@@ -87,17 +88,20 @@ $leftWidth: 65%;
 
   .courseContent {
     background-color: white;
+    //border: 1px solid red;
     margin-left: $marginLeft;
+    margin-top: 20px;
+    width: $leftWidth;
   }
 
   .instructor {
     background-color: white;
 
+    margin-left: $marginLeft;
     width: $leftWidth;
     padding: 20px;
     border-radius: 10px;
-    margin: 10px 0;
-    margin-left: $marginLeft;
+    margin-top: 20px;
 
     .title {
 
@@ -134,6 +138,8 @@ $leftWidth: 65%;
   .relatedCourse {
     background-color: white;
     margin-left: $marginLeft;
+    width: $leftWidth;
+    margin-top: 20px;
 
     .content {
       width: 70%;
@@ -143,23 +149,31 @@ $leftWidth: 65%;
   .studentFeedBack {
     background-color: white;
     margin-left: $marginLeft;
+    width: $leftWidth;
+    margin-top: 20px;
+
     .content {
       display: flex;
       align-items: center;
       justify-content: flex-start;;
       width: 70%;
       text-align: center;
+
       .left {
         width: 20%;
+
         h2 {
           margin: 10px;
         }
+
         div {
 
         }
+
         span {
         }
       }
+
       .right {
         width: 70%;
       }
@@ -167,13 +181,21 @@ $leftWidth: 65%;
   }
 
   .review {
-    background-color: white;
-    .content {
-      margin-left: $marginLeft;
-      width: 60%;
+    margin-left: $marginLeft;
+    width: $leftWidth;
+    margin-top: 20px;
 
-      div {
-      }
+    div {
     }
+
+  }
+
+  .buyTab {
+    position: fixed;
+    right: $marginLeft;
+    top: 20%;
+    height: 60%;
+    width: 17%;
+    box-shadow: 0 3px 5px -1px rgb(0 0 0 / 20%), 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%);
   }
 }

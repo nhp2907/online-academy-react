@@ -3,6 +3,7 @@ import CourseReview from "../../model/CourseReview";
 
 import styles from './course-detail.module.scss'
 import CourseReviewItemComponent from "./molecule/CourseReviewItemComponent";
+import { Card } from 'primereact/card';
 
 interface Props {
     items: CourseReview[]
@@ -10,14 +11,13 @@ interface Props {
 
 const ReviewsComponent : React.FC<Props> = ({items}) => {
     return (
-        <div className={styles.review}>
-            <h3 className={styles.title}></h3>
+        <Card className={styles.review} title={"Reviews"}>
             <div className={styles.content}>
                 {
                     items.map((cr:CourseReview) => <CourseReviewItemComponent item={cr} />)
                 }
             </div>
-        </div>
+        </Card>
     );
 }
 

@@ -3,34 +3,37 @@ import React from 'react'
 import styles from './course-detail.module.scss'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar, faAward, faUsers, faVideo} from '@fortawesome/free-solid-svg-icons'
+import { Card } from 'primereact/card';
+import Instructor from "../../model/Instructor";
 interface Props {
-
+    instructor: Instructor | null
 }
 
-const InstructorInfoComponent: React.FC<Props> = ({}) => {
-    const instructor = {
-        name: 'Nguyen Hoang Phuc',
-        rating: 4.5,
-        numReview: 1000,
-        numStudent: 1000,
-        numCourse: 18
-    }
+const InstructorInfoComponent: React.FC<Props> = ({instructor}) => {
+    // const instructor = {
+    //     name: 'Nguyen Hoang Phuc',
+    //     rating: 4.5,
+    //     numReview: 1000,
+    //     numStudent: 1000,
+    //     numCourse: 18
+    // }
     return (
-        <div className={styles.instructor}>
-            <h3 className={styles.title}>Instructor</h3>
+        <Card className={styles.instructor} title={'Instructor'}>
             <div className={styles.content}>
-                <h3 className={styles.name}>{instructor.name}</h3>
+                <h3 className={styles.name}>{`${instructor?.firstName} ${instructor?.lastName}`}</h3>
                 <div className={styles.instructorRating}>
-                    <img src="" alt=""/>
+                    {
+                        instructor?.image ?? <img src="" alt=""/>
+                    }
                     <div>
-                        <InlineWithIcon icon={faStar} value={instructor.rating + ' instructor rating'}/>
-                        <InlineWithIcon icon={faAward} value={instructor.numReview + ' reviews'}/>
-                        <InlineWithIcon icon={faUsers} value={instructor.numStudent + ' students'}/>
-                        <InlineWithIcon icon={faVideo} value={instructor.numCourse + ' courses'}/>
+                        <InlineWithIcon icon={faStar} value={instructor?.rating + ' instructor rating'}/>
+                        <InlineWithIcon icon={faAward} value={instructor?.numReview + ' reviews'}/>
+                        <InlineWithIcon icon={faUsers} value={instructor?.numStudent + ' students'}/>
+                        <InlineWithIcon icon={faVideo} value={instructor?.numCourse + ' courses'}/>
                     </div>
                 </div>
             </div>
-        </div>
+        </Card>
     );
 }
 
