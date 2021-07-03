@@ -5,8 +5,6 @@ import '../../style.module.css'
 import styles from '../search-result-page.module.scss'
 import Course from "../../../model/Course";
 import {searchCourse} from '../../../service/course.service'
-import {Simulate} from "react-dom/test-utils";
-import {getTopCourse} from "../../../service/home.service";
 
 interface Props {
 
