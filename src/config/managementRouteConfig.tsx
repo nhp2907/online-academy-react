@@ -44,16 +44,16 @@ export const instructorRouteList: ManagementRoute[] = [
         name: 'Course management',
         redirectUrl: '/'
     },
-    {
-        path: '/instructor/course/new',
-        component: InstructorCourseDetailComponent,
-        icon: 'user',
-        name: 'Create new course',
-        redirectUrl: '/instructor',
-        hidden: true,
-        render: props => <InstructorCourseDetailComponent {...props} />,// course owro ddaau ra?
-        renderHeader: props => <InstructorCourseDetailHeader {...props}/>
-    },
+    // {
+    //     path: '/instructor/course/new',
+    //     component: InstructorCourseDetailComponent,
+    //     icon: 'user',
+    //     name: 'Create new course',
+    //     redirectUrl: '/instructor',
+    //     hidden: true,
+    //     render: props => <InstructorCourseDetailComponent {...props} />,// course owro ddaau ra?
+    //     renderHeader: props => <InstructorCourseDetailHeader {...props}/>
+    // },
     {
         path: '/instructor/course/:id',
         component: InstructorCourseDetailComponent,
