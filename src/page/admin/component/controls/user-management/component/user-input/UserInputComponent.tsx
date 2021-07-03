@@ -75,9 +75,6 @@ const UserInputComponent: React.FC<Props> = ({user, onSubmit, hideModal}) => {
                 <Button label={'Submit'}
                         onClick={() => {
                             const role = UserRole[formUser.roleId || 0]
-                            formUser.role = role;
-                            console.log('formUser', formUser)
-                            alert(role);
                             onSubmit(formUser)
                         }}/>
             </div>

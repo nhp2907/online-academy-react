@@ -5,14 +5,14 @@ import {Column} from 'primereact/column';
 import {Button} from 'primereact/button';
 import {Dialog} from 'primereact/dialog';
 import {InputText} from 'primereact/inputtext';
-import './data-table.scss';
+import '../../data-table.scss';
 import * as userService from '../../../../../service/user.service'
 import {createUserApi, updateUserApi} from '../../../../../service/admin.service'
 import {User} from "../../../../../model/User";
 import SpinnerComponent from "../../../../../component/common/SpinnerComponent";
 import UserInputComponent from "./component/user-input/UserInputComponent";
 import {RootState} from "../../../../../redux/store";
-import UserRole from "../../../../../model/UserRole";
+import {InputSwitch} from "primereact/inputswitch";
 
 interface Props {
 
@@ -79,28 +79,26 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
 
     const saveUser = async (userForm: User) => {
         console.log(userForm);
-        setUser(userForm);
-        console.log('user after set: ', user);
         setSubmitted(true);
         const _users = [...users]
 
         try {
-            if (user.id) {
-                const index = findIndexById(user.id);
+            if (userForm.id) {
+                const index = findIndexById(userForm.id);
                 console.log('user submited')
-                const updateResult = await updateUserApi(user);
-                _users[index] = user;
+                const updateResult = await updateUserApi(userForm);
+                _users[index] = userForm;
                 setUsers(_users);
 
                 // @ts-ignore
                 showToastMessage({severity: 'success', summary: 'Successful', detail: 'User Updated', life: 3000});
             } else {
-                const newUser = await createUserApi(user);
+                const newUser = await createUserApi(userForm);
                 setUsers([newUser, ...users])
                 // @ts-ignore
                 showToastMessage({severity: 'success', summary: 'Successful', detail: 'User Created', life: 3000});
             }
-        } catch(err) {
+        } catch (err) {
             // @ts-ignore
             showToastMessage({severity: 'error', summary: 'Failed', detail: err.response.data.message, life: 3000});
         }
@@ -120,15 +118,25 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
         setDeleteUserDialog(true);
     }
 
-    const deleteUser = () => {
-        // let _users = users.filter(val => val.id !== user.id);
-        // setUser(_users);
-        // setDeleteUserDialog(false);
-        // setUser(emptyUser);
+    const deleteUser = async (rowData: User) => {
+        try {
+            let index = findIndexById(rowData.id);
+            const user_ = users[index];
+            user_.status = !user_.status;
+            await updateUserApi(user_);
+            const users_ = [...users]
+            users_[index] = user_;
+            setUsers(users_)
+            // @ts-ignore
+            showToastMessage({severity: 'success', summary: 'Successful', detail: user_.status ? 'User is enabled' : 'User is disabled', life: 3000});
+        } catch (err) {
+            // @ts-ignore
+            showToastMessage({severity: 'error', summary: 'Update user failed', detail: err.response.data.message, life: 3000});
+        }
         // toast.current.show({severity: 'success', summary: 'Successful', detail: 'User Deleted', life: 3000});
     }
 
-    const findIndexById = (id: string) => {
+    const findIndexById = (id: any) => {
         let index = -1;
         for (let i = 0; i < users.length; i++) {
             if (users[i].id === id) {
@@ -140,58 +148,18 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
         return index;
     }
 
-    const confirmDeleteSelected = () => {
-        setDeleteUsersDialog(true);
-    }
-
-    const deleteSelectedUsers = () => {
-        let _users = users.filter(val => !selectedUsers.includes(val));
-        setUsers(_users);
-        setDeleteUsersDialog(false);
-        setSelectedUsers([]);
-        // toast.current.show({severity: 'success', summary: 'Successful', detail: 'Users Deleted', life: 3000});
-    }
-
-    // const onCategoryChange = (e) => {
-    //     let _user = {...user};
-    //     _user['category'] = e.value;
-    //     setUser(_user);
-    // }
-    //
-    const onInputChange = (e: any, key: string) => {
-        const val: number | string = (e.target && e.target.value) || '';
-        let _user = {...user};
-        // @ts-ignore
-        _user[key] = val;
-
-        setUser(_user);
-    }
-    //
-    // const onInputNumberChange = (e, name) => {
-    //     const val = e.value || 0;
-    //     let _user = {...user};
-    //     _user[`${name}`] = val;
-    //
-    //     setUser(_user);
-    // }
-
-    const leftToolbarTemplate = () => {
-        return (
-            <React.Fragment>
-                <Button label="New" icon="pi pi-plus" style={{marginRight: 10}} className="p-button-success p-mr-2"
-                        onClick={openNew}/>
-                <Button label="Delete" icon="pi pi-trash" className="p-button-danger" onClick={confirmDeleteSelected}
-                        disabled={!selectedUsers || !selectedUsers.length}/>
-            </React.Fragment>
-        )
-    }
-
     const nameBodyTemplate = (rowData: User) => {
         return <span>{`${rowData.firstName} ${rowData.lastName}`}</span>
     }
 
-    const idTemplate = (rowData: User) => {
-        return <span>{rowData.id?.substring(1, 8)}</span>
+    const statusBody = (rowData: User) => {
+        return <div onClick={e => e.stopPropagation()} style={{display: "flex", alignItems: "center"}}>
+            <InputSwitch className={'p-mr-2'} checked={rowData.status}
+                         onChange={(e) => {
+                             deleteUser(rowData)
+                         }}/>
+            <span>{!rowData.status ? "Disabled" : 'Enabled'}</span>
+        </div>
     }
 
     // const ratingBodyTemplate = (rowData: User) => {
@@ -223,7 +191,6 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
                         className=" p-button-success p-mr-2"
                         onClick={openNew}/>
                 <Button label="Delete" icon="pi pi-trash" className="p-button-text p-button-danger" style={{marginRight: 10, fontSize: 15}}
-                        onClick={confirmDeleteSelected}
                         disabled={!selectedUsers || !selectedUsers.length}/>
             </div>
             <span className="p-input-icon-left">
@@ -233,18 +200,6 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
                            placeholder="Search..."/>
             </span>
         </div>
-    );
-    const deleteUserDialogFooter = (
-        <React.Fragment>
-            <Button label="No" icon="pi pi-times" className="p-button-text" onClick={hideDeleteUserDialog}/>
-            <Button label="Yes" icon="pi pi-check" className="p-button-text" onClick={deleteUser}/>
-        </React.Fragment>
-    );
-    const deleteManyUserDialogFooter = (
-        <React.Fragment>
-            <Button label="No" icon="pi pi-times" className="p-button-text" onClick={hideDeleteUsersDialog}/>
-            <Button label="Yes" icon="pi pi-check" className="p-button-text" onClick={deleteSelectedUsers}/>
-        </React.Fragment>
     );
 
     if (isLoading) {
@@ -263,14 +218,14 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
                            globalFilter={globalFilter}
                            header={header}>
 
-                    <Column selectionMode="multiple" headerStyle={{width: '3rem'}}/>
+                    {/*<Column selectionMode="multiple" headerStyle={{width: '3rem'}}/>*/}
                     {/*<Column header="Id" body={idTemplate}/>*/}
                     {/*<Column header="Image" body={imageBodyTemplate}/>*/}
                     <Column field={'username'} header="Username" sortable/>
                     <Column header="Name" body={nameBodyTemplate}/>
                     <Column field={'email'} header="Email" sortable/>
                     <Column field={'role'} header="Role" sortable/>
-                    <Column field={'status'} header="Status" sortable/>
+                    <Column field={'status'} header="Status" body={statusBody}/>
                     {/*<Column field="rating" header="Reviews" body={ratingBodyTemplate} sortable/>*/}
                     {/*<Column field="inventoryStatus" header="Status" body={statusBodyTemplate} sortable/>*/}
                     <Column body={actionBodyTemplate}/>
@@ -285,7 +240,7 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
             </Dialog>
 
             <Dialog visible={deleteUserDialog} style={{width: '450px'}} header="Confirm" modal
-                    footer={deleteUserDialogFooter} onHide={hideDeleteUserDialog}>
+                    onHide={hideDeleteUserDialog}>
                 <div className="confirmation-content">
                     <i className="pi pi-exclamation-triangle p-mr-3" style={{fontSize: '2rem'}}/>
                     {user && <span>Are you sure you want to delete <b>{user.firstName}</b>?</span>}
@@ -293,7 +248,7 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
             </Dialog>
 
             <Dialog visible={deleteManyUserDialog} style={{width: '450px'}} header="Confirm" modal
-                    footer={deleteManyUserDialogFooter} onHide={hideDeleteUsersDialog}>
+                    onHide={hideDeleteUsersDialog}>
                 <div className="confirmation-content">
                     <i className="pi pi-exclamation-triangle p-mr-3" style={{fontSize: '2rem'}}/>
                     {user && <span>Are you sure you want to delete the selected users?</span>}

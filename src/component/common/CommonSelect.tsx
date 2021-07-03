@@ -23,7 +23,7 @@ const CommonSelect: React.FC<Props> = ({name, items, placeholder, icon, value, o
             <div className={inputContainerClassName || 'p-field'}>
                 <i/>
                 <select onChange={onChange} value={value}>
-                    <option hidden disabled value={''}>{placeholder}</option>
+                    <option hidden disabled value={''} style={{color: 'gray'}}>{placeholder}</option>
                     {
                         items.map((item: any) => <option key={item.value} value={item.value}>{item.label}</option>)
                     }
@@ -31,6 +31,11 @@ const CommonSelect: React.FC<Props> = ({name, items, placeholder, icon, value, o
             </div>
         </div>
     );
+}
+
+export interface SelectItem {
+    label :any,
+    value: any
 }
 
 export default CommonSelect;
