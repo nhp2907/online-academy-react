@@ -19,11 +19,11 @@ const ListCourseComponent: React.FC<Props> = ({courses, itemOnClick, emptyMessag
     const [basicRows, setBasicRows] = useState(10);
     useEffect(() => {
         setDisplayCourse(courses.slice(basicFirst, basicFirst + basicRows))
-    }, [basicFirst, basicRows])
+    }, [basicFirst, basicRows, courses])
     return (
         <div className={styles.listCourse}>
             {
-                courses.length == 0 ?
+                courses.length === 0 ?
                     <EmptyListComponent message={emptyMessage}/> :
                     displayCourse.map((c: Course) => (
                         <div className={styles.courseItem} key={c.id}>
