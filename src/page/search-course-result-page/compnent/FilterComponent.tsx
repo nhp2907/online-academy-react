@@ -28,11 +28,11 @@ const FilterComponent: React.FC<Props> = ({input,onChange}) => {
     const ratingChange = (value: string) => {
         switch (value) {
             case 'asce':
-                input.sort((a, b) => a.rating - b.rating);
+                input.sort((a, b) => b.rating - a.rating);
                 onChange([...input])
                 break;
             case 'desc':
-                input.sort((a, b) => b.rating - a.rating);
+                input.sort((a, b) => a.rating - b.rating);
                 onChange([...input])
                 break;
             default:

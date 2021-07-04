@@ -2,11 +2,13 @@ import api, {get, httpDelete, post, postWithHeader, put, searchByCriteria} from 
 import Course from "../model/Course";
 import CourseChapter from "../model/CourseChapter";
 import CourseVideoInfo from "../model/CourseVideoInfo";
+import {getSearchQueryString} from "./search.utils";
 import CourseReview from "../model/CourseReview";
 
 
-export const getCourseList = async (tag: string) => {
-    const {data} = await api.get<Course[]>(`/api/course?tag=${tag}`)
+export const getCourseApi = async (query: any) => {
+    const queryString = getSearchQueryString(query);
+    const {data} = await api.get<Course[]>(`/api/course${queryString}`)
     return data;
 }
 
@@ -16,8 +18,9 @@ export const getCourseById = async (id: string) => {
     return data;
 }
 
-export const searchCourse = async (kw: string): Promise<Course[]> => {
-    const {data} = await api.get<Course[]>(`/api/course/search?kw=${kw}`)
+export const searchCourseApi = async (query: any): Promise<Course[]> => {
+    const queryString = getSearchQueryString(query);
+    const {data} = await api.get<Course[]>(`/api/course/search${queryString}`)
     return data;
 }
 

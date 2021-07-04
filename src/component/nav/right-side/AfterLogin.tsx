@@ -9,9 +9,6 @@ import {Button} from 'primereact/button';
 import Course from "../../../model/Course";
 import {MenuItem} from 'primereact/api';
 import WatchListItemComponent from "./WatchListItemComponent";
-import {getTopCourse} from "../../../service/home.service";
-import {RootState} from "../../../redux/store";
-import {useSelector} from 'react-redux';
 import useWindowDimensions from "../../../hook/userWindowDimensions";
 
 interface Props {
@@ -20,14 +17,12 @@ interface Props {
 
 const AfterLogin: React.FC<Props> = ({}) => {
     const {width} = useWindowDimensions();
-    const {topCourses, latestCourses, mostEnrollCourses} = useSelector((state: RootState) => state.home);
     const [watchList, setWatchList] = useState([])
     useEffect(() => {
         loadData().then(r => {
         });
     })
     const loadData = async () => {
-        const _course = await getTopCourse()
     }
     const menuRef = useRef(null);
     const watchListToMenuModels = ((courses: Course[]): MenuItem[] => {
@@ -46,7 +41,7 @@ const AfterLogin: React.FC<Props> = ({}) => {
     return (
         <div className={styles.afterLogin}>
             <div className={styles.myLearning}>
-                <Menu model={watchListToMenuModels(topCourses)} popup ref={menuRef} id="overlay_tmenu"/>
+                <Menu model={[]} popup ref={menuRef} id="overlay_tmenu"/>
                 <Button className={'p-button-rounded p-button-danger'} label={width > 850 ? 'Watch list' : ''}
                         icon={'pi pi-heart'} style={{color: 'rgba(255,255,255,1)'}}
                         onClick={handleToggleMenu}/>

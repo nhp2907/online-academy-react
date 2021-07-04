@@ -26,8 +26,9 @@ const SortComponent: React.FC<Props> = ({header, initValue = '', sortOptions, on
     }
 
     const onChange_ = (e: any) => {
-        setSortOptionIndex(sortOptionIndex === (sortOptions.length - 1) ? 0 : sortOptionIndex + 1);
-        onChange(sortOptions[sortOptionIndex].code)
+        const newIndex = sortOptionIndex === (sortOptions.length - 1) ? 0 : sortOptionIndex + 1;
+        setSortOptionIndex(newIndex);
+        onChange(sortOptions[newIndex].code)
     }
 
     return (
