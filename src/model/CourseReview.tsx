@@ -1,9 +1,11 @@
 import {BaseModel} from "./BaseModel";
 
 export default interface CourseReview extends BaseModel{
-    creatorName: string;
-    createImage: string;
-    createId: string;
+    courseId: string
+    rating: number
+    userName: string;
+    userImage: string;
+    userId: string;
     createdAt: string;
     updatedAt: string;
     content: string;

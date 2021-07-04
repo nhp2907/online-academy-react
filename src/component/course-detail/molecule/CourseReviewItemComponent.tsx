@@ -13,7 +13,7 @@ const CourseReviewItemComponent: React.FC<Props> = ({item}) => {
             <div>
                 <div style={{display: 'flex'}}>
                     <div>
-                        <h3>{item.creatorName}</h3>
+                        <h3>{item.userName}</h3>
                         <span>{item.createdAt}</span>
                     </div>
                     <div>

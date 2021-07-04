@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react'
 import CourseInfoComponent from "../../component/course-detail/CourseInfoComponent";
 
 import styles from '../../component/course-detail/course-detail.module.scss'
-import CourseContentComponent from "../../component/course-detail/CourseContentComponent";
 import InstructorInfoComponent from "../../component/course-detail/InstructorInfoComponent";
 import RelatedCourseComponent from "../../component/course-detail/RelatedCourseComponent";
 import {useSelector} from "react-redux";
@@ -14,10 +13,12 @@ import ReviewsComponent from "../../component/course-detail/ReviewsComponent";
 import CourseReview from "../../model/CourseReview";
 import Nav from "../../component/nav/Nav";
 import BuyTabComponent from "../../component/course-detail/BuyTabComponent";
-import {getCourseById} from "../../service/course.service";
+import {getCourseById, getCourseReviewApi} from "../../service/course.service";
 import Course from "../../model/Course";
 import Instructor from "../../model/Instructor";
 import {getInstructorById} from '../../service/instructor.service'
+import CourseContentComponent from "./component/course-content/CourseContentComponent";
+import {Card} from "primereact/card";
 
 interface Props {
 
@@ -30,13 +31,15 @@ interface RouteParams {
 
 const CourseDetailPage: React.FC<Props> = ({}) => {
     const params: RouteParams = useParams()
-    const [course, setCourse] = useState<Course | null>(null);
+    const [course, setCourse] = useState<Course>();
     const [instructor, setInstructor] = useState<Instructor | null>(null);
+    const [reviews, setReviews] = useState<CourseReview[]>([])
 
     useEffect(() => {
-        getCourseById(params.id).then((c: Course) => setCourse(course));
+        getCourseById(params.id).then((c: Course) => setCourse(c));
         getInstructorById(course?.instructorId || '').then(instructor => setInstructor(instructor));
-    })
+        getCourseReviewApi(course?.id).then(r => setReviews(r));
+    }, [])
 
     const {topCourses} = useSelector((state: RootState) => state.home)
     const feedBack: CourseFeedBackInfo = {
@@ -44,29 +47,25 @@ const CourseDetailPage: React.FC<Props> = ({}) => {
         numReview: 300,
         rating: 4.9
     }
-    const review: CourseReview = {
-        content: 'This course is fantastic! I learned so much so far, and I knew nothing about any programming languages. Thanks Jose!!',
-        createId: 'trunghoangto',
-        createImage: '',
-        creatorName: 'Tô Hoàng Trung\n',
-        createdAt: '04/01/2021 8:33:18\n',
-        updatedAt: ''
+
+    if (course) {
+        return (
+            <div className={styles.courseDetailPage}>
+                <Nav/>
+                <CourseInfoComponent course={course}/>
+                <BuyTabComponent/>
+                <Card title={'Course content'} className={styles.courseContent}>
+                    <CourseContentComponent course={course}/>
+                </Card>
+                <InstructorInfoComponent instructor={instructor}/>
+                <RelatedCourseComponent courses={topCourses}/>
+                <StudentFeedbackComponent item={feedBack}/>
+                <ReviewsComponent items={reviews}/>
+            </div>
+        );
+    } else {
+        return <span>Something broke</span>
     }
-    const reviews = [
-        review, review, review, review
-    ]
-    return (
-        <div className={styles.courseDetailPage}>
-            <Nav/>
-            <CourseInfoComponent/>
-            <BuyTabComponent/>
-            <CourseContentComponent/>
-            <InstructorInfoComponent instructor={instructor}/>
-            <RelatedCourseComponent courses={topCourses}/>
-            <StudentFeedbackComponent item={feedBack}/>
-            <ReviewsComponent items={reviews}/>
-        </div>
-    );
 }
 
 

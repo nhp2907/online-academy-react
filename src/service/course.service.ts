@@ -2,6 +2,7 @@ import api, {get, httpDelete, post, postWithHeader, put, searchByCriteria} from 
 import Course from "../model/Course";
 import CourseChapter from "../model/CourseChapter";
 import CourseVideoInfo from "../model/CourseVideoInfo";
+import CourseReview from "../model/CourseReview";
 
 
 export const getCourseList = async (tag: string) => {
@@ -101,3 +102,25 @@ export const deleteVideoApi = async (item: any): Promise<CourseVideoInfo[]> => {
 }
 
 //endregion
+
+//region Course Review
+export const createCourseReviewApi = async (courseId: any, review: any): Promise<CourseReview> => {
+    const path = `/api/course/${courseId}/review`;
+    const {data} = await post<CourseReview>(path, review);
+    return data;
+}
+
+export const getCourseReviewApi = async (courseId: any): Promise<CourseReview[]> => {
+    const path = `/api/course/${courseId}/review`;
+    const {data} = await get<CourseReview[]>(path);
+    return data;
+}
+
+export const deleteReviewApi = async (item: any): Promise<CourseReview> => {
+    const path = `/api/course/${item.courseId}/review/${item.id}`;
+    const {data} = await httpDelete<CourseReview>(path);
+    return data;
+}
+
+//endregion
+
