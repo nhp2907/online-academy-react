@@ -20,6 +20,11 @@ export const updateUserApi = async (body: any): Promise<User> => {
     const {data} = await put<User>('/api/admin/user', body);
     return data;
 }
+
+export const deleteUserApi = async (id: any): Promise<any> => {
+    const data = await httpDelete<User>(`/api/admin/user/${id}`);
+    return data;
+}
 //endregion
 
 

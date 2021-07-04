@@ -7,7 +7,7 @@ import {Dialog} from 'primereact/dialog';
 import {InputText} from 'primereact/inputtext';
 import '../../data-table.scss';
 import * as userService from '../../../../../service/user.service'
-import {createUserApi, updateUserApi} from '../../../../../service/admin.service'
+import {createUserApi, deleteUserApi, updateUserApi} from '../../../../../service/admin.service'
 import {User} from "../../../../../model/User";
 import SpinnerComponent from "../../../../../component/common/SpinnerComponent";
 import UserInputComponent from "./component/user-input/UserInputComponent";
@@ -118,7 +118,7 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
         setDeleteUserDialog(true);
     }
 
-    const deleteUser = async (rowData: User) => {
+    const disableUser = async (rowData: User) => {
         try {
             let index = findIndexById(rowData.id);
             const user_ = users[index];
@@ -132,6 +132,25 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
         } catch (err) {
             // @ts-ignore
             showToastMessage({severity: 'error', summary: 'Update user failed', detail: err.response.data.message, life: 3000});
+        }
+        // toast.current.show({severity: 'success', summary: 'Successful', detail: 'User Deleted', life: 3000});
+    }
+
+    const deleteUser = async (rowData: User) => {
+        try {
+            let index = findIndexById(rowData.id);
+            const user_ = users[index];
+            user_.status = !user_.status;
+            await deleteUserApi(user_.id);
+            const users_ = [...users]
+            users_.splice(index, 1);
+            setUsers(users_)
+            // @ts-ignore
+            showToastMessage({severity: 'success', summary: 'Successful', detail: 'User is deleted', life: 3000});
+            hideDeleteUserDialog()
+        } catch (err) {
+            // @ts-ignore
+            showToastMessage({severity: 'error', summary: 'Delete user failed', detail: err.response.data.message, life: 3000});
         }
         // toast.current.show({severity: 'success', summary: 'Successful', detail: 'User Deleted', life: 3000});
     }
@@ -160,7 +179,7 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
         return <div onClick={e => e.stopPropagation()} style={{display: "flex", alignItems: "center"}}>
             <InputSwitch className={'p-mr-2'} checked={rowData.status}
                          onChange={(e) => {
-                             deleteUser(rowData)
+                             disableUser(rowData)
                          }}/>
             <span>{!rowData.status ? "Disabled" : 'Enabled'}</span>
         </div>
@@ -182,7 +201,8 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
                         className="p-button-rounded p-button-success p-mr-2"
                         onClick={() => editUser(rowData)}/>
                 <Button icon="pi pi-trash" className="p-button-rounded p-button-danger"
-                        onClick={() => confirmDeleteUser(rowData)}/>
+                        onClick={() => confirmDeleteUser(rowData)}
+                />
             </React.Fragment>
         );
     }
