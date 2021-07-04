@@ -54,7 +54,7 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const loadData = async () => {
-        const _users = await userService.getAll();
+        const _users = await userService.findUserApi();
         setUsers(_users)
     }
 

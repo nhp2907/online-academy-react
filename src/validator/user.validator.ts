@@ -1,14 +1,34 @@
 import {User} from "../model/User";
+import {findUserApi} from "../service/admin.service";
+import { validateUser } from "../service/user.service";
 
-export const validateUsername = (text: string): string => {
-    return text.length < 6 ? 'Username must at least 6 chars' : '';
+export const validateUsername = async (text: string): Promise<string> => {
+    if (!text || text.length < 3) {
+        return 'Username must at least 6 chars';
+    } else {
+        const validateResult = await validateUser({username: text})
+        if (!validateResult.isOk) {
+            return `Username ${text} already taken`;
+        } else {
+            return ''
+        }
+    }
 }
 export const validateName = (firstName: string, lastName: string) => {
     return (firstName + lastName).length < 3 ? 'Name must at least 3 chars' : '';
 }
-export const validateEmail = (text: string) => {
+export const validateEmail = async (text: string) => {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(text).toLowerCase()) ? '' : 'Email is invalid';
+    if (!re.test(String(text).toLowerCase())) {
+        return 'Email pattern is invalidddd';
+    } else {
+        const validateResult = await validateUser({email: text})
+        if (!validateResult.isOk) {
+            return `Email ${text} already taken`;
+        } else {
+            return ''
+        }
+    }
 }
 export const validatePassword = (text: string) => {
     // const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ -/:-@\[-`{-~]).{6,64}$/

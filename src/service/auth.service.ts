@@ -2,9 +2,9 @@ import {User} from "../model/User";
 import UserLoginResponseDto from "../dto/UserLoginResponseDto";
 import api from './api'
 
-export const signup = async (user: User): Promise<User> => {
+export const signup = async (user: User): Promise<UserLoginResponseDto> => {
     console.log(user)
-    const {data} = await api.post<User>('/api/auth/signup', user);
+    const {data} = await api.post<UserLoginResponseDto>('/api/auth/signup', user);
     console.log(data);
     return data;
 }

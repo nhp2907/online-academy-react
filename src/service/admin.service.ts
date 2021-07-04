@@ -5,6 +5,12 @@ import {getSearchQueryString} from "./search.utils";
 
 
 //region User
+export const findUserApi = async (body: any): Promise<User[]> => {
+    const queryString = getSearchQueryString(body);
+    const {data} = await get<User[]>(`/api/admin/user${queryString}`);
+    return data;
+}
+
 export const createUserApi = async (body: any): Promise<User> => {
     const {data} = await post<User>('/api/admin/user', body);
     return data;

@@ -26,7 +26,9 @@ const sampleCourse = {
 const initialState: HomeState = {
     topCourses: [sampleCourse, sampleCourse, sampleCourse, sampleCourse, sampleCourse, sampleCourse],
     latestCourses: [sampleCourse, sampleCourse, sampleCourse, sampleCourse, sampleCourse, sampleCourse],
-    mostEnrollCourses: [sampleCourse, sampleCourse, sampleCourse, sampleCourse, sampleCourse, sampleCourse]
+    mostEnrollCourses: [sampleCourse, sampleCourse, sampleCourse, sampleCourse, sampleCourse, sampleCourse],
+    showToastMessage: message => {
+    }
 }
 
 const homeSlice = createSlice({
