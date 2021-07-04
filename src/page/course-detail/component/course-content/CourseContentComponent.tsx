@@ -17,17 +17,15 @@ const CourseContentComponent: React.FC<Props> = ({course}) => {
 
     return (
         <div> {
-            chapters.length === 0 ?
-                <span style={{fontSize: 16}}>Your course is emtpy! Add a chapter now.</span> :
-                <Accordion multiple activeIndex={[0]}>
-                    {
-                        chapters.map((chapter: CourseChapter) =>
-                            <AccordionTab key={chapter.id} header={chapter.name}>
-                                <CourseChapterComponent chapter={chapter}/>
-                            </AccordionTab>
-                        )
-                    }
-                </Accordion>
+            <Accordion multiple activeIndex={[0]}>
+                {
+                    chapters.map((chapter: CourseChapter) =>
+                        <AccordionTab key={chapter.id} header={chapter.name}>
+                            <CourseChapterComponent chapter={chapter}/>
+                        </AccordionTab>
+                    )
+                }
+            </Accordion>
         }
         </div>
     );

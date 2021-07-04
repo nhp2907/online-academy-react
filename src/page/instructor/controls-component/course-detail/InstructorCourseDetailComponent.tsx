@@ -13,7 +13,7 @@ import Instructor from '../../../../model/Instructor';
 import Course from "../../../../model/Course";
 import {getCourseById} from "../../../../service/course.service";
 import SpinnerComponent from "../../../../component/common/SpinnerComponent";
-import {getInstructorDetail} from "../../../../service/instructor.service";
+import {getInstructorByUserId, getInstructorDetail} from "../../../../service/instructor.service";
 import usePrevious from "../../../../hook/usePrevious";
 
 interface Props extends ControlComponentProps {
@@ -53,7 +53,7 @@ const InstructorCourseDetailComponent: React.FC<Props> = ({}) => {
 
     useEffect(() => {
         console.log('=========== InstructorCourseDetailComponent mouted ============')
-        getInstructorDetail(user?.id || '').then(instructor_ => setInstructor(instructor_));
+        getInstructorByUserId(user?.id || '').then(instructor_ => setInstructor(instructor_));
     }, [])
 
     useEffect(() => {

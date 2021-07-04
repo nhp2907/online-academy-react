@@ -16,7 +16,7 @@ import BuyTabComponent from "../../component/course-detail/BuyTabComponent";
 import {getCourseById, getCourseReviewApi} from "../../service/course.service";
 import Course from "../../model/Course";
 import Instructor from "../../model/Instructor";
-import {getInstructorByUserId} from '../../service/instructor.service'
+import {getInstructorDetail} from '../../service/instructor.service'
 import CourseContentComponent from "./component/course-content/CourseContentComponent";
 import {Card} from "primereact/card";
 
@@ -32,12 +32,14 @@ interface RouteParams {
 const CourseDetailPage: React.FC<Props> = ({}) => {
     const params: RouteParams = useParams()
     const [course, setCourse] = useState<Course>();
-    const [instructor, setInstructor] = useState<Instructor | null>(null);
+    const [instructor, setInstructor] = useState<Instructor>();
     const [reviews, setReviews] = useState<CourseReview[]>([])
 
     useEffect(() => {
-        getCourseById(params.id).then((c: Course) => setCourse(c));
-        getInstructorByUserId(course?.instructorId || '').then(instructor => setInstructor(instructor));
+        getCourseById(params.id).then((c: Course) => {
+            setCourse(c)
+            getInstructorDetail(c.instructorId).then(instructor => setInstructor(instructor));
+        });
         getCourseReviewApi(course?.id).then(r => setReviews(r));
     }, [])
 
@@ -48,11 +50,11 @@ const CourseDetailPage: React.FC<Props> = ({}) => {
         rating: 4.9
     }
 
-    if (course) {
+    if (course && instructor) {
         return (
             <div className={styles.courseDetailPage}>
                 <Nav/>
-                <CourseInfoComponent course={course}/>
+                <CourseInfoComponent course={course} instructor={instructor}/>
                 <BuyTabComponent/>
                 <Card title={'Course content'} className={styles.courseContent}>
                     <CourseContentComponent course={course}/>

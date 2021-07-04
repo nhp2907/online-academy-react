@@ -9,16 +9,16 @@ export const getAllCourse = async (instructorId: string): Promise<Course[]> => {
 }
 
 export const getInstructorByUserId = async (userId: any): Promise<Instructor> => {
-    const {data} = await api.get<Instructor>(`/api/instructor/user/${userId}`);
+    const {data} = await api.get<Instructor>(`/api/public/instructor/user/${userId}`);
     return data;
 }
 
-export const getInstructorById = async (instructorId: string): Promise<Instructor> => {
-    const {data} = await api.get<Instructor>(`/api/instructor/${instructorId}`);
+export const getInstructorById = async (instructorId: any): Promise<Instructor> => {
+    const {data} = await api.get<Instructor>(`/api/public/instructor/${instructorId}`);
     return data;
 }
 
-export const getInstructorDetail = async (instructorId: string): Promise<Instructor> => {
-    const {data} = await api.get<Instructor>(`/api/instructor/${instructorId}`);
+export const getInstructorDetail = async (instructorId: any): Promise<Instructor> => {
+    const {data} = await api.get<Instructor>(`/api/public/instructor/${instructorId}/detail`);
     return data;
 }
