@@ -6,6 +6,7 @@ import styles from '../search-result-page.module.scss'
 import Course from "../../../model/Course";
 import {getCourseApi, searchCourseApi} from '../../../service/course.service'
 import usePrevious from "../../../hook/usePrevious";
+import { useHistory } from 'react-router-dom';
 
 interface Props {
 
@@ -16,6 +17,7 @@ interface RouteParams {
 }
 
 const SearchResultMainComponent: React.FC<Props> = ({}) => {
+    const history = useHistory()
     const [courses, setCourses] = useState<Course[]>([]);
     const [kw, setKw] = useState('');
     const [categoryName, setCategoryName] = useState('');
@@ -53,7 +55,8 @@ const SearchResultMainComponent: React.FC<Props> = ({}) => {
                     console.log('filter courses', filteredCourse);
                     setCourses(filteredCourse)
                 }}/>
-                <ListCourseComponent emptyMessage={"No course match your keyword!"} courses={courses}/>
+                <ListCourseComponent emptyMessage={"No course match your keyword!"} courses={courses}
+                itemOnClick={(item) => history.push(`/course/${item.id}`)}/>
             </div>
         </div>
     );
