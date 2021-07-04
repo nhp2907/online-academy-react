@@ -15,6 +15,7 @@ interface Props {
 
 const Login: React.FC<Props> = ({}) => {
     const user = useSelector((s: RootState) => s.auth.user);
+    const showToastMessage = useSelector((s: RootState) => s.home.showToastMessage)
     const [username, setUsername] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const dispatch = useDispatch();
@@ -33,9 +34,11 @@ const Login: React.FC<Props> = ({}) => {
             const data = await login(username, password);
             console.log('login data: ', data);
             dispatch(setAuth(data));
+            // @ts-ignore
+            showToastMessage({severity: 'success', summary: 'Successfully', detail: 'Login successfully'});
         } catch (err: any) {
             // @ts-ignore
-            toast.current.show({severity: 'error', summary: "Login failed", detail: err?.response?.data.message || 'Something broken!'});
+            showToastMessage({severity: 'error', summary: "Login failed", detail: err?.response?.data.message || 'Something broken!'});
             console.log( err.constructor.name);
         }
     }

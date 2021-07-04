@@ -1,40 +1,46 @@
 import React, {MouseEventHandler, useRef, useState} from 'react'
-import {Link, Redirect} from 'react-router-dom'
+import {Link, Redirect, useHistory} from 'react-router-dom'
 import styles from "./css/signup.module.scss";
 import rocketSvg from "../../img/rocket.svg";
 import CommonInput from '../../component/common/CommonInput';
 import {Toast} from "primereact/toast";
 import {RootState} from "../../redux/store";
-import { useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {validateEmail, validateName, validatePassword, validateRepeatPassword, validateUsername} from '../../validator/user.validator';
+import {signup} from '../../service/auth.service';
+import {User} from '../../model/User';
+import { setAuth } from '../../redux/auth/auth.slice';
 
 interface Props {
 
 }
 
 const Signup: React.FC<Props> = ({}) => {
+    const dispatch = useDispatch();
     const user = useSelector((s: RootState) => s.auth.user);
-    const toast = useRef<Toast>(null);
+    const showToastMessage = useSelector((s: RootState) => s.home.showToastMessage)
     const [signUpSuccess, setSignUpSuccess] = useState(false);
     const handleSubmit: MouseEventHandler<HTMLElement> = async (event) => {
         event.preventDefault();
-        // const user: User = {
-        //     firstName,
-        //     lastName,
-        //     username,
-        //     email,
-        //     password
-        // }
-        // await signup(user);
-        // console.log('sign up successfully');
-        //
-        // console.log(toast);
-        // @ts-ignore
-        toast.current.show({severity: 'success', summary: 'Success Message', detail: 'Order submitted'});
-        window.location.href = '/';
-        // const userLoginResponseDto = await login(username, password);
-        // setSignUpSuccess(true);
-        // eslint-disable-next-line no-restricted-globals
-        // history.pushState(null, '/login');
+        const user: User = {
+            firstName,
+            lastName,
+            username,
+            email,
+            password
+        }
+        try {
+            const data =await signup(user);
+            // @ts-ignore
+            showToastMessage({severity: 'success', summary: 'Successfully', detail: 'Sign up successfully'});
+            // window.location.href = '/';
+            dispatch(setAuth(data));
+            // history.push('/');
+        } catch (err) {
+            // @ts-ignore
+            showToastMessage({severity: 'error', summary: "Login failed", detail: err?.response?.data.message || 'Something broken!'});
+        }
+
     }
 
     const [username, setUsername] = useState('');
@@ -43,40 +49,24 @@ const Signup: React.FC<Props> = ({}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [repeatPassword, setRepeatPassword] = useState('');
+    const [inputValid, setInputValid] = useState(false);
 
-    const validateUsername = (text: string): string => {
-        return text.length < 6 ? 'Username must at least 6 chars' : '';
-    }
-    const validateName = (firstName: string, lastName: string) => {
-        return (firstName + lastName).length < 3 ? 'Name must at least 3 chars' : '';
-    }
-    const validateEmail = (text: string) => {
-        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(text).toLowerCase()) ? '' : 'Email is invalid';
-    }
-    const validatePassword = (text: string) => {
-        // const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ -/:-@\[-`{-~]).{6,64}$/
-        // return re.test(text) ? '' : 'Password is invalid';
-        // return text.length > 5 ? '' : 'Password is invalid';
-        return ''
-    }
-    const validateRepeatPassword = (pass: string, repeat: string) => {
-        return pass === repeat ? '' : 'Password does not match';
-    }
-
-    const inputValid = () => {
-        return !validateUsername(username)
-            && !validateEmail(email)
+    const checkInputValid = async () => {
+        const userNameValid = await validateUsername(username);
+        const emailValid = await validateUsername(email);
+        const isValid = !userNameValid
+            && !emailValid
             && !validateName(firstName, lastName)
             && !validatePassword(password)
             && !validateRepeatPassword(password, repeatPassword)
+        console.log(isValid);
+        setInputValid(isValid);
     }
     if (user) {
         return <Redirect to={'/'}/>
     }
     return (
         <div className={styles.container}>
-            <Toast ref={toast}/>
             <div className={styles["forms-container"]}>
                 <div className={styles["signin-signup"]}>
                     <form action="/signup" name="signUpForm" method="POST" id="sign-up-form"
@@ -103,7 +93,7 @@ const Signup: React.FC<Props> = ({}) => {
                                      inputContainerClassName={styles["input-field"]}/>
                         <CommonInput value={lastName} placeholder={'Lastname'}
                                      onChange={e => setLastName(e.target.value)}
-                                     validate={text => validateName(firstName, lastName)}
+                                     validate={text => validateName(firstName, text)}
                                      containerClassName={styles['input-field-container']}
                                      errorMessageClassName={styles['error']}
                                      inputContainerClassName={styles["input-field"]}/>
@@ -119,34 +109,13 @@ const Signup: React.FC<Props> = ({}) => {
                                      containerClassName={styles['input-field-container']}
                                      errorMessageClassName={styles['error']}
                                      inputContainerClassName={styles["input-field"]}/>
-                        {/*<div className={styles["input-field"]}>*/}
-                        {/*    <i className="fas fa-user"></i>*/}
-                        {/*    <input type="text" placeholder="Username" name="username" id="signUpUsernameInput"*/}
-                        {/*           autoComplete="none"/>*/}
-                        {/*</div>*/}
-                        {/*<div className={styles["input-field"]}>*/}
-                        {/*    <i className="fas fa-envelope"></i>*/}
-                        {/*    <input type="email" placeholder="Email" name="email"/>*/}
-                        {/*</div>*/}
-                        {/*<div className={styles["input-field"]}>*/}
-                        {/*    <i className="fas fa-user"></i>*/}
-                        {/*    <input type="text" placeholder="First name" name="firstName"/>*/}
-                        {/*</div>*/}
-                        {/*<div className={styles["input-field"]}>*/}
-                        {/*    <i className="fas fa-user"></i>*/}
-                        {/*    <input type="text" placeholder="Last name" name="lastName"/>*/}
-                        {/*</div>*/}
-                        {/*<div className={styles["input-field"]}>*/}
-                        {/*    <i className="fas fa-lock"></i>*/}
-                        {/*    <input type="password" placeholder="Password" name="password" id="signUpPasswordInput"/>*/}
-                        {/*</div>*/}
 
                         {/*<div className={styles["input-field"]}>*/}
                         {/*    <i className="fas fa-lock"></i>*/}
                         {/*    <input type="password" placeholder="Confirm password" name="confirmPassword"/>*/}
                         {/*</div>*/}
 
-                        <input type="submit" className={styles["btn"]} value="Sign up" disabled={!inputValid()}
+                        <input type="submit" className={styles["btn"]} value="Sign up" disabled={inputValid}
                                onClick={handleSubmit}/>
                         <p className={styles['social-text']} style={{textAlign: 'center'}}>Or Sign up with social
                             platforms</p>

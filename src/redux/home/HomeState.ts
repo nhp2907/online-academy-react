@@ -6,5 +6,5 @@ export default interface HomeState {
     latestCourses: Course[];
     mostEnrollCourses: Course[];
     message?: ToastMessageType;
-    showToastMessage?: (message: ToastMessageType) => void
+    showToastMessage: (message: ToastMessageType) => void
 }
