@@ -148,6 +148,10 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
         return index;
     }
 
+    const indexTemplate = (cc: any, props: any) => {
+        return <span>{props.rowIndex + 1}</span>
+    }
+
     const nameBodyTemplate = (rowData: User) => {
         return <span>{`${rowData.firstName} ${rowData.lastName}`}</span>
     }
@@ -190,8 +194,8 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
                 <Button label="New" icon="pi pi-plus" style={{marginRight: 10, fontSize: 15}}
                         className=" p-button-success p-mr-2"
                         onClick={openNew}/>
-                <Button label="Delete" icon="pi pi-trash" className="p-button-text p-button-danger" style={{marginRight: 10, fontSize: 15}}
-                        disabled={!selectedUsers || !selectedUsers.length}/>
+                {/*<Button label="Delete" icon="pi pi-trash" className="p-button-text p-button-danger" style={{marginRight: 10, fontSize: 15}}*/}
+                {/*        disabled={!selectedUsers || !selectedUsers.length}/>*/}
             </div>
             <span className="p-input-icon-left">
                 <i className="pi pi-search"/>
@@ -205,6 +209,13 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
     if (isLoading) {
         return <SpinnerComponent/>
     }
+
+    const deleteUserDialogFooter = (
+        <React.Fragment>
+            <Button label="No" icon="pi pi-times" className="p-button-text" onClick={hideDeleteUserDialog}/>
+            <Button label="Yes" icon="pi pi-check" className="p-button-text" onClick={() => deleteUser(user)}/>
+        </React.Fragment>
+    );
     return (
         <div className="datatable-crud-demo">
             <div className="card">
@@ -221,14 +232,15 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
                     {/*<Column selectionMode="multiple" headerStyle={{width: '3rem'}}/>*/}
                     {/*<Column header="Id" body={idTemplate}/>*/}
                     {/*<Column header="Image" body={imageBodyTemplate}/>*/}
+                    <Column header={''} body={indexTemplate} style={{maxWidth: 50, width: '5%'}}/>
                     <Column field={'username'} header="Username" sortable/>
                     <Column header="Name" body={nameBodyTemplate}/>
                     <Column field={'email'} header="Email" sortable/>
-                    <Column field={'role'} header="Role" sortable/>
-                    <Column field={'status'} header="Status" body={statusBody}/>
+                    <Column field={'role'} header="Role" sortable style={{maxWidth: 100, width: '10%'}}/>
+                    <Column field={'status'} header="Status" body={statusBody} style={{maxWidth: 100, width: '15%'}}/>
                     {/*<Column field="rating" header="Reviews" body={ratingBodyTemplate} sortable/>*/}
                     {/*<Column field="inventoryStatus" header="Status" body={statusBodyTemplate} sortable/>*/}
-                    <Column body={actionBodyTemplate}/>
+                    <Column body={actionBodyTemplate} style={{maxWidth: 120, width: '15%'}}/>
                 </DataTable>
             </div>
 
@@ -240,10 +252,11 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
             </Dialog>
 
             <Dialog visible={deleteUserDialog} style={{width: '450px'}} header="Confirm" modal
-                    onHide={hideDeleteUserDialog}>
+                    onHide={hideDeleteUserDialog}
+                    footer={deleteUserDialogFooter}>
                 <div className="confirmation-content">
                     <i className="pi pi-exclamation-triangle p-mr-3" style={{fontSize: '2rem'}}/>
-                    {user && <span>Are you sure you want to delete <b>{user.firstName}</b>?</span>}
+                    {user && <span>Are you sure you want to delete <b>{`${user.firstName} ${user.lastName}`}</b>?</span>}
                 </div>
             </Dialog>
 
