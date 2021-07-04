@@ -1,14 +1,21 @@
 import api from './api'
 import Course from "../model/Course";
 import Instructor from "../model/Instructor";
+import {getSearchQueryString} from "./search.utils";
 
 export const getAllCourse = async (instructorId: string): Promise<Course[]> => {
     const {data} = await api.get<Course[]>(`/api/course?instructorId=${instructorId}`);
     return data;
 }
 
+export const getInstructorByUserId = async (instructorId: string): Promise<Instructor> => {
+    const queryString = getSearchQueryString({userId: instructorId})
+    const {data} = await api.get<Instructor>(`/api/instructor${queryString}`);
+    return data;
+}
+
 export const getInstructorById = async (instructorId: string): Promise<Instructor> => {
-    const {data} = await api.get<Instructor>(`/api/user/${instructorId}`);
+    const {data} = await api.get<Instructor>(`/api/instructor/${instructorId}`);
     return data;
 }
 

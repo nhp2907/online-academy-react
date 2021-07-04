@@ -16,7 +16,7 @@ import BuyTabComponent from "../../component/course-detail/BuyTabComponent";
 import {getCourseById, getCourseReviewApi} from "../../service/course.service";
 import Course from "../../model/Course";
 import Instructor from "../../model/Instructor";
-import {getInstructorById} from '../../service/instructor.service'
+import {getInstructorByUserId} from '../../service/instructor.service'
 import CourseContentComponent from "./component/course-content/CourseContentComponent";
 import {Card} from "primereact/card";
 
@@ -37,7 +37,7 @@ const CourseDetailPage: React.FC<Props> = ({}) => {
 
     useEffect(() => {
         getCourseById(params.id).then((c: Course) => setCourse(c));
-        getInstructorById(course?.instructorId || '').then(instructor => setInstructor(instructor));
+        getInstructorByUserId(course?.instructorId || '').then(instructor => setInstructor(instructor));
         getCourseReviewApi(course?.id).then(r => setReviews(r));
     }, [])
 
