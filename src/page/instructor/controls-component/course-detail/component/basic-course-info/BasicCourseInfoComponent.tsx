@@ -48,21 +48,16 @@ const BasicCourseInfoComponent: React.FC<Props> = ({course, instructor}) => {
         setCategoriesLevel2(level2Cates)
     }, [updateCourse.categoryId, updateCourse.subCategoryId])
 
-    // useEffect(() => {
-    //     const filterCourse: Course = {
-    //         ...course,
-    //         name: course.name || '',
-    //         description: course.description || '',
-    //         headline: course.headline || '',
-    //         price: course.price || 0
-    //     }
-    //     console.log('filter course', filterCourse);
-    //     console.log('test', test)
-    //     setUpdateCourse(filterCourse);
-    //     setTest(filterCourse.headline)
-    //     console.log(test)
-    //     console.log('updatecourse', updateCourse);
-    // }, [course])
+    useEffect(() => {
+        const filterCourse: Course = {
+            ...course,
+            name: course.name || '',
+            description: course.description || '',
+            headline: course.headline || '',
+            price: course.price || 0
+        }
+        setUpdateCourse(filterCourse);
+    }, [course])
 
     const handleSubmit = async () => {
         try {
@@ -75,6 +70,16 @@ const BasicCourseInfoComponent: React.FC<Props> = ({course, instructor}) => {
                 await uploadCourseImageApi(updateCourse.id || '', formData)
                 message = 'Course is updated';
             } else {
+                if (!imageFile) {
+                    // @ts-ignore
+                    showToastMessage({
+                        severity: 'error',
+                        summary: 'Failed!',
+                        detail: "Cover photo not found!",
+                        sticky: true
+                    })
+                    return;
+                }
                 updateCourse.instructorId = instructor?.id;
                 const course = await createCourse(updateCourse);
                 await uploadCourseImageApi(course.id || '', formData)
@@ -107,7 +112,8 @@ const BasicCourseInfoComponent: React.FC<Props> = ({course, instructor}) => {
         return !validateName(updateCourse.name)
             && !validateHeadline(updateCourse.headline)
             && !validatePrice(updateCourse.price)
-            && !validateDescription(updateCourse.description);
+            && !validateDescription(updateCourse.description)
+            && imageFile;
     }
 
     return (

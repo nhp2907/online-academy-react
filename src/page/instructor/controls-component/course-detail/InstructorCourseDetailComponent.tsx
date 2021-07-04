@@ -31,7 +31,7 @@ const InstructorCourseDetailComponent: React.FC<Props> = ({}) => {
         id: null,
         categoryId: '',
         instructorId: instructor?.id,
-        name: 'a',
+        name: '',
         author: '',
         price: 0,
         prePrice: 0,
@@ -52,6 +52,7 @@ const InstructorCourseDetailComponent: React.FC<Props> = ({}) => {
     const previous = usePrevious({course})
 
     useEffect(() => {
+        console.log('=========== InstructorCourseDetailComponent mouted ============')
         getInstructorDetail(user?.id || '').then(instructor_ => setInstructor(instructor_));
     }, [])
 
@@ -60,7 +61,7 @@ const InstructorCourseDetailComponent: React.FC<Props> = ({}) => {
 
     useEffect(() => {
         loadData().then(r => setIsLoading(false));
-    }, [user, params])
+    }, [user, params.id])
 
     const loadData = async () => {
         if (params.id) {
@@ -68,7 +69,6 @@ const InstructorCourseDetailComponent: React.FC<Props> = ({}) => {
 
             } else {
                 const course_ = await getCourseById(params.id);
-                console.log('course', course_);
                 setCourse(course_)
             }
         }
