@@ -26,7 +26,7 @@ interface RouteParams {
 const InstructorCourseDetailComponent: React.FC<Props> = ({}) => {
     const [isLoading, setIsLoading] = useState(true);
     const user = useSelector((s: RootState) => s.auth.user);
-    const [instructor, setInstructor] = useState<Instructor | null>(null);
+    const [instructor, setInstructor] = useState<Instructor>();
     const [course, setCourse] = useState<Course>({
         id: null,
         categoryId: '',
@@ -66,7 +66,7 @@ const InstructorCourseDetailComponent: React.FC<Props> = ({}) => {
     const loadData = async () => {
         if (params.id) {
             if (params.id === 'new') {
-
+                setCourse({...course, instructorId: instructor?.id})
             } else {
                 const course_ = await getCourseById(params.id);
                 setCourse(course_)
@@ -78,21 +78,25 @@ const InstructorCourseDetailComponent: React.FC<Props> = ({}) => {
         return <SpinnerComponent/>
     }
 
-    return (
-        <div className={styles.instructorCourseDetail}>
-            <TabView activeIndex={0} className={'profile-tabview'}>
-                <TabPanel header="Basic info">
-                    <BasicCourseInfoComponent course={course} instructor={instructor}/>
-                </TabPanel>
-                <TabPanel header="Content">
-                    <CourseContentComponent courseInfo={course}/>
-                </TabPanel>
-                <TabPanel header="Public">
-                    <PublicCourseComponent/>
-                </TabPanel>
-            </TabView>
-        </div>
-    );
+    if (instructor) {
+        return (
+            <div className={styles.instructorCourseDetail}>
+                <TabView activeIndex={0} className={'profile-tabview'}>
+                    <TabPanel header="Basic info">
+                        <BasicCourseInfoComponent course={course} instructor={instructor}/>
+                    </TabPanel>
+                    <TabPanel header="Content">
+                        <CourseContentComponent courseInfo={course}/>
+                    </TabPanel>
+                    <TabPanel header="Public">
+                        <PublicCourseComponent/>
+                    </TabPanel>
+                </TabView>
+            </div>
+        );
+    } else {
+        return <span>Some thing broke</span>;
+    }
 }
 
 

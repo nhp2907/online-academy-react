@@ -7,22 +7,33 @@ import styles from './instructor-course.module.scss'
 import {ProgressSpinner} from "primereact/progressspinner";
 import {Button} from 'primereact/button';
 import {Link, useHistory} from 'react-router-dom';
+import Instructor from "../../../../model/Instructor";
+import {getInstructorByUserId} from "../../../../service/instructor.service";
+import {useSelector} from "react-redux";
+import {RootState} from "../../../../redux/store";
 
 interface Props {
-    user: User | null
 }
 
-const InstructorCourseManagementComponent: React.FC<Props> = ({user}) => {
+const InstructorCourseManagementComponent: React.FC<Props> = ({}) => {
     const history = useHistory();
+    const user = useSelector((state: RootState) => state.auth.user);
     const [courses, setCourses] = useState<Course[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [instructor, setInstructor] = useState<Instructor>()
     useEffect(() => {
+        console.log(user)
+        if (user) {
             loadData().then(r => setIsLoading(false))
-    }, [])
+        }
+    }, [user])
 
     const loadData = async () => {
+        const instructor_ = await getInstructorByUserId(user?.id);
+        setInstructor(instructor_)
+
         const data = await searchCourseByCriteria({
-            // instructorId: user?.id
+            instructorId: instructor_?.id
         });
         setCourses(data)
     }

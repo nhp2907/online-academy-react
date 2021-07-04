@@ -8,9 +8,8 @@ export const getAllCourse = async (instructorId: string): Promise<Course[]> => {
     return data;
 }
 
-export const getInstructorByUserId = async (instructorId: string): Promise<Instructor> => {
-    const queryString = getSearchQueryString({userId: instructorId})
-    const {data} = await api.get<Instructor>(`/api/instructor${queryString}`);
+export const getInstructorByUserId = async (userId: any): Promise<Instructor> => {
+    const {data} = await api.get<Instructor>(`/api/instructor/user/${userId}`);
     return data;
 }
 

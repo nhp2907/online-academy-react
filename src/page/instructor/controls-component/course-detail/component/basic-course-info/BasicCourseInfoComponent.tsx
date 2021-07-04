@@ -16,7 +16,7 @@ import Instructor from "../../../../../../model/Instructor";
 import {useHistory, useParams} from 'react-router-dom';
 
 interface Props {
-    instructor: Instructor | null,
+    instructor: Instructor
     course: Course
 }
 
