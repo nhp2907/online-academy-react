@@ -4,6 +4,7 @@ import CourseChapter from "../model/CourseChapter";
 import CourseVideoInfo from "../model/CourseVideoInfo";
 import {getSearchQueryString} from "./search.utils";
 import CourseReview from "../model/CourseReview";
+import CourseFeedBackInfo from "../model/CourseFeedBackInfo";
 
 
 export const getCourseApi = async (query: any) => {
@@ -125,5 +126,14 @@ export const deleteReviewApi = async (item: any): Promise<CourseReview> => {
     return data;
 }
 
+//endregion
+
+
+//region Course Feedback
+export const getCourseFeedBackApi = async (courseId: any): Promise<CourseFeedBackInfo> => {
+    const path = `/api/course/${courseId}/feedback`;
+    const {data} = await get<CourseFeedBackInfo>(path);
+    return data;
+}
 //endregion
 

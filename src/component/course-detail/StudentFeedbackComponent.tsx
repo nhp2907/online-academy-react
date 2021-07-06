@@ -5,7 +5,7 @@ import CourseFeedBackInfo from "../../model/CourseFeedBackInfo";
 import { Card } from 'primereact/card';
 
 interface Props {
-    item: CourseFeedBackInfo
+    item: any
 }
 
 const StudentFeedbackComponent: React.FC<Props> = ({item: {percents, rating, numReview}}) => {
@@ -13,13 +13,13 @@ const StudentFeedbackComponent: React.FC<Props> = ({item: {percents, rating, num
         <Card className={styles.studentFeedBack} title={'Student feedback'}>
             <div className={styles.content}>
                 <div className={styles.left}>
-                    <h2>{rating}</h2>
-                    <div>start rating</div>
+                    <h2>{Math.round((rating + Number.EPSILON) * 10) / 10}</h2>
+                    {/*<div>start rating</div>*/}
                     <span>{`Total ${numReview} reviews`}</span>
                 </div>
                 <div className={styles.right}>
                     {
-                        percents.map((p, i) => <StarBar percent={p} level={(5 - i) + ''}/>)
+                        percents.map((p:any, i:number) => <StarBar percent={p} level={(5 - i) + ''}/>)
                     }
                 </div>
             </div>

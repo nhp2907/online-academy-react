@@ -72,7 +72,7 @@ const CourseChapterComponent: React.FC<Props> = ({item}) => {
             <Dialog header={'Add chapter'} visible={addVideoVisible} onHide={() => setAddVideoVisible(false)}>
                 <AddVideoComponent onCreateVideo={(newVideo: any) => {
                     setAddVideoVisible(false);
-                    createCourseVideo({...newVideo, chapterId: item?.id || '', id: item?.videos?.length || ''})
+                    createCourseVideo({...newVideo, chapterId: item?.id || ''})
                         .then(r => {
                         })
                 }}/>

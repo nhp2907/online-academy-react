@@ -1,8 +1,11 @@
+@import "./src/assets/animation";
 $marginLeft: 10%;
 $leftWidth: 60%;
+
 .courseDetailPage {
   margin-bottom: 50px;
   background-color: #F8F9FA;
+  @include pageLoadAnimation(0.5s);
 
   .courseInfo {
     width: 100%;

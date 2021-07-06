@@ -3,6 +3,7 @@ import React from 'react'
 import styles from './course-detail.module.scss'
 import Course from "../../model/Course";
 import Instructor from "../../model/Instructor";
+import {Rating} from 'primereact/rating'
 
 interface Props {
     course: Course
@@ -21,7 +22,7 @@ const CourseInfoComponent: React.FC<Props> = ({course, instructor}) => {
                 <span className={styles.headline}>{course.headline}</span>
                 <div className={styles.ratingContainer}>
                     <span className={styles.status}>{course.status}</span>
-                    <span className={styles.ratingNumber}>4.5</span>
+                    <Rating value={4.5} cancel={false} style={{color: 'orange'}} />
                     <span className={styles.numOfRating}>{course.numReview}</span>
                     <span className={styles.numOfStudent}>{course.numStudentEnroll}</span>
                 </div>

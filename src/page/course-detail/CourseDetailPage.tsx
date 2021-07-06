@@ -13,12 +13,13 @@ import ReviewsComponent from "../../component/course-detail/ReviewsComponent";
 import CourseReview from "../../model/CourseReview";
 import Nav from "../../component/nav/Nav";
 import BuyTabComponent from "../../component/course-detail/BuyTabComponent";
-import {getCourseById, getCourseReviewApi} from "../../service/course.service";
+import {getCourseById, getCourseFeedBackApi, getCourseReviewApi} from "../../service/course.service";
 import Course from "../../model/Course";
 import Instructor from "../../model/Instructor";
 import {getInstructorDetail} from '../../service/instructor.service'
 import CourseContentComponent from "./component/course-content/CourseContentComponent";
 import {Card} from "primereact/card";
+import SpinnerComponent from "../../component/common/SpinnerComponent";
 
 interface Props {
 
@@ -30,25 +31,29 @@ interface RouteParams {
 
 
 const CourseDetailPage: React.FC<Props> = ({}) => {
+    const initialFeedBack: CourseFeedBackInfo = {
+        percents: [10, 10, 10, 10, 10],
+        numReview: 0,
+        rating: 0
+    }
+
     const params: RouteParams = useParams()
     const [course, setCourse] = useState<Course>();
     const [instructor, setInstructor] = useState<Instructor>();
     const [reviews, setReviews] = useState<CourseReview[]>([])
+    const [feedBack, setFeedBack] = useState<any>(initialFeedBack)
 
     useEffect(() => {
         getCourseById(params.id).then((c: Course) => {
             setCourse(c)
             getInstructorDetail(c.instructorId).then(instructor => setInstructor(instructor));
+            getCourseFeedBackApi(c?.id).then(r => setFeedBack(r));
+            getCourseReviewApi(c?.id).then(r => setReviews(r));
         });
-        getCourseReviewApi(course?.id).then(r => setReviews(r));
     }, [])
 
+
     const {topCourses} = useSelector((state: RootState) => state.home)
-    const feedBack: CourseFeedBackInfo = {
-        percents: [80, 10, 5, 3, 2],
-        numReview: 300,
-        rating: 4.9
-    }
 
     if (course && instructor) {
         return (
@@ -66,7 +71,7 @@ const CourseDetailPage: React.FC<Props> = ({}) => {
             </div>
         );
     } else {
-        return <span>Something broke</span>
+        return <SpinnerComponent/>
     }
 }
 

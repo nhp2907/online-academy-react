@@ -32,10 +32,12 @@ const InstructorCourseManagementComponent: React.FC<Props> = ({}) => {
         const instructor_ = await getInstructorByUserId(user?.id);
         setInstructor(instructor_)
 
-        const data = await searchCourseByCriteria({
-            instructorId: instructor_?.id
-        });
-        setCourses(data)
+        if (instructor_) {
+            const data = await searchCourseByCriteria({
+                instructorId: instructor_?.id
+            });
+            setCourses(data)
+        }
     }
 
     if (isLoading) {
