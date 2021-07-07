@@ -19,6 +19,8 @@ const RelatedCourseItem: React.FC<Props> = ({item}) => {
             <div className={styles.info}>
                 <div className={styles.basicInfo}>
                     <h4 className={styles.name}>{item.name}</h4>
+                    {item.author ? <p className={styles.author}><small>Author </small><strong>{item.author}</strong></p> : ''}
+                    {item.categoryName ? <p className={styles.author}><small>Category </small><strong>{item.categoryName}</strong></p> : ''}
                     <div className={styles.statusAndTime}>
                         <span className={styles.status}> {item.status}</span>
                         <span className={styles.time}>{item.updatedAt}</span>
@@ -26,15 +28,15 @@ const RelatedCourseItem: React.FC<Props> = ({item}) => {
                 </div>
                 <div className={styles.ratingContainer}>
                     <div className={styles.rating}>
-                        <span>{item.rating}</span>
+                        <span>{Math.round((item.rating + Number.EPSILON) * 10) / 10}</span>
                         <FontAwesomeIcon icon={faStar} color={'#FFA500'} style={{textAlign: "center"}}/>
                     </div>
                     <div className={styles.numOfMember}>
-                        <span>{item.rating}</span>
+                        <span>{item.numStudentEnroll}</span>
                         <FontAwesomeIcon icon={faUsers} color={'#FFA500'} style={{textAlign: "center"}}/>
                     </div>
                     <div className={styles.cost}>
-                        <h4>{item.price} {item.concurrency}</h4>
+                        <h4>{item.price} {item.concurrency || 'USD'}</h4>
                         {
                             item.prePrice ? <span>{item.prePrice} {item.concurrency}</span> : ''
                         }

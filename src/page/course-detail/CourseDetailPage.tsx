@@ -32,7 +32,7 @@ interface RouteParams {
 
 const CourseDetailPage: React.FC<Props> = ({}) => {
     const initialFeedBack: CourseFeedBackInfo = {
-        percents: [10, 10, 10, 10, 10],
+        percents: [1, 1, 1, 1, 1],
         numReview: 0,
         rating: 0
     }
