@@ -17,12 +17,12 @@ const CourseInfoComponent: React.FC<Props> = ({course, instructor}) => {
                 <div className={styles.image}>
                     <img src={course.image} alt=""/>
                 </div>
-                <div className={styles.breadcrumb}></div>
                 <h2 className={styles.name}>{course.name}</h2>
                 <span className={styles.headline}>{course.headline}</span>
                 <div className={styles.ratingContainer}>
-                    <span className={styles.status}>{course.status}</span>
-                    <Rating value={4.5} cancel={false} style={{color: 'orange'}} />
+                    {/*<span className={styles.status}>{course.status}</span>*/}
+                    <span className={styles.ratingNumber}>{Math.round((course.rating + Number.EPSILON) * 10) / 10}</span>
+                    <Rating value={Math.round((course.rating + Number.EPSILON) * 10) / 10} cancel={false} style={{color: 'orange'}}/>
                     <span className={styles.numOfRating}>{course.numReview}</span>
                     <span className={styles.numOfStudent}>{course.numStudentEnroll}</span>
                 </div>

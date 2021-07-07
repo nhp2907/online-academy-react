@@ -2,7 +2,7 @@ import React from 'react'
 
 import styles from './course-detail.module.scss'
 import CourseFeedBackInfo from "../../model/CourseFeedBackInfo";
-import { Card } from 'primereact/card';
+import {Card} from 'primereact/card';
 
 interface Props {
     item: any
@@ -19,7 +19,7 @@ const StudentFeedbackComponent: React.FC<Props> = ({item: {percents, rating, num
                 </div>
                 <div className={styles.right}>
                     {
-                        percents.map((p:any, i:number) => <StarBar percent={p} level={(5 - i) + ''}/>)
+                        percents.map((p: any, i: number) => <StarBar key={i} percent={p} level={(5 - i) + ''}/>)
                     }
                 </div>
             </div>
@@ -36,7 +36,7 @@ const StarBar: React.FC<StarBarProps> = ({percent, level}) => {
     return (
         <div style={{display: 'flex', alignItems: 'center'}}>
             <span style={{marginRight: 10}}>{level}</span>
-            <div style={{height: 10, width: `${percent}%`,backgroundColor: '#FF8C00'}}>
+            <div style={{height: 10, width: `${percent}%`, backgroundColor: '#FF8C00'}}>
 
             </div>
         </div>

@@ -137,3 +137,9 @@ export const getCourseFeedBackApi = async (courseId: any): Promise<CourseFeedBac
 }
 //endregion
 
+export const getRelatedCourseApi = async (courseId: any): Promise<Course[]> => {
+    const path = `/api/course/${courseId}/related`;
+    const {data} = await get<Course[]>(path);
+    return data;
+}
+

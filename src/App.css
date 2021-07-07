@@ -70,3 +70,12 @@ option {
 .p-tooltip {
     font-size: 14px !important;
 }
+
+.p-rating .p-rating-icon {
+    color: orange;
+}
+
+.p-rating {
+
+}
+

@@ -11,19 +11,7 @@ import 'primereact/resources/themes/saga-blue/theme.css'
 import 'primereact/resources/primereact.min.css'
 import 'primeicons/primeicons.css'
 
-import {HomePage} from "./page/home/HomePage";
-import CourseDetailPage from "./page/course-detail/CourseDetailPage";
 import {PersistGate} from "redux-persist/integration/react";
-import SearchCourseResultPage from "./page/search-course-result-page/SearchCourseResultPage";
-import ManagementPage from "./page/management-page/ManagementPage";
-import {
-    adminDefaultRoute,
-    adminRouteList,
-    instructorDefaultRoute,
-    instructorRouteList
-} from "./config/managementRouteConfig";
-import UserRole from "./model/UserRole";
-import UserProfilePage from "./page/user-profile/UserProfilePage";
 import PageContainer from "./page/PageContainer";
 
 function App() {

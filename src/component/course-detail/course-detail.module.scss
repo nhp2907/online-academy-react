@@ -1,15 +1,17 @@
 @import "./src/assets/animation";
+
 $marginLeft: 10%;
 $leftWidth: 60%;
 
 .courseDetailPage {
   margin-bottom: 50px;
-  background-color: #F8F9FA;
+  background-color: #fcfcfc;
   @include pageLoadAnimation(0.5s);
 
   .courseInfo {
     width: 100%;
     background-color: #212932;
+    padding-bottom: 10px;
 
     .content {
       width: 70%;
@@ -51,16 +53,15 @@ $leftWidth: 60%;
         color: white;
 
         .status {
-
           margin-right: $marginRight;
         }
 
         .ratingNumber {
           margin-right: $marginRight;
+          color: orange;
         }
 
         .starRating {
-
           margin-right: $marginRight;
         }
 
@@ -97,13 +98,22 @@ $leftWidth: 60%;
     width: $leftWidth;
   }
 
+  .description {
+    margin-left: $marginLeft;
+    margin-top: 20px;
+    width: $leftWidth;
+    //padding: 10px;
+    .descriptionContent {
+      padding-left: 30px;
+    }
+  }
+
   .instructor {
     background-color: white;
 
     margin-left: $marginLeft;
     width: $leftWidth;
     //padding: 20px;
-    border-radius: 10px;
     margin-top: 20px;
 
     .title {
@@ -127,8 +137,17 @@ $leftWidth: 60%;
       }
 
       .instructorRating {
-        img {
+        .image {
+          width: 140px;
+          height: 140px;
+          border-radius: 70px;
+          border: none;
+          outline: none;
+          background-color: #dedede;
           margin-right: 50px;
+          img {
+            border: none;
+          }
         }
 
         display: flex;
@@ -145,7 +164,17 @@ $leftWidth: 60%;
     margin-top: 20px;
 
     .content {
-      width: 70%;
+      //width: 70%;
+      .courseContainer {
+        border-bottom: 1px solid #efefef;
+        &:last-child{
+          border: none;
+        }
+        &:hover {
+          cursor: pointer;
+          background-color: #f1f1f1;
+        }
+      }
     }
   }
 

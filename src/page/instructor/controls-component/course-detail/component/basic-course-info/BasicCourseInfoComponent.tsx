@@ -67,7 +67,9 @@ const BasicCourseInfoComponent: React.FC<Props> = ({course, instructor}) => {
             formData.append('image', imageFile);
             if (updateCourse.id) {
                 const updatedCourse = await updateCourseApi(updateCourse);
-                await uploadCourseImageApi(updateCourse.id || '', formData)
+                if (imageFile) {
+                    await uploadCourseImageApi(updateCourse.id || '', formData)
+                }
                 message = 'Course is updated';
             } else {
                 if (!imageFile) {
@@ -113,7 +115,7 @@ const BasicCourseInfoComponent: React.FC<Props> = ({course, instructor}) => {
             && !validateHeadline(updateCourse.headline)
             && !validatePrice(updateCourse.price)
             && !validateDescription(updateCourse.description)
-            && imageFile;
+            && (imageFile || course.image);
     }
 
     return (

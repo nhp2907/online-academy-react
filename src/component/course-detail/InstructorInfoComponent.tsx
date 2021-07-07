@@ -3,8 +3,9 @@ import React from 'react'
 import styles from './course-detail.module.scss'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar, faAward, faUsers, faVideo} from '@fortawesome/free-solid-svg-icons'
-import { Card } from 'primereact/card';
+import {Card} from 'primereact/card';
 import Instructor from "../../model/Instructor";
+
 interface Props {
     instructor: Instructor | null
 }
@@ -22,9 +23,11 @@ const InstructorInfoComponent: React.FC<Props> = ({instructor}) => {
             <div className={styles.content}>
                 <h3 className={styles.name}>{`${instructor?.firstName} ${instructor?.lastName}`}</h3>
                 <div className={styles.instructorRating}>
-                    {
-                        instructor?.image ?? <img src="" alt=""/>
-                    }
+                    <div className={styles.image}>
+                        {
+                            instructor?.image ? <img src="" alt="non"/> : ''
+                        }
+                    </div>
                     <div>
                         <InlineWithIcon icon={faStar} value={instructor?.rating + ' instructor rating'}/>
                         <InlineWithIcon icon={faAward} value={instructor?.numReview + ' reviews'}/>

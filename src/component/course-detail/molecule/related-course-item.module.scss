@@ -56,8 +56,8 @@
       justify-content: space-around;
       width: 50%;
 
-      span {
-        margin-right: 10px;
+      span,svg {
+        margin-right: 2px;
       }
 
       .rating {
@@ -70,7 +70,11 @@
 
       .cost {
         h4{
-          text-align: center;
+          text-align: left;
+        }
+        h5 {
+          text-decoration: line-through;
+          opacity: 0.7;
         }
         span {
           text-decoration: line-through;

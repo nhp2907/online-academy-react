@@ -12,8 +12,8 @@ import CourseFeedBackInfo from "../../model/CourseFeedBackInfo";
 import ReviewsComponent from "../../component/course-detail/ReviewsComponent";
 import CourseReview from "../../model/CourseReview";
 import Nav from "../../component/nav/Nav";
-import BuyTabComponent from "../../component/course-detail/BuyTabComponent";
-import {getCourseById, getCourseFeedBackApi, getCourseReviewApi} from "../../service/course.service";
+import BuyTabComponent from "../../component/course-detail/buy-tab/BuyTabComponent";
+import {getCourseById, getCourseFeedBackApi, getCourseReviewApi, getRelatedCourseApi} from "../../service/course.service";
 import Course from "../../model/Course";
 import Instructor from "../../model/Instructor";
 import {getInstructorDetail} from '../../service/instructor.service'
@@ -42,6 +42,7 @@ const CourseDetailPage: React.FC<Props> = ({}) => {
     const [instructor, setInstructor] = useState<Instructor>();
     const [reviews, setReviews] = useState<CourseReview[]>([])
     const [feedBack, setFeedBack] = useState<any>(initialFeedBack)
+    const [relatedCourse, setRelatedCourses] = useState<Course[]>([])
 
     useEffect(() => {
         getCourseById(params.id).then((c: Course) => {
@@ -49,23 +50,27 @@ const CourseDetailPage: React.FC<Props> = ({}) => {
             getInstructorDetail(c.instructorId).then(instructor => setInstructor(instructor));
             getCourseFeedBackApi(c?.id).then(r => setFeedBack(r));
             getCourseReviewApi(c?.id).then(r => setReviews(r));
+            getRelatedCourseApi(c.id).then(r => setRelatedCourses(r))
         });
-    }, [])
-
-
-    const {topCourses} = useSelector((state: RootState) => state.home)
+    }, [params.id])
 
     if (course && instructor) {
         return (
             <div className={styles.courseDetailPage}>
                 <Nav/>
                 <CourseInfoComponent course={course} instructor={instructor}/>
-                <BuyTabComponent/>
+                <BuyTabComponent course={course}/>
                 <Card title={'Course content'} className={styles.courseContent}>
                     <CourseContentComponent course={course}/>
                 </Card>
+                <Card title={'Description'}
+                      className={styles.description}>
+                    <div className={styles.descriptionContent}
+                         dangerouslySetInnerHTML={{__html: course.description}}>
+                    </div>
+                </Card>
                 <InstructorInfoComponent instructor={instructor}/>
-                <RelatedCourseComponent courses={topCourses}/>
+                <RelatedCourseComponent courses={relatedCourse}/>
                 <StudentFeedbackComponent item={feedBack}/>
                 <ReviewsComponent items={reviews}/>
             </div>

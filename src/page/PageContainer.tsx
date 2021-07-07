@@ -20,6 +20,8 @@ import {setShowMessage} from "../redux/home/homeSlice";
 import {Toast, ToastMessageType} from 'primereact/toast';
 import {useDispatch} from 'react-redux';
 
+import './override.scss'
+
 function PageContainer() {
     const toastRef: RefObject<Toast> = useRef<Toast>(null);
     const dispatch = useDispatch();

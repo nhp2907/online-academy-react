@@ -14,7 +14,7 @@ const ReviewsComponent : React.FC<Props> = ({items}) => {
         <Card className={styles.review} title={"Reviews"}>
             <div className={styles.content}>
                 {
-                    items.map((cr:CourseReview) => <CourseReviewItemComponent item={cr} />)
+                    items.map((cr:CourseReview) => <CourseReviewItemComponent key={cr.id} item={cr} />)
                 }
             </div>
         </Card>

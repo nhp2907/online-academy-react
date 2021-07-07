@@ -30,6 +30,7 @@ const RelatedCourseItem: React.FC<Props> = ({item}) => {
                     <div className={styles.rating}>
                         <span>{Math.round((item.rating + Number.EPSILON) * 10) / 10}</span>
                         <FontAwesomeIcon icon={faStar} color={'#FFA500'} style={{textAlign: "center"}}/>
+                        <span>{`(${item.numReview})`}</span>
                     </div>
                     <div className={styles.numOfMember}>
                         <span>{item.numStudentEnroll}</span>
@@ -38,7 +39,7 @@ const RelatedCourseItem: React.FC<Props> = ({item}) => {
                     <div className={styles.cost}>
                         <h4>{item.price} {item.concurrency || 'USD'}</h4>
                         {
-                            item.prePrice ? <span>{item.prePrice} {item.concurrency}</span> : ''
+                            item.prePrice ? <h5>{item.prePrice} {item.concurrency}</h5> : ''
                         }
                     </div>
                 </div>
