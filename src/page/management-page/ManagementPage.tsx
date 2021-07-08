@@ -15,21 +15,28 @@ interface Props extends RouteComponentProps {
     redirectUrl: string;
 }
 
-const ManagementPage: React.FC<Props> = ({routes, defaultRoute, roles, redirectUrl}) => {
+const ManagementPage: React.FC<Props> = ({routes, defaultRoute, roles, redirectUrl, history}) => {
+    const showToastMessage = useSelector((s: RootState) => s.home.showToastMessage)
+
     const user = useSelector((state: RootState) => state.auth.user);
 
-    if (!user || !roles.find(s => s === user.roleId)) {
-        return <Redirect to={redirectUrl}/>
+    if (!user) {
+        return <Redirect to={{pathname: '/login', state: {backUrl: history.location.pathname}}}/>
+    }
+    if (user && !roles.find(s => s === user.roleId)) {
+        showToastMessage({severity: "warn", detail: `Page not found`, summary: "Unauthorized"})
+        return <Redirect to={{pathname: redirectUrl}}/>
     }
 
     const renderRoute = (route: ManagementRoute) => {
         return <Route key={route.path + route.name} path={route.path} exact
-                      render={(props) => <ControlContainerComponent  {...props} title={route.name}
-                                                                     component={route.component}
-                                                                     render={route.render}
-                                                                     headerProps={{title: route.name}}
-                                                                     renderHeader={route.renderHeader}
-                      />}
+                      render={(props) =>
+                          <ControlContainerComponent  {...props} title={route.name}
+                                                      component={route.component}
+                                                      render={route.render}
+                                                      headerProps={{title: route.name}}
+                                                      renderHeader={route.renderHeader}
+                          />}
         />
     }
     return (

@@ -1,4 +1,4 @@
-import React, {RefObject, useRef} from 'react';
+import React, {RefObject, useEffect, useRef} from 'react';
 import '../App.css';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import Login from "../page/auth/Login";
@@ -18,13 +18,23 @@ import UserRole from "../model/UserRole";
 import UserProfilePage from "../page/user-profile/UserProfilePage";
 import {setShowMessage} from "../redux/home/homeSlice";
 import {Toast, ToastMessageType} from 'primereact/toast';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import './override.scss'
+import {RootState} from "../redux/store";
+import {getUserProfile} from "../service/user.service";
+import {User} from "../model/User";
+import {setUser} from '../redux/auth/auth.slice';
 
 function PageContainer() {
     const toastRef: RefObject<Toast> = useRef<Toast>(null);
     const dispatch = useDispatch();
+    const token = useSelector((state: RootState) => state.auth.token);
+    useEffect(() => {
+        if (token) {
+            getUserProfile().then((user: User) => dispatch(setUser(user)))
+        }
+    }, [token])
     return (
         <div className="page-container">
             <Toast ref={t => {

@@ -19,15 +19,15 @@ const CourseInfoComponent: React.FC<Props> = ({course, instructor}) => {
                 </div>
                 <h2 className={styles.name}>{course.name}</h2>
                 <span className={styles.headline}>{course.headline}</span>
+                <p className={styles.author}><small>{`Created by `}</small><strong>{`${instructor.firstName} ${instructor.lastName}`}</strong></p>
+                <p className={styles.numOfStudent}>{`${course.numStudentEnroll} students`}</p>
                 <div className={styles.ratingContainer}>
                     {/*<span className={styles.status}>{course.status}</span>*/}
                     <span className={styles.ratingNumber}>{Math.round((course.rating + Number.EPSILON) * 10) / 10}</span>
                     <Rating value={Math.round((course.rating + Number.EPSILON) * 10) / 10} cancel={false} style={{color: 'orange'}}/>
-                    <span className={styles.numOfRating}>{course.numReview}</span>
-                    <span className={styles.numOfStudent}>{course.numStudentEnroll}</span>
+                    <span className={styles.numOfRating}>{`(${course.numReview})`}</span>
                 </div>
-                <p className={styles.author}>{`Created by `}<strong>{`${instructor.firstName} ${instructor.lastName}`}</strong></p>
-                <p className={styles.time}>{'Last updated ' + course.updatedAt}</p>
+                <p className={styles.time}><small>Last updated at</small>{course.updatedAt}</p>
             </div>
         </div>
     );

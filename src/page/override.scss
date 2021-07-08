@@ -18,3 +18,17 @@
 .p-avatar-text {
   font-size: 1.5rem;
 }
+
+.watch-list-menu-container {
+  width: 330px !important;
+  .p-menu-list {
+     width: 100%;
+    .p-menuitem {
+      width: 100%;
+
+      &:last-child > div {
+        border-bottom: none !important;
+      }
+    }
+  }
+}

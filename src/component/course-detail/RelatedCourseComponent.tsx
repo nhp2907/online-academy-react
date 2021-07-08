@@ -16,14 +16,14 @@ const RelatedCourseComponent: React.FC<Props> = ({courses}) => {
         <Card className={styles.relatedCourse} title={'Related courses'}>
             <div className={styles.content}>
                 {
-                    courses.map((c: Course) => <>
+                    courses.map((c: Course) =>
                         <div key={c.id} className={styles.courseContainer}
-                             // onClick={(e: any) => window.location.href = `/course/${c.id}`}
+                            // onClick={(e: any) => window.location.href = `/course/${c.id}`}
                              onClick={(e: any) => history.push(`/course/${c.id}`)}
                         >
                             <RelatedCourseItem item={c}/>
                         </div>
-                    </>)
+                    )
                 }
             </div>
         </Card>

@@ -9,7 +9,6 @@ interface Props {
 }
 
 const BeforeLogin: React.FC<Props> = ({user}) => {
-    useEffect(() => console.log(styles))
     return (
         <div className={styles['before-sign-in']}>
             <div>

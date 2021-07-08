@@ -56,6 +56,7 @@ const ProfileComponent: React.FC<Props> = ({}) => {
                     icon: 'pi pi-fw pi-power-off',
                     command: () => {
                         dispatch(setAuth({token: null, user: null}))
+                        localStorage.removeItem('token')
                     },
                     template: (item, options) => {
                         return (
@@ -74,7 +75,6 @@ const ProfileComponent: React.FC<Props> = ({}) => {
     const getUserMenuItems = (user: User | null) => {
         return items.filter((item: MenuItem) => {
             // console.log(item.roles);
-            console.log(item.roles?.length)
             return item.roles?.length === 0 || item.roles?.includes(user?.roleId)
             // return true;
         });

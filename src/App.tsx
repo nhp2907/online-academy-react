@@ -2,9 +2,6 @@ import React from 'react';
 import './App.css';
 import {Provider} from "react-redux";
 import store, {persistor} from "./redux/store";
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import Login from "./page/auth/Login";
-import Signup from "./page/auth/Signup";
 
 import './assets/_override.scss'
 import 'primereact/resources/themes/saga-blue/theme.css'

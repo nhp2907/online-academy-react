@@ -59,7 +59,7 @@ const CourseDetailPage: React.FC<Props> = ({}) => {
             <div className={styles.courseDetailPage}>
                 <Nav/>
                 <CourseInfoComponent course={course} instructor={instructor}/>
-                <BuyTabComponent course={course}/>
+                <BuyTabComponent course={course} />
                 <Card title={'Course content'} className={styles.courseContent}>
                     <CourseContentComponent course={course}/>
                 </Card>
@@ -76,7 +76,9 @@ const CourseDetailPage: React.FC<Props> = ({}) => {
             </div>
         );
     } else {
-        return <SpinnerComponent/>
+        return <div style={{height: '100vh', width: '100vw'}}>
+            <SpinnerComponent/>
+        </div>
     }
 }
 

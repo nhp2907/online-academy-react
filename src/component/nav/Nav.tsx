@@ -9,7 +9,7 @@ import {Button} from 'primereact/button';
 import {RootState} from "../../redux/store";
 import {useSelector} from 'react-redux';
 import {User} from "../../model/User";
-
+import './override.scss'
 type Props = {
     user?: number;
 }

@@ -22,13 +22,13 @@
     justify-content: center;
     height: 40%;
     background-color: #eaeaea;
-
+    overflow: hidden;
     img {
       object-fit: cover;
       height: 100%;
       overflow: hidden;
-      border-top-right-radius: 5px;
-      border-top-left-radius: 5px;
+      //border-top-right-radius: 5px;
+      //border-top-left-radius: 5px;
     }
   }
 

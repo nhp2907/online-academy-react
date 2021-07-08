@@ -30,7 +30,8 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
         password: '',
         email: '',
         username: '',
-        roleId: 1
+        roleId: 1,
+        watchList: []
     };
 
     const [users, setUsers] = useState<User[]>([]);

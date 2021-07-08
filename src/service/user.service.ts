@@ -1,7 +1,12 @@
 import {User} from "../model/User";
-import api, {httpDelete, put} from './api'
+import api, {get, httpDelete, post, put} from './api'
 import {getSearchQueryString} from "./search.utils";
+import Course from "../model/Course";
 
+export const getUserProfile = async (): Promise<User> => {
+    const {data} = await api.get<User>('/api/user/me')
+    return data;
+}
 
 export const findUserApi = async (): Promise<User []> => {
     const {data} = await api.get<User[]>('/api/admin/user');
@@ -22,3 +27,19 @@ export const updateUserApi = async (body: any): Promise<User> => {
 export const disableUserApi = async (id: any): Promise<any> => {
     return await httpDelete<any>(`/api/user/${id}`);
 }
+
+export const getWatchListApi = async (userId: any) : Promise<Course[]> => {
+    const {data} = await get<Course[]>(`/api/user/${userId}/watch-list`);
+    return data;
+}
+
+export const addCourseToWatchListApi = async (userId: any, courseId: any): Promise<any> => {
+    const {data} = await post<any>(`/api/user/${userId}/watch-list`, {courseId});
+    return data;
+}
+
+export const removeCourseFromWatchListApi = async (userId: any, courseId: any): Promise<any> => {
+    const {data} = await httpDelete<any>(`/api/user/${userId}/watch-list/${courseId}`);
+    return data;
+}
+

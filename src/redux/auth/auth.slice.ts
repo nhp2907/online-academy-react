@@ -1,6 +1,7 @@
 import AuthState from "./AuthState";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {User} from "../../model/User";
+import Axios from 'axios'
 
 const initialState: AuthState = {
     user: null,
@@ -22,6 +23,7 @@ export const authSlice = createSlice({
             state.token = action.payload.token;
             // @ts-ignore
             localStorage.setItem("token", action.payload.token);
+            Axios.defaults.headers.authorization = 'Bearer ' + action.payload.token;
             state.user = action.payload.user;
         }
     }

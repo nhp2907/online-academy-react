@@ -16,6 +16,7 @@ interface Props {
 }
 
 const Signup: React.FC<Props> = ({}) => {
+    const history = useHistory<{backUrl:string}>();
     const dispatch = useDispatch();
     const user = useSelector((s: RootState) => s.auth.user);
     const showToastMessage = useSelector((s: RootState) => s.home.showToastMessage)
@@ -27,7 +28,8 @@ const Signup: React.FC<Props> = ({}) => {
             lastName,
             username,
             email,
-            password
+            password,
+            watchList: []
         }
         try {
             const data =await signup(user);
@@ -63,7 +65,7 @@ const Signup: React.FC<Props> = ({}) => {
         setInputValid(isValid);
     }
     if (user) {
-        return <Redirect to={'/'}/>
+        return <Redirect to={history.location.state.backUrl || '/'}/>
     }
     return (
         <div className={styles.container}>

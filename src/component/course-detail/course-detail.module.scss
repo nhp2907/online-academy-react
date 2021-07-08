@@ -66,8 +66,7 @@ $leftWidth: 60%;
         }
 
         .numOfRating {
-
-          margin-right: $marginRight;
+          margin: 0 $marginRight;
         }
 
         .numOfStudent {
@@ -145,6 +144,7 @@ $leftWidth: 60%;
           outline: none;
           background-color: #dedede;
           margin-right: 50px;
+
           img {
             border: none;
           }
@@ -167,9 +167,11 @@ $leftWidth: 60%;
       //width: 70%;
       .courseContainer {
         border-bottom: 1px solid #efefef;
-        &:last-child{
+
+        &:last-child {
           border: none;
         }
+
         &:hover {
           cursor: pointer;
           background-color: #f1f1f1;

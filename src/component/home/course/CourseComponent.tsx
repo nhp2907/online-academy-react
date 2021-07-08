@@ -1,13 +1,9 @@
-import React, {useRef} from 'react'
+import React from 'react'
 import {useHistory} from 'react-router-dom'
 import Course from "../../../model/Course";
 
 import styles from './course.module.scss'
-import {Button} from "primereact/button";
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../../redux/store";
 import {Rating} from "primereact/rating";
-import {Badge} from "primereact/badge";
 
 interface Props {
     item: Course
@@ -33,11 +29,11 @@ const CourseComponent: React.FC<Props> = ({item}) => {
                 </div>
             </div>
             <div className={styles.priceAndBuy}>
-                <div className={styles.prices} >
+                <div className={styles.prices}>
                     <span>{item.price + ' USD'}</span>
                     {item.prePrice ? <span>{item.prePrice}</span> : ''}
                 </div>
-                <span  className={styles.badge}>Best Seller</span>
+                <span className={styles.badge}>Best Seller</span>
             </div>
         </div>
     );

@@ -1,19 +1,27 @@
-import React, {MouseEvent, useRef, useState} from 'react'
+import React, {MouseEvent, useEffect, useRef, useState} from 'react'
 import styles from './css/login.module.scss'
 import rocketSvg from '../../img/rocket.svg'
-import {Link, Redirect} from "react-router-dom";
+import {Link, Redirect, useHistory, RouteComponentProps, withRouter} from "react-router-dom";
 import {login} from '../../service/auth.service'
 import CommonInput from "../../component/common/CommonInput";
 import {useDispatch, useSelector} from "react-redux";
 import {setAuth} from '../../redux/auth/auth.slice'
 import {AppDispatch, RootState} from "../../redux/store";
-import { Toast } from 'primereact/toast';
+import {Toast} from 'primereact/toast';
 
-interface Props {
+interface State {
+    backUrl?: string
+}
+
+interface Props extends RouteComponentProps<{}, {}, State> {
 
 }
 
-const Login: React.FC<Props> = ({}) => {
+const Login: React.FC<Props> = (props) => {
+    useEffect(() => {
+        console.log(props)
+    }, [])
+    const history = useHistory<State>();
     const user = useSelector((s: RootState) => s.auth.user);
     const showToastMessage = useSelector((s: RootState) => s.home.showToastMessage)
     const [username, setUsername] = useState<string>('')
@@ -32,19 +40,18 @@ const Login: React.FC<Props> = ({}) => {
         e.preventDefault();
         try {
             const data = await login(username, password);
-            console.log('login data: ', data);
             dispatch(setAuth(data));
             // @ts-ignore
             showToastMessage({severity: 'success', summary: 'Successfully', detail: 'Login successfully'});
         } catch (err: any) {
             // @ts-ignore
             showToastMessage({severity: 'error', summary: "Login failed", detail: err?.response?.data.message || 'Something broken!'});
-            console.log( err.constructor.name);
+            console.log(err.constructor.name);
         }
     }
 
     if (user) {
-        return <Redirect to={'/'} />
+        return <Redirect to={history.location.state?.backUrl || '/'}/>
     }
 
     return (

@@ -13,18 +13,21 @@ export const adminRouteList: ManagementRoute[] = [
         path: '/admin/user',
         component: UserManagementComponent,
         icon: 'users',
+        redirectUrl: '/login',
         name: 'User management'
     },
     {
         path: '/admin/category',
         icon: 'users',
         name: 'Category management',
+        redirectUrl: '/login',
         component: CategoryManagementComponent,
     },
     {
         path: '/admin/course',
         icon: 'book',
         name: 'Course management',
+        redirectUrl: '/login',
         component: CourseManagementComponent,
     }
 ]
@@ -32,7 +35,8 @@ export const adminDefaultRoute: ManagementRoute = {
     path: '/admin',
     component: UserManagementComponent,
     icon: 'users',
-    name: 'User management'
+    name: 'User management',
+    redirectUrl: '/login'
 }
 
 
@@ -42,7 +46,7 @@ export const instructorRouteList: ManagementRoute[] = [
         component: InstructorCourseManagementComponent,
         icon: 'books',
         name: 'Course management',
-        redirectUrl: '/'
+        redirectUrl: '/login'
     },
     // {
     //     path: '/instructor/course/new',
@@ -59,7 +63,7 @@ export const instructorRouteList: ManagementRoute[] = [
         component: InstructorCourseDetailComponent,
         icon: 'user',
         name: 'Course detail',
-        redirectUrl: '/instructor',
+        redirectUrl: '/login',
         hidden: true,
         render: props => <InstructorCourseDetailComponent {...props} />, // course owro ddaau ra?
         renderHeader: props => <InstructorCourseDetailHeader {...props}/>
@@ -69,7 +73,7 @@ export const instructorRouteList: ManagementRoute[] = [
         component: InstructorProfileComponent,
         icon: 'user',
         name: 'Profile',
-        redirectUrl: '/'
+        redirectUrl: '/login'
     }
 ]
 
@@ -77,5 +81,6 @@ export const instructorDefaultRoute: ManagementRoute = {
     path: '/instructor',
     component: InstructorCourseManagementComponent,
     icon: 'books',
-    name: 'Course management'
+    name: 'Course management',
+    redirectUrl: '/login'
 }

@@ -13,4 +13,5 @@ export interface User extends BaseModel {
     roleId?: number
     image?: string
     status?: boolean
+    watchList: string[]
 }
