@@ -24,6 +24,15 @@ export const updateUserApi = async (body: any): Promise<User> => {
     return data;
 }
 
+export const uploadUserImageApi = async (userId: any, dto: FormData): Promise<any> => {
+    const {data} = await api.post<Course>(`/api/user/${userId}/image`, dto, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    });
+    return data;
+}
+
 export const disableUserApi = async (id: any): Promise<any> => {
     return await httpDelete<any>(`/api/user/${id}`);
 }

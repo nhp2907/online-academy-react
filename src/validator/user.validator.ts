@@ -1,6 +1,6 @@
 import {User} from "../model/User";
 import {findUserApi} from "../service/admin.service";
-import { validateUser } from "../service/user.service";
+import {validateUser} from "../service/user.service";
 
 export const validateUsername = async (text: string): Promise<string> => {
     if (!text || text.length < 3) {
@@ -15,7 +15,7 @@ export const validateUsername = async (text: string): Promise<string> => {
     }
 }
 export const validateName = (firstName: string, lastName: string) => {
-    return (firstName + lastName).length < 3 ? 'Name must at least 3 chars' : '';
+    return (firstName + lastName).length < 1 ? 'Name is required' : '';
 }
 export const validateEmail = async (text: string) => {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

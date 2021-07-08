@@ -11,7 +11,7 @@ interface Props {
     containerClassName?: string;
     errorMessageClassName?: string;
     onChange?: ChangeEventHandler<HTMLInputElement>;
-    validate: (text: any) => any;
+    validate?: (text: any) => any;
     disabled?: boolean
     autoFocus?: boolean
     required?: boolean
@@ -28,7 +28,7 @@ const CommonInput: React.FC<Props> = ({name, placeholder, icon, inputStyle, auto
             if (isFirstTime) {
                 setIsFirstTime(false);
             } else {
-                const message = validate(value)
+                const message = validate ? validate(value) : ''
                 if (message instanceof Promise) {
                     message.then(r => setErrorMessage(r))
                 } else {
