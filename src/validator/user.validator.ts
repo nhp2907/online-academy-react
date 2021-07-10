@@ -1,6 +1,6 @@
 import {User} from "../model/User";
 import {findUserApi} from "../service/admin.service";
-import {validateUser} from "../service/user.service";
+import {validateUser, validateUserEmailExceptId} from "../service/user.service";
 
 export const validateUsername = async (text: string): Promise<string> => {
     if (!text || text.length < 3) {
@@ -30,11 +30,23 @@ export const validateEmail = async (text: string) => {
         }
     }
 }
+export const validateEmailExceptId = async (text: string, id:any) => {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!re.test(String(text).toLowerCase())) {
+        return 'Email pattern is invalidddd';
+    } else {
+        const validateResult = await validateUserEmailExceptId({email: text, id})
+        if (!validateResult.isOk) {
+            return `Email ${text} already taken`;
+        } else {
+            return ''
+        }
+    }
+}
 export const validatePassword = (text: string) => {
     // const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ -/:-@\[-`{-~]).{6,64}$/
     // return re.test(text) ? '' : 'Password is invalid';
-    // return text.length > 5 ? '' : 'Password is invalid';
-    return ''
+    return text.length >= 5 ? '' : 'Password format is invalid';
 }
 export const validateRepeatPassword = (pass: string, repeat: string) => {
     return pass === repeat ? '' : 'Password does not match';

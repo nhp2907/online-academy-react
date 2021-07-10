@@ -5,8 +5,12 @@ import {getSearchQueryString} from "./search.utils";
 
 //region Category
 export const getCategories = async () => {
-    console.log('get categories')
     const {data} = await api.get<Category[]>('/api/category');
+    return data;
+}
+
+export const getTopMostRegisterCategories = async () => {
+    const {data} = await api.get<Category[]>('/api/category/top-most-register');
     return data;
 }
 

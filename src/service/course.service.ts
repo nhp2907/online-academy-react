@@ -19,6 +19,11 @@ export const getCourseById = async (id: string) => {
     return data;
 }
 
+export const plusCourseViewsApi = async (id: any) => {
+    const {data} = await api.put<Course>(`/api/course/${id}/plusView`)
+    return data;
+}
+
 export const searchCourseApi = async (query: any): Promise<Course[]> => {
     const queryString = getSearchQueryString(query);
     const {data} = await api.get<Course[]>(`/api/course/search${queryString}`)

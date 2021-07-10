@@ -65,7 +65,7 @@ const Signup: React.FC<Props> = ({}) => {
         setInputValid(isValid);
     }
     if (user) {
-        return <Redirect to={history.location.state.backUrl || '/'}/>
+        return <Redirect to={history.location.state?.backUrl || '/'}/>
     }
     return (
         <div className={styles.container}>

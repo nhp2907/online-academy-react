@@ -1,21 +1,26 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import styles from '../../page/home/home.module.scss'
 import Course from "../../model/Course";
+import {getTopMostRegisterCategories} from "../../service/home.service";
+import Category from "../../model/Category";
 
 interface Props {
 }
 
 const RecommendTopicsComponent: React.FC<Props> = ({}) => {
-    const topics: string[] = ['Python', 'Java', 'Html', 'Javascript', 'Ruby on rail'];
+    const [categories, setCategories] = useState<Category[]>([])
+    useEffect(() => {
+        getTopMostRegisterCategories().then(r => setCategories(r))
+    }, [])
     return (
         <div className={styles.recommendTopic}>
-            <h3 className={styles.title}>Topics recommend for you</h3>
+            <h3 className={styles.title}>Top most register Category</h3>
             <div className={styles.content}>
-            {
-                topics.map((topic: string)  =>(
-                    <div key={topic}><span key={topic}>{topic}</span></div>
-                ))
-            }
+                {
+                    categories.map((category: Category) => (
+                        <div key={category.id}><span>{category.name}</span></div>
+                    ))
+                }
             </div>
         </div>
     );
