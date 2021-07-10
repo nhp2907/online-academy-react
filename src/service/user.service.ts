@@ -19,6 +19,12 @@ export const validateUser = async (body: any): Promise<any> => {
     return data;
 }
 
+export const validateUserEmailExceptId = async (body: any): Promise<any> => {
+    const queryString = getSearchQueryString(body);
+    const {data} = await api.get<any>(`/api/validate/user/email${queryString}`);
+    return data;
+}
+
 export const updateUserApi = async (body: any): Promise<User> => {
     const {data} = await put<User>('/api/user', body);
     return data;
@@ -49,6 +55,11 @@ export const addCourseToWatchListApi = async (userId: any, courseId: any): Promi
 
 export const removeCourseFromWatchListApi = async (userId: any, courseId: any): Promise<any> => {
     const {data} = await httpDelete<any>(`/api/user/${userId}/watch-list/${courseId}`);
+    return data;
+}
+
+export const changePasswordApi = async (userId: any, body:any): Promise<any> => {
+    const {data} = await post<any>(`/api/user/${userId}/change-password`, body);
     return data;
 }
 

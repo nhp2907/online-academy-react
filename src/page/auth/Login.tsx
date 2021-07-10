@@ -49,9 +49,13 @@ const Login: React.FC<Props> = (props) => {
             console.log(err.constructor.name);
         }
     }
-
+    const backUrl = history.location.state ? history.location.state.backUrl : ''
     if (user) {
-        return <Redirect to={history.location.state?.backUrl || '/'}/>
+        if (backUrl) {
+            return <Redirect to={backUrl}/>
+        } else {
+            return <Redirect to={'/'}/>
+        }
     }
 
     return (

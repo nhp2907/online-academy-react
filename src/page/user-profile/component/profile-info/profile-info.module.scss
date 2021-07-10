@@ -7,7 +7,7 @@
 
   .commonInputContainer {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     width: 100%;
 
     .commonInputTextInputContainer { // common text input container
@@ -40,13 +40,14 @@
 
   .nameWrapper {
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 5%;
+    align-items: stretch;
     margin: 50px 0;
 
     div {
-      width: 50%;
+      width: 100%;
     }
   }
 
@@ -104,6 +105,7 @@
     margin-right: 1.3rem;
     opacity: 0.8;
     font-size: 0.9rem;
+    width: 100px;
   }
 }
 

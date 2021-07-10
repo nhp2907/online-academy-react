@@ -18,7 +18,7 @@ const UserProfileComponent: React.FC<Props> = ({user}) => {
     }
     return (
         <div className={'userProfileComponent'}>
-            <TabView activeIndex={1} className={'profile-tabview'}>
+            <TabView activeIndex={0} className={'profile-tabview'}>
                 <TabPanel header="Profile info">
                     <ProfileInfoComponent user={user}/>
                 </TabPanel>
