@@ -13,7 +13,7 @@ import ReviewsComponent from "../../component/course-detail/ReviewsComponent";
 import CourseReview from "../../model/CourseReview";
 import Nav from "../../component/nav/Nav";
 import BuyTabComponent from "../../component/course-detail/buy-tab/BuyTabComponent";
-import {getCourseById, getCourseFeedBackApi, getCourseReviewApi, getRelatedCourseApi} from "../../service/course.service";
+import {getCourseById, getCourseFeedBackApi, getCourseReviewApi, getRelatedCourseApi, plusCourseViewsApi} from "../../service/course.service";
 import Course from "../../model/Course";
 import Instructor from "../../model/Instructor";
 import {getInstructorDetail} from '../../service/instructor.service'
@@ -51,6 +51,10 @@ const CourseDetailPage: React.FC<Props> = ({}) => {
             getCourseFeedBackApi(c?.id).then(r => setFeedBack(r));
             getCourseReviewApi(c?.id).then(r => setReviews(r));
             getRelatedCourseApi(c.id).then(r => setRelatedCourses(r))
+
+        setTimeout(() => {
+            plusCourseViewsApi(c.id);
+        }, 5 * 60)
         });
     }, [params.id])
 
@@ -59,7 +63,7 @@ const CourseDetailPage: React.FC<Props> = ({}) => {
             <div className={styles.courseDetailPage}>
                 <Nav/>
                 <CourseInfoComponent course={course} instructor={instructor}/>
-                <BuyTabComponent course={course} />
+                <BuyTabComponent course={course}/>
                 <Card title={'Course content'} className={styles.courseContent}>
                     <CourseContentComponent course={course}/>
                 </Card>
