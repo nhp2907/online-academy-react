@@ -14,6 +14,7 @@ import {Button} from 'primereact/button';
 import {createCourse, getCourseImageApi, updateCourse as updateCourseApi, uploadCourseImageApi} from "../../../../../../service/course.service";
 import Instructor from "../../../../../../model/Instructor";
 import {useHistory, useParams} from 'react-router-dom';
+import CommonSelectPrime from "../../../../../../component/common/CommonSelectPrime";
 
 interface Props {
     instructor: Instructor
@@ -140,7 +141,7 @@ const BasicCourseInfoComponent: React.FC<Props> = ({course, instructor}) => {
                                      validate={courseValidator.validatePrice}
                                      onChange={e => setUpdateCourse({...updateCourse, price: parseFloat(e.target.value)})}/>
                         <div>
-                            <CommonSelect name={'Category'} items={categories.map(c => ({label: c.name, value: c.id}))}
+                            <CommonSelectPrime name={'Category'} items={categories.map(c => ({label: c.name, value: c.id}))}
                                           containerClassName={styles.commonInputContainer}
                                           required
                                           placeholder={'Category'}
@@ -150,7 +151,7 @@ const BasicCourseInfoComponent: React.FC<Props> = ({course, instructor}) => {
                                               categoryId: e.target.value
                                           })}
                             />
-                            <CommonSelect name={'Sub category'} placeholder={'Sub category'}
+                            <CommonSelectPrime name={'Sub category'} placeholder={'Sub Category'}
                                           containerClassName={styles.commonInputContainer}
                                           items={categoriesLevel2}
                                           value={updateCourse.subCategoryId}
