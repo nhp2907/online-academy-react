@@ -25,6 +25,7 @@ import {RootState} from "../redux/store";
 import {getUserProfile} from "../service/user.service";
 import {User} from "../model/User";
 import {setUser} from '../redux/auth/auth.slice';
+import MyLearningPage from "./my-learning/MyLearningPage";
 
 function PageContainer() {
     const toastRef: RefObject<Toast> = useRef<Toast>(null);
@@ -51,7 +52,7 @@ function PageContainer() {
                     <Route path={'/signup'} exact component={Signup}/>
                     <Route path={'/course/:id'} exact component={CourseDetailPage}/>
                     <Route path={'/course'} exact component={SearchCourseResultPage}/>
-                    <Route path={'/course'} exact component={SearchCourseResultPage}/>
+                    <Route path={'/my-learning/:courseId'} exact component={MyLearningPage}/>
                     {/*<Route path={'/admin'}  component={AdminPage}/>*/}
                     <Route path={'/admin'}
                            render={(p) => <ManagementPage {...p} defaultRoute={adminDefaultRoute}

@@ -31,7 +31,8 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
         email: '',
         username: '',
         roleId: 1,
-        watchList: []
+        watchList: [],
+        myLearningList: []
     };
 
     const [users, setUsers] = useState<User[]>([]);

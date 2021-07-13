@@ -15,6 +15,7 @@ import {RootState} from "../../../redux/store";
 import {getWatchListApi} from "../../../service/user.service";
 import {useHistory} from 'react-router-dom';
 import emptyImage from "../../../assets/img/empty-search.svg";
+import {OverlayPanel} from "primereact/overlaypanel";
 
 interface Props {
 
@@ -24,6 +25,7 @@ const AfterLogin: React.FC<Props> = ({}) => {
     const history = useHistory();
     const user = useSelector((state: RootState) => state.auth.user);
     const [watchList, setWatchList] = useState<Course[]>([])
+    const [myLearningCourses, setMyLearningCourse] = useState<Course[]>([])
     const {width} = useWindowDimensions();
     useEffect(() => {
         if (user) {
@@ -32,6 +34,7 @@ const AfterLogin: React.FC<Props> = ({}) => {
     }, [user])
 
     const menuRef = useRef(null);
+    const myLearningOverlayRef = useRef(null);
 
     const watchListToMenuModels = ((courses: Course[]): MenuItem[] => {
         if (courses.length > 0) {
@@ -55,7 +58,7 @@ const AfterLogin: React.FC<Props> = ({}) => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    flexDirection:'column'
+                    flexDirection: 'column'
                 }}>
                     <img src={emptyImage} style={{height: 50}} alt=""/>
                     <span>You have no course here!</span>
@@ -69,6 +72,11 @@ const AfterLogin: React.FC<Props> = ({}) => {
         menuRef.current.toggle(event)
     }
 
+    const handleToggleMyLearningOverlay: MouseEventHandler<HTMLElement> = (event) => {
+        // @ts-ignore
+        myLearningOverlayRef.current.toggle(event)
+    }
+
     return (
         <div className={styles.afterLogin}>
             <div className={`${styles.myLearning}`}>
@@ -78,13 +86,37 @@ const AfterLogin: React.FC<Props> = ({}) => {
                         icon={'pi pi-heart'} style={{color: 'rgba(255,255,255,1)'}}
                         onClick={handleToggleMenu}/>
             </div>
+            <div>
+                <Button className={'p-button-rounded p-button-text'} label={width > 850 ? 'My Learning' : ''}
+                        icon={'pi pi-book'} style={{color: 'rgba(255,255,255,1)'}}
+                        onClick={handleToggleMyLearningOverlay}/>
+                <OverlayPanel ref={myLearningOverlayRef}>
+                    <div>
+                        {myLearningCourses.length > 0 ?
+                            myLearningCourses.map((c: Course) => <WatchListItemComponent course={c} onClick={e => {
+                                history.push(`/my-learning/${c.id}`)
+                                handleToggleMenu(e)
+                            }}/>) : <div style={{
+                                height: 100,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                flexDirection: 'column'
+                            }}>
+                                <img src={emptyImage} style={{height: 50}} alt=""/>
+                                <span>You have no course here!</span>
+                            </div>
+                        }
+                    </div>
+                </OverlayPanel>
+            </div>
             <div className={styles.buttons}>
                 {/*<CartComponent />*/}
-                <div className={styles.notify}>
-                    <i className="pi pi-bell p-mr-4 p-text-secondary p-overlay-badge" style={{marginTop: 12}}>
-                        <Badge className={'p-badge-danger'} value="2"/>
-                    </i>
-                </div>
+                {/*<div className={styles.notify}>*/}
+                {/*    <i className="pi pi-bell p-mr-4 p-text-secondary p-overlay-badge" style={{marginTop: 12}}>*/}
+                {/*        <Badge className={'p-badge-danger'} value="2"/>*/}
+                {/*    </i>*/}
+                {/*</div>*/}
                 <ProfileComponent/>
             </div>
         </div>

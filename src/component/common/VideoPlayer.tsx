@@ -7,8 +7,8 @@ interface Props {
 
 const VideoPlayer: React.FC<Props> = ({url}) => {
     return (
-        <div>
-            <ReactPlayer url={url} playing={true} controls={true}/>
+        <div style={{width: '100%', height: '100%'}}>
+            <ReactPlayer width={'100%'} height={'100%'} url={url} playing={true} controls={true}/>
         </div>
     );
 }

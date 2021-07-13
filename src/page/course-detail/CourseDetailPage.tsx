@@ -52,9 +52,9 @@ const CourseDetailPage: React.FC<Props> = ({}) => {
             getCourseReviewApi(c?.id).then(r => setReviews(r));
             getRelatedCourseApi(c.id).then(r => setRelatedCourses(r))
 
-        setTimeout(() => {
-            plusCourseViewsApi(c.id);
-        }, 5 * 60)
+            setTimeout(() => {
+                plusCourseViewsApi(c.id);
+            }, 5 * 60 * 1000) // 5 minutes
         });
     }, [params.id])
 

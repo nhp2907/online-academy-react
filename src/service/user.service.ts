@@ -43,7 +43,7 @@ export const disableUserApi = async (id: any): Promise<any> => {
     return await httpDelete<any>(`/api/user/${id}`);
 }
 
-export const getWatchListApi = async (userId: any) : Promise<Course[]> => {
+export const getWatchListApi = async (userId: any): Promise<Course[]> => {
     const {data} = await get<Course[]>(`/api/user/${userId}/watch-list`);
     return data;
 }
@@ -58,8 +58,15 @@ export const removeCourseFromWatchListApi = async (userId: any, courseId: any): 
     return data;
 }
 
-export const changePasswordApi = async (userId: any, body:any): Promise<any> => {
+export const changePasswordApi = async (userId: any, body: any): Promise<any> => {
     const {data} = await post<any>(`/api/user/${userId}/change-password`, body);
+    return data;
+}
+
+export const buyCourseApi = async (userId: any, courseId: any): Promise<any> => {
+    const {data} = await post<any>(`/api/user/buy-course`, {
+        userId, courseId
+    });
     return data;
 }
 

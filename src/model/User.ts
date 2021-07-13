@@ -14,4 +14,5 @@ export interface User extends BaseModel {
     image?: string
     status?: boolean
     watchList: string[]
+    myLearningList: string[]
 }

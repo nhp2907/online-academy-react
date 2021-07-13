@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import styles from './buy-tab.module.scss'
 import {Card} from 'primereact/card';
 import {Button} from "primereact/button";
-import {addCourseToWatchListApi, getUserProfile, removeCourseFromWatchListApi} from "../../../service/user.service";
+import {addCourseToWatchListApi, buyCourseApi, getUserProfile, removeCourseFromWatchListApi} from "../../../service/user.service";
 import {User} from "../../../model/User";
 import {useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
@@ -17,7 +17,8 @@ const BuyTabComponent: React.FC<Props> = ({course}) => {
     const user = useSelector((s: RootState) => s.auth.user);
     const history = useHistory();
     const showToastMessage = useSelector((s: RootState) => s.home.showToastMessage)
-    const isContainsCourse = !!user?.watchList.includes(course.id);
+    const isCourseInWatchList = !!user?.watchList.includes(course.id);
+    const isCourseInMyLearningList = !!user?.myLearningList.includes(course.id)
     const dispatch = useDispatch();
     useEffect(() => {
     }, [user])
@@ -40,12 +41,12 @@ const BuyTabComponent: React.FC<Props> = ({course}) => {
                 <span>USD</span>
                 <div className={styles.buttons}>
                     <Button
-                        label={isContainsCourse ? 'Remove from Watch list' : 'Add to Watch list'}
+                        label={isCourseInWatchList ? 'Remove from Watch list' : 'Add to Watch list'}
                         className={'p-button-outlined p-button-success'}
                         onClick={async (e: any) => {
                             if (user && user.id) {
                                 try {
-                                    if (isContainsCourse) {
+                                    if (isCourseInWatchList) {
                                         await removeCourseFromWatchListApi(user.id, course.id)
                                         showToastMessage({severity: 'success', summary: "Successfully", detail: 'Course is removed from Watch list'})
                                     } else {
@@ -60,7 +61,24 @@ const BuyTabComponent: React.FC<Props> = ({course}) => {
                                 history.push('/login', {backUrl: `/course/${course.id}`})
                             }
                         }}/>
-                    <Button label={'Buy this course'} className={'p-button-danger'}/>
+                    <Button label={isCourseInMyLearningList ? 'Go to My Learning' : 'Buy this course'} className={'p-button-danger'}
+                            onClick={async e => {
+                                if (!user || !user.id) {
+                                    history.push('/login', {backUrl: `/course/${course.id}`})
+                                } else {
+                                    if (isCourseInMyLearningList) {
+                                        history.push(`/my-learning/${course.id}`)
+                                    } else {
+                                        try {
+                                            await buyCourseApi(user?.id, course.id);
+                                            showToastMessage({severity: 'success', summary: "Successfully", detail: 'Course is successfully purchased'})
+                                            getUserProfile().then((user: User) => dispatch(setUser(user)))
+                                        } catch (err) {
+                                            showToastMessage({severity: 'error', summary: "Failed", detail: err.response.data.message})
+                                        }
+                                    }
+                                }
+                            }}/>
                 </div>
             </div>
             <span>Online Academy</span>

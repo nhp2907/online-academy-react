@@ -29,7 +29,8 @@ const Signup: React.FC<Props> = ({}) => {
             username,
             email,
             password,
-            watchList: []
+            watchList: [],
+            myLearningList: []
         }
         try {
             const data =await signup(user);

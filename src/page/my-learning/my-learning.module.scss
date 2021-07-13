@@ -1,0 +1,45 @@
+.myLearning {
+  display: grid;
+  grid-template-columns: 75% 25%;
+  justify-content: space-between;
+  color: white;
+  height: 100vh;
+  min-height: 100vh;
+  .header {
+    display: flex;
+    align-items: center;
+    height: 4rem;
+    background-color: #083647;
+    color: white;
+    padding: 0 0 0 10px;
+  }
+  .leftSide {
+    min-height: 100vh;
+    background-color: #21282b;
+    border-right: 1px solid #010f18;
+    .header {
+      display: flex;
+      align-items: center;
+      height: 4rem;
+      background-color: #051e26;
+      color: white;
+      padding: 0 0 0 10px;
+    }
+    .videoContainer {
+      width: 100%;
+      height: 37rem;
+    }
+    .videoInfo {
+      margin: 15px;
+    }
+
+  }
+  .rightSide {
+    min-height: 100vh;
+    overflow-y: auto;
+    background-color: #01080a;
+    .header {
+      background-color: #062630;
+    }
+  }
+}
