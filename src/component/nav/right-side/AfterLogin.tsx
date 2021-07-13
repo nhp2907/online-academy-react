@@ -12,7 +12,7 @@ import WatchListItemComponent from "./watch-list-item/WatchListItemComponent";
 import useWindowDimensions from "../../../hook/userWindowDimensions";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../redux/store";
-import {getWatchListApi} from "../../../service/user.service";
+import {getMyLearningListApi, getWatchListApi} from "../../../service/user.service";
 import {useHistory} from 'react-router-dom';
 import emptyImage from "../../../assets/img/empty-search.svg";
 import {OverlayPanel} from "primereact/overlaypanel";
@@ -30,6 +30,7 @@ const AfterLogin: React.FC<Props> = ({}) => {
     useEffect(() => {
         if (user) {
             getWatchListApi(user.id).then(r => setWatchList(r))
+            getMyLearningListApi(user.id).then(r => setMyLearningCourse(r))
         }
     }, [user])
 
@@ -90,7 +91,7 @@ const AfterLogin: React.FC<Props> = ({}) => {
                 <Button className={'p-button-rounded p-button-text'} label={width > 850 ? 'My Learning' : ''}
                         icon={'pi pi-book'} style={{color: 'rgba(255,255,255,1)'}}
                         onClick={handleToggleMyLearningOverlay}/>
-                <OverlayPanel ref={myLearningOverlayRef}>
+                <OverlayPanel ref={myLearningOverlayRef} style={{width: 350}}>
                     <div>
                         {myLearningCourses.length > 0 ?
                             myLearningCourses.map((c: Course) => <WatchListItemComponent course={c} onClick={e => {

@@ -7,8 +7,9 @@
   min-height: 100vh;
   .header {
     display: flex;
-    align-items: center;
-    height: 4rem;
+    flex-direction: column;
+    justify-content: center;
+    height: 5rem;
     background-color: #083647;
     color: white;
     padding: 0 0 0 10px;
@@ -19,7 +20,6 @@
     border-right: 1px solid #010f18;
     .header {
       display: flex;
-      align-items: center;
       height: 4rem;
       background-color: #051e26;
       color: white;
@@ -37,7 +37,7 @@
   .rightSide {
     min-height: 100vh;
     overflow-y: auto;
-    background-color: #01080a;
+    background-color: #21282B;
     .header {
       background-color: #062630;
     }

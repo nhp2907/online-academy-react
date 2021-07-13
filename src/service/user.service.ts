@@ -48,6 +48,11 @@ export const getWatchListApi = async (userId: any): Promise<Course[]> => {
     return data;
 }
 
+export const getMyLearningListApi = async (userId: any): Promise<Course[]> => {
+    const {data} = await get<Course[]>(`/api/user/${userId}/my-learning-list`);
+    return data;
+}
+
 export const addCourseToWatchListApi = async (userId: any, courseId: any): Promise<any> => {
     const {data} = await post<any>(`/api/user/${userId}/watch-list`, {courseId});
     return data;

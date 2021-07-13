@@ -11,6 +11,8 @@ import {RootState} from "../../redux/store";
 import {getCourseApi, getCourseById} from "../../service/course.service";
 import styles from './my-learning.module.scss'
 import {apiUrl} from "../../config/evironment";
+import {getLastPlayCourseApi} from "../../service/learning.service";
+import './override.scss'
 
 interface Params {
     courseId: string
@@ -27,7 +29,12 @@ const MyLearningPage: React.FC<Props> = ({}) => {
     const [course, setCourse] = useState<Course>()
 
     useEffect(() => {
-        getCourseById(params.courseId).then(r => setCourse(r))
+        getCourseById(params.courseId).then(r => {
+            setCourse(r)
+            getLastPlayCourseApi(user?.id, r.id).then(lastPlayVideo => {
+                setPlayingVideo(lastPlayVideo);
+            })
+        })
     }, [params.courseId])
 
     if (!course) {
@@ -39,11 +46,10 @@ const MyLearningPage: React.FC<Props> = ({}) => {
     }
 
     return (
-        <div className={styles.myLearning}>
+        <div className={`${styles.myLearning} my-learning-page`}>
             <div className={styles.leftSide}>
                 <div className={styles.header}>
-                    <h2>{course.name}</h2>
-                    <span>{course.author}</span>
+                    <h3>{course.name}</h3>
                 </div>
                 <div className={styles.videoContainer}>
                     <VideoPlayer url={`${apiUrl}/api/course/${course.id}/chapter/${'chapterId'}/video/${playingVideo?.id}/stream`}/>
