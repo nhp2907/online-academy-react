@@ -37,9 +37,10 @@
           cursor: not-allowed;
           font-weight: normal;
         }
-        &:placeholder-shown {
+        &::placeholder {
           opacity: 0.8;
-          font-size: 0.9rem;
+          font-size: 0.8rem;
+          font-weight: normal;
         }
       }
     }

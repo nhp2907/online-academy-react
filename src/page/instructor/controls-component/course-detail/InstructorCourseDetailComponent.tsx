@@ -89,7 +89,7 @@ const InstructorCourseDetailComponent: React.FC<Props> = ({}) => {
                         <CourseContentComponent courseInfo={course}/>
                     </TabPanel>
                     <TabPanel header="Public">
-                        <PublicCourseComponent/>
+                        <PublicCourseComponent course={course} instructor={instructor}/>
                     </TabPanel>
                 </TabView>
             </div>

@@ -23,4 +23,6 @@ export default interface Course extends BaseModel{
     createdAt?: string;
     updatedAt?: string;
     status: string;
+    disabled?: boolean;
+    published?: boolean
 }

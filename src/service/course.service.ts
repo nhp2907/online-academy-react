@@ -148,3 +148,13 @@ export const getRelatedCourseApi = async (courseId: any): Promise<Course[]> => {
     return data;
 }
 
+export const checkCourseCanPublishApi = async (courseId: any): Promise<any> => {
+    const {data} = await get<any>(`/api/course/${courseId}/can-publish`);
+    return data;
+}
+
+export const publishCourseApi = async (courseId: any): Promise<any> => {
+    const {data} = await post<any>(`/api/course/publish`, {id:courseId});
+    return data;
+}
+
