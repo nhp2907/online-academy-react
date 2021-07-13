@@ -4,8 +4,6 @@ import CourseInfoComponent from "../../component/course-detail/CourseInfoCompone
 import styles from '../../component/course-detail/course-detail.module.scss'
 import InstructorInfoComponent from "../../component/course-detail/InstructorInfoComponent";
 import RelatedCourseComponent from "../../component/course-detail/RelatedCourseComponent";
-import {useSelector} from "react-redux";
-import {RootState} from "../../redux/store";
 import {useParams} from 'react-router-dom';
 import StudentFeedbackComponent from "../../component/course-detail/StudentFeedbackComponent";
 import CourseFeedBackInfo from "../../model/CourseFeedBackInfo";
@@ -40,7 +38,6 @@ const CourseDetailPage: React.FC<Props> = ({}) => {
     const params: RouteParams = useParams()
     const [course, setCourse] = useState<Course>();
     const [instructor, setInstructor] = useState<Instructor>();
-    const [reviews, setReviews] = useState<CourseReview[]>([])
     const [feedBack, setFeedBack] = useState<any>(initialFeedBack)
     const [relatedCourse, setRelatedCourses] = useState<Course[]>([])
 
@@ -49,7 +46,6 @@ const CourseDetailPage: React.FC<Props> = ({}) => {
             setCourse(c)
             getInstructorDetail(c.instructorId).then(instructor => setInstructor(instructor));
             getCourseFeedBackApi(c?.id).then(r => setFeedBack(r));
-            getCourseReviewApi(c?.id).then(r => setReviews(r));
             getRelatedCourseApi(c.id).then(r => setRelatedCourses(r))
 
             setTimeout(() => {
@@ -76,7 +72,7 @@ const CourseDetailPage: React.FC<Props> = ({}) => {
                 <InstructorInfoComponent instructor={instructor}/>
                 <RelatedCourseComponent courses={relatedCourse}/>
                 <StudentFeedbackComponent item={feedBack}/>
-                <ReviewsComponent items={reviews}/>
+                <ReviewsComponent course={course}/>
             </div>
         );
     } else {

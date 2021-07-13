@@ -94,7 +94,7 @@ const AfterLogin: React.FC<Props> = ({}) => {
                 <OverlayPanel ref={myLearningOverlayRef} style={{width: 350}}>
                     <div>
                         {myLearningCourses.length > 0 ?
-                            myLearningCourses.map((c: Course) => <WatchListItemComponent course={c} onClick={e => {
+                            myLearningCourses.map((c: Course, index: number) => <WatchListItemComponent key={index} course={c} onClick={e => {
                                 history.push(`/my-learning/${c.id}`)
                                 handleToggleMenu(e)
                             }}/>) : <div style={{
