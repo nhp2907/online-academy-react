@@ -7,4 +7,5 @@ export default  interface Instructor extends  User {
     numReview: number
     numStudent: number,
     numCourse: number
+    brief?: string
 }

@@ -4,6 +4,7 @@ import styles from './course-detail.module.scss'
 import Course from "../../model/Course";
 import Instructor from "../../model/Instructor";
 import {Rating} from 'primereact/rating'
+import moment from "moment";
 
 interface Props {
     course: Course
@@ -27,7 +28,9 @@ const CourseInfoComponent: React.FC<Props> = ({course, instructor}) => {
                     <Rating value={Math.round((course.rating + Number.EPSILON) * 10) / 10} cancel={false} style={{color: 'orange'}}/>
                     <span className={styles.numOfRating}>{`(${course.numReview})`}</span>
                 </div>
-                <p className={styles.time}><small>Last updated at</small>{course.updatedAt}</p>
+                <p className={styles.time}><small>Last updated at </small>
+                    {moment(course.updatedAt).format('DD-MM-YYYY')}
+                </p>
             </div>
         </div>
     );

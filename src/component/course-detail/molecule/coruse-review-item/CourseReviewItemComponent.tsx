@@ -1,6 +1,10 @@
 import React, {useEffect, useState} from 'react'
-import CourseReview from "../../../model/CourseReview";
+import CourseReview from "../../../../model/CourseReview";
 import {Avatar} from "primereact/avatar";
+import {Rating} from "primereact/rating";
+import styles from './course-review-item.module.scss'
+import './coruse-review-item.override.scss'
+import moment from "moment";
 
 interface Props {
     item: CourseReview
@@ -11,7 +15,7 @@ const CourseReviewItemComponent: React.FC<Props> = ({item}) => {
         // console.log('item.image', item.userImage);
     }, [])
     return (
-        <div style={{display: 'flex', alignItems: "flex-start", padding: 10, borderBottom: '1px solid rgba(0,0,0,0.1)'}}>
+        <div className={`styles.courseReviewItem course-review-item`} >
             {
                 item.userImage ?
                     <Avatar style={{marginRight: 10}}
@@ -21,14 +25,18 @@ const CourseReviewItemComponent: React.FC<Props> = ({item}) => {
                             style={{marginRight: 10}}
                             className="p-mr-2" size="xlarge" shape="circle"/>
             }
-            <div>
+            <div className={styles.right}>
                 <div style={{display: 'flex'}}>
-                    <div>
+                    <div className={styles.info} >
                         <h3>{item.userName}</h3>
-                        <span>{item.createdAt}</span>
+                        <div style={{width: '100%', display: 'flex', alignItems: "center", justifyContent:"space-between"}}>
+                            <Rating value={item.rating} cancel={false} readOnly={true} style={{fontSize: 13}}/>
+                            <span><small>{
+                                moment(item.createdAt).format('DD-MM-YYYY')}
+                            </small></span>
+                        </div>
                     </div>
                     <div>
-
                     </div>
                 </div>
                 <div>

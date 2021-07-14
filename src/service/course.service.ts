@@ -119,9 +119,21 @@ export const createCourseReviewApi = async (courseId: any, review: any): Promise
     return data;
 }
 
-export const getCourseReviewApi = async (courseId: any): Promise<CourseReview[]> => {
+export const updateCourseReviewApi = async (courseId: any, review: any): Promise<CourseReview> => {
     const path = `/api/course/${courseId}/review`;
+    const {data} = await put<CourseReview>(path, review);
+    return data;
+}
+
+export const getCourseReviewApi = async (courseId: any, userId:any): Promise<CourseReview[]> => {
+    const path = `/api/course/${courseId}/review?userId=${userId}`;
     const {data} = await get<CourseReview[]>(path);
+    return data;
+}
+
+export const getCourseReviewByUserApi = async (courseId: any, userId:any): Promise<CourseReview> => {
+    const path = `/api/course/${courseId}/review/by-user/${userId}`;
+    const {data} = await get<CourseReview>(path);
     return data;
 }
 

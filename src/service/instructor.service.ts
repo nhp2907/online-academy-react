@@ -22,3 +22,8 @@ export const getInstructorDetail = async (instructorId: any): Promise<Instructor
     const {data} = await api.get<Instructor>(`/api/public/instructor/${instructorId}/detail`);
     return data;
 }
+
+export const updateInstructorInfoApi = async (body: any): Promise<any> => {
+    const {data} = await api.put<any>(`/api/instructor/info`, body);
+    return data;
+}

@@ -25,12 +25,12 @@ const UserProfileComponent: React.FC<Props> = ({user}) => {
                 <TabPanel header="Profile picture">
                     <ProfilePictureComponent user={user}/>
                 </TabPanel>
-                {/*{*/}
-                {/*    user && user.roleId === UserRole.Instructor ?*/}
-                {/*        <TabPanel header="Profile picture">*/}
-                {/*            <InstructorInfoComponent />*/}
-                {/*        </TabPanel> : ''*/}
-                {/*}*/}
+                {
+                    user && user.roleId === UserRole.Instructor ?
+                        <TabPanel header="Brief">
+                            <InstructorInfoComponent />
+                        </TabPanel> : ''
+                }
                 <TabPanel header="Privacy">
                     <ProfilePrivacyComponent/>
                 </TabPanel>

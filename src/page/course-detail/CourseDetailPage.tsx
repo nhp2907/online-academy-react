@@ -72,7 +72,9 @@ const CourseDetailPage: React.FC<Props> = ({}) => {
                 <InstructorInfoComponent instructor={instructor}/>
                 <RelatedCourseComponent courses={relatedCourse}/>
                 <StudentFeedbackComponent item={feedBack}/>
-                <ReviewsComponent course={course}/>
+                <ReviewsComponent course={course} requestUpdateFeedBack={() => {
+                    getCourseFeedBackApi(course?.id).then(r => setFeedBack(r));
+                }}/>
             </div>
         );
     } else {
