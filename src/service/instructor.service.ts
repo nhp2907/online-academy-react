@@ -8,6 +8,11 @@ export const getAllCourse = async (instructorId: string): Promise<Course[]> => {
     return data;
 }
 
+export const getAllCourseApi = async (): Promise<Course[]> => {
+    const {data} = await api.get<Course[]>(`/api/course`);
+    return data;
+}
+
 export const getInstructorByUserId = async (userId: any): Promise<Instructor> => {
     const {data} = await api.get<Instructor>(`/api/public/instructor/user/${userId}`);
     return data;

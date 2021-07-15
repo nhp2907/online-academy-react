@@ -2,6 +2,7 @@ import {User} from "../model/User";
 import {get, httpDelete, post, put} from "./api";
 import Category from "../model/Category";
 import {getSearchQueryString} from "./search.utils";
+import Course from "../model/Course";
 
 
 //region User
@@ -27,7 +28,6 @@ export const deleteUserApi = async (id: any): Promise<any> => {
 }
 //endregion
 
-
 //region Categories
 export const findCategoriesApi = async (body: any) => {
     const queryString = getSearchQueryString(body);
@@ -49,3 +49,18 @@ export const deleteCategoryApi = async (id: any) => {
     return data;
 }
 //endregion
+
+export const getAllCourseAdminApi = async (): Promise<Course[]> => {
+    const {data} = await get<Course[]>(`/api/admin/course`);
+    return data;
+}
+
+export const disableCourseApi = async (courseId: any) => {
+    const {data} = await post(`/api/admin/disabled-course`, {courseId});
+    return data;
+}
+
+export const deleteCourseApi = async (courseId: any) => {
+    const {data} = await httpDelete(`/api/admin/course/${courseId}`);
+    return data;
+}

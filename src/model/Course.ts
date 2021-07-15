@@ -1,6 +1,6 @@
 import {BaseModel} from "./BaseModel";
 
-export default interface Course extends BaseModel{
+export default interface Course extends BaseModel {
     id: string | null;
     instructorId?: string,
     categoryId?: string;
@@ -25,4 +25,5 @@ export default interface Course extends BaseModel{
     status: string;
     disabled?: boolean;
     published?: boolean
+    deleted?: boolean
 }
