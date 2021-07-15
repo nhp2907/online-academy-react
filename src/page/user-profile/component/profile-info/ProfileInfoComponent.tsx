@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import CommonInput from "../../../../component/common/CommonInput";
 import {User} from "../../../../model/User";
 import {validate as userValidate, validateEmail, validateEmailExceptId, validateName, validateUsername} from "../../../../validator/user.validator";
@@ -6,16 +6,18 @@ import {validate as userValidate, validateEmail, validateEmailExceptId, validate
 import styles from './profile-info.module.scss'
 import CommonSelect from "../../../../component/common/CommonSelect";
 import {Button} from 'primereact/button';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../../redux/store";
-import {updateUserApi, validateUser} from "../../../../service/user.service";
+import {getUserProfile, updateUserApi, validateUser} from "../../../../service/user.service";
+import {clearScreenDown} from "readline";
+import { setUser } from '../../../../redux/auth/auth.slice';
 
 interface Props {
     user: User | null
 }
 
 const ProfileInfoComponent: React.FC<Props> = ({user}) => {
-
+    const dispatch = useDispatch();
     const showToastMessage = useSelector((s: RootState) => s.home.showToastMessage)
     const [updateUser, setUpdateUser] = useState(user);
 
@@ -73,7 +75,10 @@ const ProfileInfoComponent: React.FC<Props> = ({user}) => {
             />
             <div style={{marginTop: 30}}>
                 <Button className={'p-button-success'} label={"Save"} style={{float: 'right', backgroundColor: '#B1127E', borderColor: '#B1127E'}}
-                        onClick={e => updateUserInfo(updateUser)}
+                        onClick={async e => {
+                            const updateResult = updateUserInfo(updateUser)
+                            dispatch(setUser(updateUser))
+                        }}
                 />
             </div>
         </div>

@@ -16,6 +16,25 @@ const UserProfileComponent: React.FC<Props> = ({user}) => {
     if (!user) {
         return <Redirect to={{pathname: '/login', state: {backUrl: '/profile'}}}/>
     }
+    if (user && user.roleId === UserRole.Instructor) {
+        return <div className={'userProfileComponent'}>
+            <TabView activeIndex={0} className={'profile-tabview'}>
+                <TabPanel header="Profile info">
+                    <ProfileInfoComponent user={user}/>
+                </TabPanel>
+                <TabPanel header="Profile picture">
+                    <ProfilePictureComponent user={user}/>
+                </TabPanel>
+                <TabPanel header="Brief">
+                    <InstructorInfoComponent/>
+                </TabPanel>
+                <TabPanel header="Privacy">
+                    <ProfilePrivacyComponent/>
+                </TabPanel>
+            </TabView>
+        </div>
+    }
+
     return (
         <div className={'userProfileComponent'}>
             <TabView activeIndex={0} className={'profile-tabview'}>
@@ -25,12 +44,12 @@ const UserProfileComponent: React.FC<Props> = ({user}) => {
                 <TabPanel header="Profile picture">
                     <ProfilePictureComponent user={user}/>
                 </TabPanel>
-                {
-                    user && user.roleId === UserRole.Instructor ?
-                        <TabPanel header="Brief">
-                            <InstructorInfoComponent />
-                        </TabPanel> : ''
-                }
+                {/*{*/}
+                {/*    user && user.roleId === UserRole.Instructor ?*/}
+                {/*        <TabPanel header="Brief">*/}
+                {/*            <InstructorInfoComponent/>*/}
+                {/*        </TabPanel> : ''*/}
+                {/*}*/}
                 <TabPanel header="Privacy">
                     <ProfilePrivacyComponent/>
                 </TabPanel>

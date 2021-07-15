@@ -4,7 +4,7 @@ import {getSearchQueryString} from "./search.utils";
 import Course from "../model/Course";
 
 export const getUserProfile = async (): Promise<User> => {
-    const {data} = await api.get<User>('/api/user/me')
+    const {data} = await get<User>('/api/user/me')
     return data;
 }
 

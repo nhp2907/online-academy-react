@@ -24,6 +24,6 @@ export const getInstructorDetail = async (instructorId: any): Promise<Instructor
 }
 
 export const updateInstructorInfoApi = async (body: any): Promise<any> => {
-    const {data} = await api.put<any>(`/api/instructor/info`, body);
+    const {data} = await api.put<any>(`/api/instructor`, body);
     return data;
 }

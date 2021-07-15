@@ -35,7 +35,13 @@ function PageContainer() {
         if (token) {
             getUserProfile().then((user: User) => dispatch(setUser(user)))
         }
-    }, [token])
+    },)
+
+    useEffect(() => {
+        if (token) {
+            getUserProfile().then((user: User) => dispatch(setUser(user)))
+        }
+    },[token])
     return (
         <div className="page-container">
             <Toast ref={t => {

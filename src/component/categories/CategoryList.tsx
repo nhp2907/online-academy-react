@@ -28,9 +28,7 @@ const CategoryList: React.FC<Props> = ({}) => {
             setCategoryItems(categoriesItems);
         })
         Promise.all(categoryItemsPromise).then(res => {
-            // setCategories(res)
             setCategoryItems(res);
-            console.log('categoriesItem: ', res);
         })
     }, [])
 

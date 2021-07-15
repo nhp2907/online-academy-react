@@ -11,13 +11,6 @@ interface Props {
 }
 
 const InstructorInfoComponent: React.FC<Props> = ({instructor}) => {
-    // const instructor = {
-    //     name: 'Nguyen Hoang Phuc',
-    //     rating: 4.5,
-    //     numReview: 1000,
-    //     numStudent: 1000,
-    //     numCourse: 18
-    // }
     return (
         <Card className={styles.instructor} title={'Instructor'}>
             <div className={styles.content}>
@@ -34,6 +27,8 @@ const InstructorInfoComponent: React.FC<Props> = ({instructor}) => {
                         <InlineWithIcon icon={faUsers} value={instructor?.numStudent + ' students'}/>
                         <InlineWithIcon icon={faVideo} value={instructor?.numCourse + ' courses'}/>
                     </div>
+                </div>
+                <div className={styles.instructorBrief} dangerouslySetInnerHTML={{__html: instructor?.brief || ''}}>
                 </div>
             </div>
         </Card>

@@ -29,7 +29,7 @@ const UserProfilePage: React.FC<Props> = ({}) => {
                 </div>
             </Link>
             <div className={styles.header}>
-                <h1>Nugyen Hoang Phuc</h1>
+                <h1>{`${user?.firstName} ${user?.lastName}`}</h1>
                 <span>profile</span>
             </div>
             <div className={styles.tabViewContainer}>

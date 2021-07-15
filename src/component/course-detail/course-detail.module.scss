@@ -104,6 +104,7 @@ $leftWidth: 60%;
     //padding: 10px;
     .descriptionContent {
       padding-left: 30px;
+      font-size: 0.9rem;
     }
   }
 
@@ -153,6 +154,11 @@ $leftWidth: 60%;
         display: flex;
         justify-content: flex-start;
         align-items: center;
+      }
+
+      .instructorBrief {
+        margin-top: 15px;
+        font-size: 0.9rem;
       }
     }
   }
