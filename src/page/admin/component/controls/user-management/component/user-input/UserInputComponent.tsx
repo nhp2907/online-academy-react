@@ -62,19 +62,12 @@ const UserInputComponent: React.FC<Props> = ({user, onSubmit, hideModal}) => {
                              onChange={e => setUser({...formUser, email: e.target.value})}
                              validate={text => validateEmail(text)}/>
             </div>
-            <div style={style}>
-                <CommonSelect value={formUser.roleId} name={'Role'} required
-                              items={userRoleSelectItems}
-                              onChange={e => setUser({...formUser, roleId: parseInt(e.target.value)})}
-                />
-            </div>
 
             <div className={styles.buttonContainer}>
                 <Button label={'Cancel'} className={`p-button-text ${styles.cancelButton}`}
                         onClick={() => hideModal ? hideModal() : ''}/>
                 <Button label={'Submit'}
                         onClick={() => {
-                            const role = UserRole[formUser.roleId || 0]
                             onSubmit(formUser)
                         }}/>
             </div>

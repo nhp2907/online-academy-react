@@ -183,7 +183,7 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
                          onChange={(e) => {
                              disableUser(rowData)
                          }}/>
-            <span>{!rowData.status ? "Disabled" : 'Enabled'}</span>
+            <span style={{marginLeft: 10}}>{!rowData.status ? "Disabled" : 'Enabled'}</span>
         </div>
     }
 
@@ -213,7 +213,7 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
         <div className="table-header">
             <div className={'table-header-left'}>
                 {/*<span>Manage users</span>*/}
-                <Button label="New" icon="pi pi-plus" style={{marginRight: 10, fontSize: 15}}
+                <Button label="New instructor" icon="pi pi-plus" style={{marginRight: 10, fontSize: 15}}
                         className=" p-button-success p-mr-2"
                         onClick={openNew}/>
                 {/*<Button label="Delete" icon="pi pi-trash" className="p-button-text p-button-danger" style={{marginRight: 10, fontSize: 15}}*/}
@@ -266,7 +266,7 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
                 </DataTable>
             </div>
 
-            <Dialog header="User Details" visible={userDialog} style={{width: '450px'}} modal className="p-fluid"
+            <Dialog header="Create instructor account" visible={userDialog} style={{width: '450px'}} modal className="p-fluid"
                     onHide={hideDialog}>
                 {user.image && <img src={`showcase/demo/images/user/${user.image}`}
                                     alt={user.image} className="user-image"/>}
