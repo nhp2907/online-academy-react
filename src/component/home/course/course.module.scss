@@ -1,9 +1,9 @@
 .course {
+  font-size: 90%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 260px;
-  min-width: 250px;
   max-width: 300px;
   height: 350px;
   border-radius: 5px;
@@ -125,5 +125,12 @@
   .course {
     width: 230px;
     font-size: 98%;
+  }
+}
+
+@media (max-width: 406px) {
+  .course {
+    width: 200px;
+    font-size: 93%;
   }
 }

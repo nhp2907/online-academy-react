@@ -12,4 +12,6 @@ body .page {
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
-    background-color: #EEF1F2; }
+    /*background-color: #EEF1F2;*/
+    background-color: #FCFCFC;
+}

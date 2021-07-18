@@ -56,6 +56,7 @@ const InstructorCourseManagementComponent: React.FC<Props> = ({}) => {
             </div>
             <div className={styles.listCourseContainer}>
                 <ListCourseComponent
+                    isInstructor={true}
                     itemOnClick={(course: Course) => {
                         history.push(`/instructor/course/${course.id}`)
                     }}

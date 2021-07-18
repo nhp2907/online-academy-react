@@ -11,9 +11,10 @@ interface Props {
     emptyMessage?: string,
     showIndex?: boolean
     itemOnClick?: (course: Course) => void
+    isInstructor?: boolean
 }
 
-const ListCourseComponent: React.FC<Props> = ({courses, itemOnClick, emptyMessage, showIndex}) => {
+const ListCourseComponent: React.FC<Props> = ({courses, itemOnClick, emptyMessage, showIndex, isInstructor}) => {
     const [displayCourse, setDisplayCourse] = useState<Course[]>([])
     const [basicFirst, setBasicFirst] = useState(0);
     const [basicRows, setBasicRows] = useState(10);
@@ -33,7 +34,7 @@ const ListCourseComponent: React.FC<Props> = ({courses, itemOnClick, emptyMessag
                                     itemOnClick(c);
                                 }
                             }}>
-                                <RelatedCourseItem key={c.id} item={c}/>
+                                <RelatedCourseItem key={c.id} item={c} isInstructor={isInstructor}/>
                             </div>
                         </div>
                     ))

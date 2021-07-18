@@ -18,7 +18,7 @@ const InstructorInfoComponent: React.FC<Props> = ({instructor}) => {
                 <div className={styles.instructorRating}>
                     <div className={styles.image}>
                         {
-                            instructor?.image ? <img src="" alt="non"/> : ''
+                            instructor?.image ? <img src={instructor.image} alt=""/> : ''
                         }
                     </div>
                     <div>

@@ -8,15 +8,6 @@ interface Props {
 }
 
 const SearchCourseResultPage : React.FC<Props> = ({}) => {
-    useLayoutEffect(() => {
-        onPageLoad().then(r => console.log(r));
-    })
-
-    const onPageLoad = async () => {
-        // const categories = await homeService.getCategories();
-        // dispatch(setCategories(categories))
-    }
-
 
     return (
         <div className={styles.page}>

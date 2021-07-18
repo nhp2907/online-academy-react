@@ -66,17 +66,18 @@ const CategoryManagementComponent: React.FC<Props> = ({}) => {
                 setCategories(categories_);
 
                 // @ts-ignore
-                showToastMessage({severity: 'success', summary: 'Successful', detail: 'User Updated', life: 3000});
+                showToastMessage({severity: 'success', summary: 'Successful', detail: 'Category Updated', life: 3000});
             } else {
                 const newCate = await createCategoryApi(categoryForm);
 
                 getCategories().then(cates => setCategories(cates))
 
                 setCreateModalVisible(false);
-                setCategory(emptyCategory);
                 // @ts-ignore
-                showToastMessage({severity: 'success', summary: 'Successful', detail: 'User Created', life: 3000});
+                showToastMessage({severity: 'success', summary: 'Successful', detail: 'Category Created', life: 3000});
             }
+            setCreateModalVisible(false);
+            setCategory(emptyCategory);
         } catch (err) {
             // @ts-ignore
             showToastMessage({severity: 'error', summary: 'Failed', detail: err.response.data.message, life: 3000});
@@ -138,7 +139,7 @@ const CategoryManagementComponent: React.FC<Props> = ({}) => {
     }
 
     return (
-        <div>
+        <div style={{overflow: 'auto', height: '100%'}}>
             <div className="datatable-crud-demo">
                 <div className="card">
                     {/*<Toolbar className="p-mb-4 " left={leftToolbarTemplate}/>*/}
@@ -165,7 +166,10 @@ const CategoryManagementComponent: React.FC<Props> = ({}) => {
                 </div>
 
                 <Dialog header="Category Details" visible={createModalVisible} style={{width: '450px'}} modal className="p-fluid"
-                        onHide={() => setCreateModalVisible(false)}>
+                        onHide={() => {
+                            setCategory(emptyCategory)
+                            setCreateModalVisible(false)
+                        }}>
                     <CategoryInputComponent category={category} onSubmit={saveCategory} hideModal={() => {
                         setCategory(emptyCategory)
                         setCreateModalVisible(false)

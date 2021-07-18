@@ -41,7 +41,7 @@ const FilterComponent: React.FC<Props> = ({input,onChange}) => {
 
     return (
         <div className={styles.filter}>
-            <Panel header={'Sort options'} style={{marginBottom: 10}}>
+            <Panel header={'Sort options'} style={{marginBottom: 10}} toggleable>
                 <SortComponent header={'Price:'}
                                sortOptions={[{code: 'asce', label: 'Ascending'}, {code: 'desc', label: 'Descending'}]}
                                onChange={priceChange}/>

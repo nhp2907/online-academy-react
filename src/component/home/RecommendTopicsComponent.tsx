@@ -20,7 +20,7 @@ const RecommendTopicsComponent: React.FC<Props> = ({}) => {
             <div className={styles.content}>
                 {
                     categories.map((category: Category) => (
-                        <div onClick={e => {
+                        <div className={styles.cateItem}  onClick={e => {
                             history.push(`course?category=${category.name}`)
                         }} key={category.id}><span>{category.name}</span></div>
                     ))

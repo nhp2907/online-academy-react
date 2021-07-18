@@ -4,12 +4,14 @@ import styles from './related-course-item.module.scss'
 import Course from "../../../model/Course";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar, faUsers} from "@fortawesome/free-solid-svg-icons";
+import {Badge} from "primereact/badge";
 
 interface Props {
     item: Course
+    isInstructor?: boolean
 }
 
-const RelatedCourseItem: React.FC<Props> = ({item}) => {
+const RelatedCourseItem: React.FC<Props> = ({item, isInstructor}) => {
 
     return (
         <div className={styles.relatedCourseItem}>
@@ -44,6 +46,9 @@ const RelatedCourseItem: React.FC<Props> = ({item}) => {
                     </div>
                 </div>
             </div>
+            {isInstructor ? <div className={styles.badge} style={{backgroundColor: item.published ? 'green' : 'red'}}>
+                <span>{item.published ? 'Published' : 'Not Published'}</span>
+            </div> : ""}
         </div>
     );
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import CategoryList from "../categories/CategoryList";
 
 import styles from '../../page/home/home.module.scss'
-import SlideShowComponent from "./SlideShowComponent";
+import SlideShowComponent from "./slide-show/SlideShowComponent";
 
 interface Props {
 

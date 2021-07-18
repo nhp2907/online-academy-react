@@ -28,7 +28,7 @@
     max-height: 90%;
 
     .filter {
-      height: 100%;
+      //height: 100%;
       padding-right: 1rem;
       border-right: 1px solid #dddddd;
     }
@@ -37,6 +37,77 @@
       padding: 0 2rem;
       overflow-y: scroll;
       max-height: 100%;
+    }
+  }
+}
+
+
+@media (max-width: 1135px) {
+  .main {
+    padding: 1rem;
+
+    .header {
+
+    }
+
+    .content {
+      .filter {
+
+      }
+
+      .listCourse {
+
+      }
+    }
+  }
+}
+
+@media (max-width: 920px) {
+  .main {
+    justify-content: unset;
+    .header {
+      font-size: 1.1rem;
+      margin: 0 2rem;
+      padding: 0;
+    }
+
+    .content {
+      grid-template-columns: unset;
+      grid-template-rows: auto;
+      .filter {
+        width: 300px;
+        margin: 0 2rem;
+        border-right: none;
+      }
+
+      .listCourse {
+
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .main {
+    .header {
+      font-size: 1.1rem;
+      margin: 0;
+      padding: 0;
+    }
+
+    .content {
+      grid-template-columns: unset;
+      grid-template-rows: auto;
+      margin: 0;
+      .filter {
+        width: 300px;
+        margin: 0rem;
+        border-right: none;
+      }
+
+      .listCourse {
+
+      }
     }
   }
 }

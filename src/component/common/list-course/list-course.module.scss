@@ -34,3 +34,12 @@
     }
   }
 }
+
+@media (max-width: 800px) {
+  .listCourse {
+    padding: 0;
+    .courseItem{
+      padding: 0;
+    }
+  }
+}

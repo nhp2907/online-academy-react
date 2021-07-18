@@ -6,6 +6,7 @@ import CommonInput from '../../../../../../component/common/CommonInput';
 import CommonSelect, {SelectItem} from '../../../../../../component/common/CommonSelect';
 import {validateName} from '../../../../../../validator/category.validator';
 import {getCategories} from "../../../../../../service/home.service";
+import CommonSelectPrime from "../../../../../../component/common/CommonSelectPrime";
 
 interface Props {
     category: Category
@@ -17,6 +18,10 @@ const CategoryInputComponent: React.FC<Props> = ({category, onSubmit, hideModal}
     const [formCate, setFormCate] = useState<Category>(category);
 
     const [categoriesLv1, setCategoryLv1] = useState<SelectItem[]>([])
+
+    useEffect(() => {
+        console.log('category', category);
+    }, [category])
 
     useEffect(() => {
         getCategories().then(r => {
@@ -39,9 +44,9 @@ const CategoryInputComponent: React.FC<Props> = ({category, onSubmit, hideModal}
             </div>
 
             <div style={style}>
-                <CommonSelect value={formCate.parentId} name={'Parent category'}
-                              items={categoriesLv1}
-                              onChange={(e: any) => setFormCate({...formCate, parentId: e.target.value})}
+                <CommonSelectPrime value={formCate.parentId} name={'Parent category'} disabled={!!formCate.id}
+                                   items={categoriesLv1}
+                                   onChange={(e: any) => setFormCate({...formCate, parentId: e.target.value})}
                 />
             </div>
 

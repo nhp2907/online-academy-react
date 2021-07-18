@@ -47,7 +47,6 @@ const CourseDetailPage: React.FC<Props> = ({}) => {
             getInstructorDetail(c.instructorId).then(instructor => setInstructor(instructor));
             getCourseFeedBackApi(c?.id).then(r => setFeedBack(r));
             getRelatedCourseApi(c.id).then(r => setRelatedCourses(r))
-
             setTimeout(() => {
                 plusCourseViewsApi(c.id);
             }, 5 * 60 * 1000) // 5 minutes

@@ -23,7 +23,7 @@ const CommonSelectPrime: React.FC<Props> = ({name, items, placeholder, icon, val
             {name ? <label className={`${titleClassName} ${required === true ? 'required' : ''}`}>{name}</label> : ''}
             <div className={inputContainerClassName || 'p-field'}>
                 <i/>
-                <Dropdown value={value} options={items} onChange={onChange} placeholder={placeholder}/>
+                <Dropdown value={value} options={items} onChange={onChange} placeholder={placeholder || name} disabled={disabled}/>
             </div>
         </div>
     );

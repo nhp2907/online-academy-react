@@ -148,6 +148,8 @@ $leftWidth: 60%;
 
           img {
             border: none;
+            height: 100%;
+            width: 100%;
           }
         }
 
@@ -237,5 +239,342 @@ $leftWidth: 60%;
     height: 60%;
     width: 17%;
     box-shadow: 0 3px 5px -1px rgb(0 0 0 / 20%), 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%);
+  }
+}
+
+@media (max-width: 1200px) {
+  $leftWidth: 80%;
+  $leftMargin: 5%;
+  .courseDetailPage {
+    .courseInfo {
+      .content {
+        width: $leftWidth;
+        margin: 0 auto;
+
+        .image {
+          img {
+            height: 300px;
+          }
+        }
+      }
+    }
+
+    .courseContent {
+      width: $leftWidth;
+      margin: 20px auto;
+
+      .content {
+        width: $leftWidth;
+        margin: 20px auto;
+      }
+    }
+
+    .description {
+      width: $leftWidth;
+
+      margin: 20px auto;
+
+      .content {
+        width: $leftWidth;
+      }
+
+    }
+
+    .instructor {
+      margin: 20px auto;
+      width: $leftWidth;
+
+      .content {
+        margin: 0 auto;
+        width: $leftWidth;
+      }
+
+    }
+
+    .relatedCourse {
+      width: $leftWidth;
+      margin: 20px auto;
+
+      .content {
+        width: $leftWidth;
+      }
+
+    }
+
+    .studentFeedBack {
+      width: $leftWidth;
+      margin: 20px auto;
+
+      .content {
+        width: $leftWidth;
+        .left {
+          width: 40%;
+        }
+
+        .right {
+          width: 60%;
+        }
+      }
+
+    }
+
+    .review {
+      width: $leftWidth;
+      margin: 20px auto;
+
+      .content {
+        width: $leftWidth;
+      }
+
+    }
+
+    .studentFeedBack {
+      width: $leftWidth;
+      margin: 20px auto;
+
+      .content {
+        width: $leftWidth;
+      }
+
+    }
+
+    .buyTab {
+      position: unset;
+      visibility: hidden;
+    }
+  }
+}
+
+@media (max-width: 850px) {
+  $leftWidth: 90%;
+  $leftMargin: 5%;
+  .courseDetailPage {
+    font-size: 90%;
+
+    .courseInfo {
+      .content {
+        width: $leftWidth;
+        margin: 0 auto;
+
+        .image {
+          img {
+            height: 240px;
+          }
+        }
+      }
+    }
+
+    .courseContent {
+      width: $leftWidth;
+      margin: 20px auto;
+
+      .content {
+        width: $leftWidth;
+        margin: 20px auto;
+      }
+    }
+
+    .description {
+      width: $leftWidth;
+
+      margin: 20px auto;
+
+      .content {
+        width: $leftWidth;
+      }
+
+    }
+
+    .instructor {
+      margin: 20px auto;
+      width: $leftWidth;
+      font-size: 98%;
+
+      .content {
+        margin: 0 auto;
+        width: $leftWidth;
+
+        .instructorRating {
+          .image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50px;
+          }
+        }
+
+      }
+
+      .relatedCourse {
+        width: $leftWidth;
+        margin: 20px auto;
+
+        .content {
+          width: $leftWidth;
+        }
+
+      }
+
+      .studentFeedBack {
+        width: $leftWidth;
+        margin: 20px auto;
+
+        .content {
+          width: $leftWidth;
+        }
+
+      }
+
+      .review {
+        width: $leftWidth;
+        margin: 20px auto;
+
+        .content {
+          width: $leftWidth;
+        }
+
+      }
+
+      .buyTab {
+        position: unset;
+        visibility: hidden;
+      }
+    }
+
+    .studentFeedBack {
+      font-size: 90%;
+      width: $leftWidth;
+      margin: 20px auto;
+
+      .content {
+        .left {
+          width: 40%;
+        }
+
+        .right {
+          width: 60%;
+        }
+      }
+
+    }
+
+    .review {
+      width: $leftWidth;
+      margin: 20px auto;
+
+      .content {
+        width: $leftWidth;
+      }
+
+    }
+
+    .relatedCourse {
+      width: $leftWidth;
+      margin: 20px auto;
+
+      .content {
+        width: $leftWidth;
+      }
+
+    }
+
+    .buyTab {
+      position: unset;
+      visibility: hidden;
+    }
+  }
+}
+
+@media (max-width: 490px) {
+  $leftWidth: 90%;
+  $leftMargin: 5%;
+  .courseDetailPage {
+    font-size: 90%;
+
+    .courseInfo {
+      .content {
+        width: $leftWidth;
+        margin: 0 auto;
+
+        .image {
+          img {
+            height: 200px;
+          }
+        }
+      }
+    }
+
+    .courseContent {
+      width: $leftWidth;
+      margin: 20px auto;
+
+      .content {
+        width: $leftWidth;
+        margin: 0 auto;
+      }
+    }
+
+    .description {
+      width: $leftWidth;
+
+      margin: 20px auto;
+
+      .content {
+        width: $leftWidth;
+      }
+
+    }
+
+    .instructor {
+      margin: 20px auto;
+      width: $leftWidth;
+
+      .content {
+        margin: 0 auto;
+        width: $leftWidth;
+        .instructorRating {
+          .image {
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
+          }
+        }
+      }
+
+    }
+
+    .relatedCourse {
+      width: $leftWidth;
+      margin: 20px auto;
+
+      .content {
+        width: $leftWidth;
+      }
+
+    }
+
+    .studentFeedBack {
+      width: $leftWidth;
+      margin: 20px auto;
+
+      .content {
+        width: $leftWidth;
+      }
+
+    }
+
+    .review {
+      width: $leftWidth;
+      margin: 20px auto;
+
+      .content {
+        width: $leftWidth;
+      }
+
+    }
+
+    .buyTab {
+      position: unset;
+      visibility: hidden;
+    }
   }
 }

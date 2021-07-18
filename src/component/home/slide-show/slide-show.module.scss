@@ -1,0 +1,39 @@
+.slideShow {
+    flex: 1;
+    padding: 30px;
+    width: 60%;
+    .image {
+        height: 400px;
+        width: 100%;
+        object-fit: cover;
+    }
+}
+
+@media (max-width: 1000px) {
+    .slideShow {
+        .image {
+            height: 350px;
+        }
+    }
+}
+@media (max-width: 800px) {
+    .slideShow {
+        .image {
+            height: 300px;
+        }
+    }
+}
+@media (max-width: 600px) {
+    .slideShow {
+        .image {
+            height: 250px;
+        }
+    }
+}
+@media (max-width: 500px) {
+    .slideShow {
+        .image {
+            height: 150px;
+        }
+    }
+}

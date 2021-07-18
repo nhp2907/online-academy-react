@@ -28,7 +28,6 @@ const SearchResultMainComponent: React.FC<Props> = ({}) => {
             const queryParams = new URLSearchParams(window.location.search);
             const kw: string = queryParams.get('kw') ?? '';
             const cateName: string = queryParams.get('category') ?? '';
-
             if (previous?.kw !== kw || previous.categoryName !== categoryName) {
                 setKw(kw);
                 setCategoryName(cateName)
@@ -37,6 +36,9 @@ const SearchResultMainComponent: React.FC<Props> = ({}) => {
                 } else {
                     searchCourseApi({kw}).then(courses => setCourses(courses));
                 }
+            } else {
+                setCategoryName(cateName)
+                setKw(kw)
             }
         }
     })
