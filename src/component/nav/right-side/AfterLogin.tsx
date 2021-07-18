@@ -83,12 +83,12 @@ const AfterLogin: React.FC<Props> = ({}) => {
             <div className={`${styles.myLearning}`}>
                 <Menu model={watchListToMenuModels(watchList)} popup ref={menuRef} id="overlay_tmenu-watch-list"
                       className={'watch-list-menu-container'}/>
-                <Button className={'p-button-rounded p-button-danger'} label={width > 850 ? 'Watch list' : ''}
+                <Button className={'p-button-rounded p-button-danger'} label={width > 1033 ? 'Watch list' : ''}
                         icon={'pi pi-heart'} style={{color: 'rgba(255,255,255,1)'}}
                         onClick={handleToggleMenu}/>
             </div>
             <div>
-                <Button className={'p-button-rounded p-button-text'} label={width > 850 ? 'My Learning' : ''}
+                <Button className={'p-button-rounded p-button-text'} label={width > 1033 ? 'My Learning' : ''}
                         icon={'pi pi-book'} style={{color: 'rgba(255,255,255,1)'}}
                         onClick={handleToggleMyLearningOverlay}/>
                 <OverlayPanel ref={myLearningOverlayRef} style={{width: 350}}>

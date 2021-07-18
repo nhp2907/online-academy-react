@@ -6,7 +6,7 @@ if (token) {
     console.log('============== axios get token from local storage ===========')
     axios.defaults.headers.authorization = 'Bearer ' + token;
 }
-axios.defaults.baseURL = 'http://localhost:4000'
+axios.defaults.baseURL = 'http://192.168.1.8:4000'
 
 export function searchByCriteria<T>(url: string, searchDto: any): Promise<AxiosResponse<T>> {
     const queryString = getSearchQueryString(searchDto);

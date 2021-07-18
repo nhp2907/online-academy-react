@@ -26,7 +26,7 @@ const HomeComponent: React.FC<Props> = ({toastRef}) => {
         <div className={styles.main}>
             <NormalSectionComponent/>
             <RecommendTopicsComponent/>
-            <CoursesListComponent title={'Top courses of week'} courses={topCourses}/>
+            <CoursesListComponent title={'Top courses of week'} numVisible={3} courses={topCourses}/>
             <CoursesListComponent title={'Latest courses of week'} courses={latestCourses}/>
             <CoursesListComponent title={'Most view courses'} courses={mostViewCourse}/>
         </div>

@@ -20,7 +20,7 @@ export const validateName = (firstName: string, lastName: string) => {
 export const validateEmail = async (text: string) => {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!re.test(String(text).toLowerCase())) {
-        return 'Email pattern is invalidddd';
+        return 'Email pattern is invalid';
     } else {
         const validateResult = await validateUser({email: text})
         if (!validateResult.isOk) {
@@ -33,7 +33,7 @@ export const validateEmail = async (text: string) => {
 export const validateEmailExceptId = async (text: string, id:any) => {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!re.test(String(text).toLowerCase())) {
-        return 'Email pattern is invalidddd';
+        return 'Email pattern is invalid';
     } else {
         const validateResult = await validateUserEmailExceptId({email: text, id})
         if (!validateResult.isOk) {
