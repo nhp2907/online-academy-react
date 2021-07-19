@@ -3,7 +3,6 @@ import CourseVideoInfo from "../../../../../../../../model/CourseVideoInfo";
 import {confirmPopup} from 'primereact/confirmpopup'; // To use confirmPopup method
 import styles from './course-video.module.scss'
 import {Button} from 'primereact/button';
-import VideoPlayer from "../../../../../../../../component/common/VideoPlayer";
 
 interface Props {
     item: CourseVideoInfo

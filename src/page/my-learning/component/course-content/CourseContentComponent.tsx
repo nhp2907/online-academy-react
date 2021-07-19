@@ -7,22 +7,49 @@ import CourseChapterComponent from "../course-chapter/CourseChapterComponent";
 
 interface Props {
     course?: Course
-    setPlayingVideo: (video: any) => void
+    setPlayingVideo: (video: any, chapterIndex: number) => void
+    openingChapterIndex: number
 }
 
-const CourseContentComponent: React.FC<Props> = ({course, setPlayingVideo}) => {
+const CourseContentComponent: React.FC<Props> = ({course, setPlayingVideo, openingChapterIndex}) => {
+
+    const [activeIndex, setActiveIndex] = useState<number[]>([0])
+
     const [chapters, setChapters] = useState<CourseChapter[]>([]);
     useEffect(() => {
         getCourseChaptersApi(course?.id || '').then(r => setChapters(r));
     }, [course])
 
+    useEffect(() => {
+        console.log('=>>> opening chapterindex', openingChapterIndex)
+        onClick(openingChapterIndex)
+    }, [openingChapterIndex])
+
+    const onClick = (itemIndex: number) => {
+        let _activeIndex = activeIndex ? [...activeIndex] : [];
+
+        if (_activeIndex.length === 0) {
+            _activeIndex.push(itemIndex);
+        } else {
+            const index = _activeIndex.indexOf(itemIndex);
+            if (index === -1) {
+                _activeIndex.push(itemIndex);
+            } else {
+                _activeIndex.splice(index, 1);
+            }
+        }
+
+        console.log(_activeIndex)
+        setActiveIndex(_activeIndex);
+    }
+
     return (
         <div> {
-            <Accordion multiple activeIndex={[0]}>
+            <Accordion multiple activeIndex={activeIndex}>
                 {
-                    chapters.map((chapter: CourseChapter) =>
+                    chapters.map((chapter: CourseChapter, index: number) =>
                         <AccordionTab key={chapter.id} header={chapter.name}>
-                            <CourseChapterComponent chapter={chapter} setPlayingVideo={setPlayingVideo}/>
+                            <CourseChapterComponent chapter={chapter} setPlayingVideo={(video: any) => setPlayingVideo(video, index)}/>
                         </AccordionTab>
                     )
                 }
