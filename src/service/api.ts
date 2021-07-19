@@ -1,12 +1,13 @@
 import axios, {AxiosResponse} from 'axios'
 import {getSearchQueryString} from "./search.utils";
+import {currentEnv} from "../config/evironment";
 
 const token = localStorage.getItem("token");
 if (token) {
     console.log('============== axios get token from local storage ===========')
     axios.defaults.headers.authorization = 'Bearer ' + token;
 }
-axios.defaults.baseURL = 'http://localhost:4000'
+axios.defaults.baseURL = currentEnv.apiUrl
 
 export function searchByCriteria<T>(url: string, searchDto: any): Promise<AxiosResponse<T>> {
     const queryString = getSearchQueryString(searchDto);

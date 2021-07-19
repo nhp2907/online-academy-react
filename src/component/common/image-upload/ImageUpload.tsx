@@ -2,7 +2,6 @@ import React, {useEffect, useRef} from 'react'
 import './upload-image.scss'
 
 import coverImage from '../../../assets/img/image-placeholder.png'
-import { apiUrl } from '../../../config/evironment';
 
 interface Props {
     imageUrl?: any

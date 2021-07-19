@@ -10,7 +10,7 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
 import {getCourseApi, getCourseById} from "../../service/course.service";
 import styles from './my-learning.module.scss'
-import {apiUrl} from "../../config/evironment";
+import {currentEnv} from "../../config/evironment";
 import {getLastPlayCourseApi} from "../../service/learning.service";
 import './override.scss'
 
@@ -52,7 +52,7 @@ const MyLearningPage: React.FC<Props> = ({}) => {
                     <h3>{course.name}</h3>
                 </div>
                 <div className={styles.videoContainer}>
-                    <VideoPlayer url={`${apiUrl}/api/course/${course.id}/chapter/${'chapterId'}/video/${playingVideo?.id}/stream`}/>
+                    <VideoPlayer url={`${currentEnv.apiUrl}/api/course/${course.id}/chapter/${'chapterId'}/video/${playingVideo?.id}/stream`}/>
                 </div>
                 <div className={styles.videoInfo}>
                     <span><small>Chapter </small>{playingVideo?.name || 'Chapter 1'}</span>

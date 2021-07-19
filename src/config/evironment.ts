@@ -1,1 +1,3 @@
-export const apiUrl = 'http://192.168.1.8:4000';
+import envs from "./envs";
+export const currentEnvName = process.env.REACT_APP_STAGE || "development";
+export const currentEnv = envs[currentEnvName];
