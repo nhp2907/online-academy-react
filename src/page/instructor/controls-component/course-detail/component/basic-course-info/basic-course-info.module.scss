@@ -1,0 +1,86 @@
+@import "src/page/instructor/controls-component/course-detail/course-detail.variable";
+
+.scroller {
+  max-height: 90%;
+  width: 100%;
+  height: $tabPaneHeight;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 0.5em;
+  }
+
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(183, 183, 183, 0.3);
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #dedede;
+    border-radius: 4px;
+    outline: none;
+  }
+
+  .courseBasicInfo {
+    width: 90%;
+
+    .section1 {
+      height: 400px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 50% 50%;
+      .info {
+        padding: 4px;
+      }
+      .imageUploadContainer {
+        padding: 0.5rem;
+        width: 80%;
+        height: 350px;
+        justify-self: center;
+      }
+
+    }
+
+    .quillContainer {
+      //height: 300px;
+      background-color: transparent;
+      // nothing
+    }
+
+    .commonInputContainer {
+      margin: 0.8rem 0;
+
+      input, select {
+        width: 90% !important;
+      }
+    }
+
+    .buttonContainer {
+      display: flex;
+      justify-content: flex-end;
+      margin: 1rem 0;
+    }
+
+    // Common style change
+    select {
+      display: inline-block;
+      width: 90%;
+      padding: 0.5rem;
+      outline: none;
+      border-radius: 3px;
+      border: 1px solid #CED4DA;
+      font-size: 0.9rem;
+
+      &:focus {
+        border: 1px solid #2196F3;
+        box-shadow: 0 0 1px 3px #A6D5FA;
+      }
+
+      option {
+        font-size: 0.9rem;
+      }
+    }
+
+  }
+
+}

@@ -1,0 +1,17 @@
+.userInput {
+
+  select, input {
+
+  }
+  .buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+    button {
+      width: 100px;
+    }
+    .cancelButton{
+      margin-right: 10px;
+    }
+  }
+
+}

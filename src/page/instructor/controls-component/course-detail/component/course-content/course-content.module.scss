@@ -1,0 +1,14 @@
+.courseContent {
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  .contentContainer {
+    overflow: auto;
+    height: 600px;
+  }
+
+}

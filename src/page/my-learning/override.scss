@@ -1,0 +1,34 @@
+$borderColor: #1a4b5d;
+.my-learning-page {
+  background-color: #333D49 !important;
+
+  .p-accordion {
+
+    .p-accordion-tab {
+      background-color: #081b22;
+
+      .p-accordion-header {
+        //border: none;
+        .p-accordion-header-link {
+          background-color: #333D49 !important;
+          color: white;
+
+          border: 1px solid $borderColor;
+          &:hover {
+            color: white !important;
+          }
+        }
+      }
+
+      .p-highlight {
+
+      }
+
+      .p-accordion-content {
+        border: 1px solid $borderColor;
+        background-color: #4b5869 !important;
+        color: white;
+      }
+    }
+  }
+}

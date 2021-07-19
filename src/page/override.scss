@@ -1,0 +1,41 @@
+.p-rating {
+  box-shadow:none !important;
+  span {
+    color: orange !important;
+    font-size: 0.9rem;
+    box-shadow:none !important;
+  }
+}
+
+.p-card-body {
+  .p-card-title {
+    font-size: 1.2rem !important;
+  }
+
+  .p-card-content {
+    padding: 5px !important;
+  }
+}
+
+.p-avatar-text {
+  font-size: 1.5rem;
+}
+
+.watch-list-menu-container {
+  width: 330px !important;
+  .p-menu-list {
+     width: 100%;
+    .p-menuitem {
+      width: 100%;
+
+      &:last-child > div {
+        border-bottom: none !important;
+      }
+    }
+  }
+}
+.p-carousel-item{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

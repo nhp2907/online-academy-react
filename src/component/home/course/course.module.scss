@@ -1,0 +1,136 @@
+.course {
+  font-size: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 260px;
+  max-width: 300px;
+  height: 350px;
+  border-radius: 5px;
+  border: 1px solid #e3e3e3;
+  margin: 10px;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.03);
+    transition: 0.2s ease-out;
+  }
+
+  .image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40%;
+    background-color: #eaeaea;
+    overflow: hidden;
+    img {
+      object-fit: cover;
+      height: 100%;
+      overflow: hidden;
+      //border-top-right-radius: 5px;
+      //border-top-left-radius: 5px;
+    }
+  }
+
+  .info {
+    padding: 10px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 40%;
+
+    h3 { // name
+      font-size: 1.2rem;
+    }
+
+    .author {
+      display: block;
+    }
+
+    .rating {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      font-size: 90%;
+
+      .number {
+        margin-right: 5px;
+        color: #d48900;
+        font-weight: bold;
+      }
+
+      .startRating {
+        margin-right: 5px;
+        span {
+          font-size: 0.9rem;
+          color: #EB8A2F;
+          &:hover {
+            color: #EB8A2F;
+
+          }
+        }
+
+      }
+
+      .numberOfRate {
+        margin-right: 5px;
+        font-size: 90%;
+      }
+    }
+
+    .price {
+      .real {
+
+      }
+
+      .discounted {
+
+      }
+    }
+
+  }
+
+
+  .priceAndBuy {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .prices {
+      display: flex;
+      flex-direction: column;
+      font-weight: bold;
+
+      .prePrice {
+        text-decoration: line-through;
+      }
+    }
+
+    .badge {
+      margin: 0 10px;
+      width: 100px;
+      padding: 10px;
+      background-color: #ffa82b;
+      border-radius: 4px;
+      color: white;
+      font-weight: bold;
+    }
+  }
+}
+
+
+@media (max-width: 1100px) {
+  .course {
+    width: 230px;
+    font-size: 98%;
+  }
+}
+
+@media (max-width: 406px) {
+  .course {
+    width: 200px;
+    font-size: 93%;
+  }
+}

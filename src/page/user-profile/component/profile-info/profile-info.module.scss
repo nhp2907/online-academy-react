@@ -1,0 +1,136 @@
+.main {
+  //border: 1px solid red;
+  margin-top: 20px;
+  width: 80%;
+  min-width: 600px;
+  max-width: 1200px;
+
+  .commonInputContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .commonInputTextInputContainer { // common text input container
+      width: 100%;
+      max-width: 1200px;
+      margin-right: 20px;
+
+      input {
+        padding: 5px 0;
+        width: 100%;
+        outline-offset: 0;
+        outline: none;
+        border-radius: 0;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border: none;
+        border-bottom: 2px solid #f1f1f1;
+
+        &:focus {
+          border-bottom: 2px solid #147da9;
+        }
+
+        &:disabled {
+          background-color: white;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+
+  .nameWrapper {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 5%;
+    align-items: stretch;
+    margin: 50px 0;
+
+    div {
+      width: 100%;
+    }
+  }
+
+  .birthDateWrapper {
+    width: 40%;
+    min-width: 300px;
+    max-width: 400px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 50px 0;
+
+    > div {
+      flex: 1;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      .commonSelectContainer {
+        flex: 1;
+        width: 90%;
+
+        .selectContainer {
+          width: 90%;
+
+
+          select {
+            display: inline-block;
+            width: 100%;
+            border: none;
+            padding: 5px 0;
+            outline: none;
+            border-bottom: 2px solid #f1f1f1;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 0 !important;
+
+            &:focus {
+              border-bottom: 2px solid #147da9;
+              box-shadow: none !important;
+            }
+
+            option {
+              font-size: 0.9rem;
+            }
+          }
+        }
+
+      }
+    }
+
+  }
+
+  label {
+    margin-right: 1.3rem;
+    opacity: 0.8;
+    font-size: 0.9rem;
+    width: 100px;
+  }
+}
+
+@media (max-width: 750px) {
+  .main {
+    min-width: unset;
+    width: 100%;
+    .commonInputContainer {
+      .commonInputTextInputContainer {
+        input {
+          font-size: 0.9rem;
+        }
+        label {
+          font-size: 0.8rem;
+        }
+      }
+    }
+    .nameWrapper {
+      margin: 50px 0;
+    }
+    .birthDateWrapper {
+      margin: 50px 0;
+      select {
+        font-size: 0.9rem !important;
+      }
+    }
+  }
+}

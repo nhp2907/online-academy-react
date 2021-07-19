@@ -1,0 +1,223 @@
+@import '../../assets/animation.scss';
+
+.nav {
+  width: 100%;
+  z-index: 1000;
+  display: grid;
+  grid-template-columns: 3fr 4fr 3fr;
+  align-items: center;
+  background: #333d49;
+  height: 4rem;
+  @include slideDownAnimation(0.3s);
+
+  .toggleSidebar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .left-side {
+    display: flex;
+    align-items: center;
+    height: 3rem;
+    justify-content: space-around;
+
+    img {
+      height: 100%;
+      width: 80%;
+      margin-right: 10px;
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  .center {
+    width: 100%;
+    background-color: #48515c;
+    border-radius: 5px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 40px;
+
+    i {
+      padding: 10px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    form {
+      width: 100%;
+
+      input {
+        width: 100%;
+        background-color: #48515c;
+        outline: none;
+        border: none;
+        margin: auto;
+        height: 40px;
+        color: white;
+        border-radius: 5px;
+
+        &::placeholder {
+          color: rgba(255, 255, 255, 0.5);
+        }
+      }
+    }
+  }
+
+
+  .right-side {
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    .before-sign-in {
+      max-width: 90%;
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      div {
+        display: flex;
+        align-items: center;
+        margin-right: 10%;
+      }
+
+      a {
+        &:nth-child(3) {
+          background-color: #333d49;
+          color: white;
+          border: 1px solid white;
+        }
+
+        &:nth-child(4) {
+          background-color: #48515c;
+          color: white;
+          border: 1px solid white;
+        }
+
+        &:hover {
+          filter: brightness(90%);
+        }
+      }
+
+      .my-teach {
+        position: relative;
+        display: none;
+
+        .my-teach-content {
+          p {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+          }
+
+          a {
+          }
+        }
+
+        &:hover .my-teach-content {
+          display: block;
+        }
+      }
+    }
+
+    .afterLogin {
+      flex: 1;
+      max-width: 90%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+
+      i {
+        font-size: 1.5rem;
+      }
+
+      .buttons {
+        //width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
+        i {
+          color: #cdcdcd;
+        }
+
+        .card {
+          position: relative;
+          padding: 0.5rem;
+          margin-right: 20px;
+          border: 1px solid green;
+
+          .list {
+            border: 1px solid red;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+          }
+        }
+
+        .notify {
+          padding: 0.6rem;
+          margin-right: 20px;
+        }
+
+        .card:hover, .notify:hover {
+          cursor: pointer;
+        }
+
+        .myLearning {
+
+          .watchList {
+
+          }
+        }
+
+      }
+
+      .my-notification {
+
+      }
+
+      .my-profile {
+        position: relative;
+      }
+
+    }
+  }
+}
+
+
+@media (max-width: 1100px) {
+  .nav {
+    grid-template-columns: 1fr 1fr 1fr;
+
+    .left-side {
+      img {
+        height: 4rem;
+        width: 4rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 650px) {
+  .nav {
+    grid-template-columns: 1fr 1fr 1fr;
+
+    .left-side {
+      img {
+        height: 2rem;
+        width: unset;
+        margin-top: 5px;
+      }
+    }
+  }
+}

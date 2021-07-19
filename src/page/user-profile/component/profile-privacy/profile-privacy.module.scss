@@ -1,0 +1,87 @@
+.main {
+  //border: 1px solid red;
+  margin-top: 20px;
+  width: 100%;
+  min-width: 300px;
+  max-width: 600px;
+
+  .commonInputContainer {
+    align-items: center;
+    flex-direction: column;
+    padding: 20px 0;
+    width: 100%;
+
+    .commonInputTextInputContainer { // common text input container
+      width: 100%;
+      max-width: 1200px;
+      margin-right: 20px;
+
+      input {
+        padding: 5px 0;
+        width: 100%;
+        outline-offset: 0;
+        outline: none;
+        border-radius: 0;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border: none;
+        border-bottom: 2px solid #f1f1f1;
+        background-color: transparent !important;
+
+        &:focus {
+          border-bottom: 2px solid #147da9;
+        }
+
+        &:disabled {
+          background-color: white;
+          cursor: not-allowed;
+          font-weight: normal;
+        }
+        &::placeholder {
+          opacity: 0.8;
+          font-size: 0.8rem;
+          font-weight: normal;
+        }
+      }
+    }
+  }
+
+  label {
+    margin-right: 1.3rem;
+    opacity: 0.8;
+    font-size: 0.9rem;
+    display: block;
+    width: 200px;
+  }
+  .button {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 750px) {
+  .main {
+    min-width: unset;
+    width: 100%;
+    .commonInputContainer {
+      .commonInputTextInputContainer {
+        input {
+          font-size: 0.9rem;
+        }
+        label {
+          font-size: 0.8rem;
+        }
+      }
+    }
+    .nameWrapper {
+      margin: 50px 0;
+    }
+    .birthDateWrapper {
+      margin: 50px 0;
+      select {
+        font-size: 0.9rem !important;
+      }
+    }
+  }
+}
