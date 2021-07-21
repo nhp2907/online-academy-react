@@ -24,7 +24,6 @@ export const HomePage = (props: Props) => {
         <div className={styles.page}>
             <Nav/>
             <HomeComponent/>
-            <FbChat />
         </div>
     );
 };
