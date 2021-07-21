@@ -5,6 +5,7 @@ import Profile from "../../component/profile/Profile";
 import HomeComponent from "../../component/home/HomeComponent";
 import styles from '../style.module.css'
 import {useDispatch} from "react-redux";
+import FbChat from "../../component/fb-chat/FbChat";
 
 type Props = {};
 
@@ -23,6 +24,7 @@ export const HomePage = (props: Props) => {
         <div className={styles.page}>
             <Nav/>
             <HomeComponent/>
+            <FbChat />
         </div>
     );
 };
