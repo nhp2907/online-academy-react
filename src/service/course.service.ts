@@ -90,11 +90,15 @@ export const deleteCourseChapterApi = async (courseId: any, chapterId: any): Pro
 //endregion
 
 //region Course Video
-export const createCourseVideoApi = async (courseId: any, video: FormData): Promise<CourseVideoInfo> => {
+export const createCourseVideoApi = async (courseId: any, video: FormData, onProgress: (e:any) => void): Promise<CourseVideoInfo> => {
     const path = `/api/course/${courseId}/chapter/${video.get('chapterId')}/video`;
-    const data = await postWithHeader<CourseVideoInfo>(path, video, {
-        'Content-Type': 'multipart/form-data'
+    const {data} = await api.post<CourseVideoInfo>(path, video, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        },
+        onUploadProgress: onProgress
     });
+
     return data;
 }
 

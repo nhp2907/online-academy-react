@@ -8,6 +8,7 @@ import AddVideoComponent from "../course-video/AddVideoComponent";
 import {createCourseVideoApi, getCourseVideoApi, deleteVideoApi} from '../../../../../../../../service/course.service';
 import {RootState} from "../../../../../../../../redux/store";
 import {useSelector} from 'react-redux';
+import {ProgressBar} from "primereact/progressbar";
 
 interface Props {
     item?: CourseChapter
@@ -18,6 +19,8 @@ const CourseChapterComponent: React.FC<Props> = ({item}) => {
 
     const [videos, setVideos] = useState<CourseVideoInfo[]>(item?.videos || [])
     const [addVideoVisible, setAddVideoVisible] = useState(false);
+    const [uploadPercent, setUploadPercent] = useState(0);
+    const [uploading, setUploading] = useState(true);
 
     useEffect(() => {
         fetchData().then(r => {
@@ -34,7 +37,18 @@ const CourseChapterComponent: React.FC<Props> = ({item}) => {
         formData.append('name', video.name);
         formData.append('chapterId', video.chapterId);
         try {
-            const newVideo = await createCourseVideoApi(item?.courseId || '', formData);
+            setUploading(true);
+            const newVideo = await createCourseVideoApi(item?.courseId || '', formData,
+                (e: any) => {
+                    const percent = Math.round((e.loaded * 100 / e.total + Number.EPSILON) * 100) / 100;
+                    setUploadPercent(percent);
+
+                    if (percent > 99.99) {
+                        setUploading(false)
+                        setUploadPercent(0);
+                    }
+                }
+            );
             setVideos([...videos, newVideo])
             // @ts-ignore
             showToastMessage({severity: 'success', summary: 'Add successfully!', detail: 'Add video successfully!'});
@@ -66,6 +80,8 @@ const CourseChapterComponent: React.FC<Props> = ({item}) => {
                         }}
                 />
             </div>
+            {uploading ?
+                <ProgressBar value={uploadPercent}/> : null}
             {videos.map((videoInfo: CourseVideoInfo, index) => (
                 <CourseVideoComponent key={videoInfo.id} index={index} item={videoInfo} deleteAction={deleteAction}/>
             ))}
