@@ -3,7 +3,7 @@
 .main {
   @include pageLoadAnimation(0.5s);
   width: 95%;
-  height: 90%;
+  //height: 90%;
   margin: 0 auto;
 
   .categories-and-slideshow {
@@ -49,6 +49,9 @@
         border-radius: 10px;
         background-color: #00C0EF;
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         &:hover {
           background-color: #0997ba;

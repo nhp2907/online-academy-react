@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Redirect, useHistory, useParams, Prompt} from 'react-router-dom';
-import Nav from "../../component/nav/Nav";
+import {Redirect, useParams, Link} from 'react-router-dom';
 import VideoPlayer from "../../component/common/VideoPlayer";
 import CourseVideoInfo from "../../model/CourseVideoInfo";
 import CourseContentComponent from "./component/course-content/CourseContentComponent";
@@ -8,12 +7,13 @@ import Course from "../../model/Course";
 import SpinnerComponent from "../../component/common/SpinnerComponent";
 import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
-import {getCourseApi, getCourseById} from "../../service/course.service";
+import {getCourseById} from "../../service/course.service";
 import styles from './my-learning.module.scss'
 import {currentEnv} from "../../config/evironment";
 import {getLastPlayCourseApi, saveLearningStatus} from "../../service/learning.service";
 import './override.scss'
-import {Simulate} from "react-dom/test-utils";
+import logo from '../../assets/img/logo.svg'
+import CourseChapter from "../../model/CourseChapter";
 
 interface Params {
     courseId: string
@@ -27,6 +27,7 @@ const MyLearningPage: React.FC<Props> = ({}) => {
     const user = useSelector((s: RootState) => s.auth.user);
     const params = useParams<Params>();
     const [playingVideo, setPlayingVideo] = useState<CourseVideoInfo>();
+    const [playingChapter, setPlayingChapter] = useState<CourseChapter>();
     const [playing, setPlaying] = useState<boolean>(false);
     const [course, setCourse] = useState<Course>()
     const [lastPlayStatus, setLastPlayStatus] = useState<any>();
@@ -79,7 +80,9 @@ const MyLearningPage: React.FC<Props> = ({}) => {
     }
 
     if (!course || !lastPlayStatus) {
-        return <SpinnerComponent/>
+        return <div className={styles.spinnerWrapper}>
+            <SpinnerComponent/>
+        </div>
     }
 
     if (!user) {
@@ -90,6 +93,9 @@ const MyLearningPage: React.FC<Props> = ({}) => {
         <div className={`${styles.myLearning} my-learning-page`}>
             <div className={styles.leftSide}>
                 <div className={styles.header}>
+                    <Link to={'/'}>
+                        <img src={logo} alt=""/>
+                    </Link>
                     <h3>{course.name}</h3>
                 </div>
                 <div className={styles.videoContainer}>
@@ -101,20 +107,22 @@ const MyLearningPage: React.FC<Props> = ({}) => {
                     />
                 </div>
                 <div className={styles.videoInfo}>
-                    <span><small>Chapter </small>{playingVideo?.name || 'Chapter 1'}</span>
-                    <h3>{playingVideo?.name || 'Video name here'}</h3>
+                    <span><small>Chapter </small>{playingChapter?.name || ''}</span>
+                    <h3>{playingVideo?.name || ''}</h3>
                 </div>
             </div>
             <div className={styles.rightSide}>
                 <div className={styles.header}>
                     <h3>Course content</h3>
                 </div>
-                <CourseContentComponent openingChapterIndex={chapterIndex} course={course} setPlayingVideo={(video: any, chapterIndex: number) => {
-                    console.log(video)
-                    setPlaying(true);
-                    setPlayingVideo(video)
-                    setChapterIndex(chapterIndex);
-                }}/>
+                <CourseContentComponent openingChapterIndex={chapterIndex} course={course}
+                                        setPlayingVideo={(video: any, chapter: CourseChapter, chapterIndex: number) => {
+                                            console.log(video)
+                                            setPlaying(true);
+                                            setPlayingVideo(video)
+                                            setPlayingChapter(chapter);
+                                            setChapterIndex(chapterIndex);
+                                        }}/>
             </div>
         </div>
     );

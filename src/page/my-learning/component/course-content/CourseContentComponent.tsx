@@ -7,7 +7,7 @@ import CourseChapterComponent from "../course-chapter/CourseChapterComponent";
 
 interface Props {
     course?: Course
-    setPlayingVideo: (video: any, chapterIndex: number) => void
+    setPlayingVideo: (video: any, chapter: CourseChapter, chapterIndex: number) => void
     openingChapterIndex: number
 }
 
@@ -49,7 +49,7 @@ const CourseContentComponent: React.FC<Props> = ({course, setPlayingVideo, openi
                 {
                     chapters.map((chapter: CourseChapter, index: number) =>
                         <AccordionTab key={chapter.id} header={chapter.name}>
-                            <CourseChapterComponent chapter={chapter} setPlayingVideo={(video: any) => setPlayingVideo(video, index)}/>
+                            <CourseChapterComponent chapter={chapter} setPlayingVideo={(video: any) => setPlayingVideo(video, chapter, index)}/>
                         </AccordionTab>
                     )
                 }

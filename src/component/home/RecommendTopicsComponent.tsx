@@ -19,10 +19,13 @@ const RecommendTopicsComponent: React.FC<Props> = ({}) => {
             <h3 className={styles.title}>Top most register Category</h3>
             <div className={styles.content}>
                 {
-                    categories.map((category: Category) => (
-                        <div className={styles.cateItem}  onClick={e => {
-                            history.push(`course?category=${category.name}`)
-                        }} key={category.id}><span>{category.name}</span></div>
+                    categories.map((category: Category, index: number) => (
+                        <div className={styles.cateItem}
+                             onClick={e => {
+                                 history.push(`course?category=${category.name}`)
+                             }} key={index}>
+                            <span>{category.name}</span>
+                        </div>
                     ))
                 }
             </div>

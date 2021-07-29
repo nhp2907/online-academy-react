@@ -2,6 +2,8 @@ import React from 'react'
 import {Carousel} from 'primereact/carousel';
 import styles from './slide-show.module.scss'
 import banner1 from '../../../assets/img/banner1.jpg'
+import banner2 from '../../../assets/img/banner2.jpg'
+import banner3 from '../../../assets/img/banner3.jpg'
 
 interface Props {
 
@@ -10,8 +12,8 @@ interface Props {
 const SlideShowComponent: React.FC<Props> = ({}) => {
     const images: string[] = [
         banner1,
-        'https://png.pngtree.com/thumb_back/fh260/back_pic/00/04/53/9556248b4747950.png',
-        'https://i.ytimg.com/vi/udva875NILw/maxresdefault.jpg'
+        banner2,
+        banner3
     ]
     const imageTemplate = (image: any) => {
         return (

@@ -34,6 +34,7 @@ const CategoryList: React.FC<Props> = ({}) => {
 
     const mapCateToItemDisplay = (cate: Category) : MenuItem => {
         const item: MenuItem = {
+            id: cate.id,
             label: cate.name,
             icon: cate.icon,
             name: cate.name,
@@ -52,7 +53,7 @@ const CategoryList: React.FC<Props> = ({}) => {
         state.categories.list.map((cate: Category) => mapCateToItemDisplay(cate)));
 
     function categoryItemCommand(e: MenuItemCommandParams) {
-        history.push(`/course?category=${e.item.name}`)
+        history.push(`/course?category=${e.item.name}&categoryId=${e.item.id}`)
     }
 
     const handleToggleMenu: MouseEventHandler<HTMLElement> = (event) => {

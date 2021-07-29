@@ -20,7 +20,7 @@ const CourseChapterComponent: React.FC<Props> = ({item}) => {
     const [videos, setVideos] = useState<CourseVideoInfo[]>(item?.videos || [])
     const [addVideoVisible, setAddVideoVisible] = useState(false);
     const [uploadPercent, setUploadPercent] = useState(0);
-    const [uploading, setUploading] = useState(true);
+    const [uploading, setUploading] = useState(false);
 
     useEffect(() => {
         fetchData().then(r => {

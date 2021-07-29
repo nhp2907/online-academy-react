@@ -1,3 +1,9 @@
+.spinnerWrapper {
+  width: 100vw;
+  height: 100vh;
+  background-color: #21282B;
+}
+
 .myLearning {
   display: grid;
   grid-template-columns: 75% 25%;
@@ -13,6 +19,7 @@
     background-color: #083647;
     color: white;
     padding: 0 0 0 10px;
+    height: 4rem;
   }
   .leftSide {
     min-height: 100vh;
@@ -20,10 +27,16 @@
     border-right: 1px solid #010f18;
     .header {
       display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-direction: row;
       height: 4rem;
       background-color: #051e26;
       color: white;
       padding: 0 0 0 10px;
+      img {
+        height: 90%;
+      }
     }
     .videoContainer {
       width: 100%;

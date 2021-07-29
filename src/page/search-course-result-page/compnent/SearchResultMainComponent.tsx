@@ -21,6 +21,7 @@ const SearchResultMainComponent: React.FC<Props> = ({}) => {
     const [courses, setCourses] = useState<Course[]>([]);
     const [kw, setKw] = useState('');
     const [categoryName, setCategoryName] = useState('');
+    const [categoryId, setCategoryId] = useState('');
     const previous = usePrevious({kw, categoryName})
 
     useEffect(() => {
@@ -28,16 +29,19 @@ const SearchResultMainComponent: React.FC<Props> = ({}) => {
             const queryParams = new URLSearchParams(window.location.search);
             const kw: string = queryParams.get('kw') ?? '';
             const cateName: string = queryParams.get('category') ?? '';
+            const cateId: string = queryParams.get('categoryId') ?? '';
             if (previous?.kw !== kw || previous.categoryName !== categoryName) {
                 setKw(kw);
                 setCategoryName(cateName)
-                if (cateName) {
-                    getCourseApi({categoryName: cateName}).then(c => setCourses(c))
+                setCategoryId(cateId)
+                if (cateId) {
+                    getCourseApi({categoryId: cateId}).then(c => setCourses(c))
                 } else {
                     searchCourseApi({kw}).then(courses => setCourses(courses));
                 }
             } else {
                 setCategoryName(cateName)
+                setCategoryId(cateId)
                 setKw(kw)
             }
         }
