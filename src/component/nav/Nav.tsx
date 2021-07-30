@@ -8,7 +8,6 @@ import {Sidebar} from 'primereact/sidebar';
 import {Button} from 'primereact/button';
 import {RootState} from "../../redux/store";
 import {useSelector} from 'react-redux';
-import {User} from "../../model/User";
 import './override.scss'
 type Props = {
     user?: number;
@@ -30,7 +29,7 @@ const Nav: React.FC<Props> = ({}: Props) => {
     return (
         <React.Fragment>
             {
-                width > 650 ?
+                width > 700 ?
                     <nav key={user?.id} className={styles.nav}>
                         <NavLeftSideComponent/>
                         <div className={styles.center}>
@@ -49,12 +48,19 @@ const Nav: React.FC<Props> = ({}: Props) => {
                                     onClick={() => setSidebarVisible(true)}/>
                             <NavLeftSideComponent/>
                         </div>
+                        <Sidebar  visible={sidebarVisible} onHide={() => setSidebarVisible(false)} >
+                            <div className={styles.center}>
+                                <i className="fas fa-search"></i>
+                                <form onSubmit={handleFormSubmit}>
+                                    <input type="text" value={searchKw} onChange={e => setSearchKw(e.target.value)} autoFocus={true}
+                                           placeholder="Search for anything"/>
+                                </form>
+                            </div>
+                            <NavRightSide />
+                        </Sidebar>
                     </nav>
             }
 
-            <Sidebar visible={sidebarVisible} onHide={() => setSidebarVisible(false)}>
-                content
-            </Sidebar>
         </React.Fragment>
     )
 }

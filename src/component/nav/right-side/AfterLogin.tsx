@@ -27,6 +27,8 @@ const AfterLogin: React.FC<Props> = ({}) => {
     const [watchList, setWatchList] = useState<Course[]>([])
     const [myLearningCourses, setMyLearningCourse] = useState<Course[]>([])
     const {width} = useWindowDimensions();
+    const isExpandLabel = width > 1200 || width < 700;
+
     useEffect(() => {
         if (user) {
             getWatchListApi(user.id).then(r => setWatchList(r))
@@ -83,12 +85,12 @@ const AfterLogin: React.FC<Props> = ({}) => {
             <div className={`${styles.myLearning}`}>
                 <Menu model={watchListToMenuModels(watchList)} popup ref={menuRef} id="overlay_tmenu-watch-list"
                       className={'watch-list-menu-container'}/>
-                <Button className={'p-button-rounded p-button-danger'} label={width > 1180 ? 'Watch list' : ''}
+                <Button className={'p-button-rounded p-button-danger'} label={isExpandLabel ? 'Watch list' : ''}
                         icon={'pi pi-heart'} style={{color: 'rgba(255,255,255,1)'}}
                         onClick={handleToggleMenu}/>
             </div>
             <div>
-                <Button className={'p-button-rounded p-button-text'} label={width > 1180 ? 'My Learning' : ''}
+                <Button className={`p-button-rounded p-button-secondary`} label={isExpandLabel ? 'My Learning' : ''}
                         icon={'pi pi-book'} style={{color: 'rgba(255,255,255,1)'}}
                         onClick={handleToggleMyLearningOverlay}/>
                 <OverlayPanel ref={myLearningOverlayRef} style={{width: 350}}>

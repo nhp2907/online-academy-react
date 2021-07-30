@@ -208,7 +208,7 @@
   }
 }
 
-@media (max-width: 650px) {
+@media (max-width: 700px) {
   .nav {
     grid-template-columns: 1fr 1fr 1fr;
 
@@ -217,6 +217,56 @@
         height: 2rem;
         width: unset;
         margin-top: 5px;
+      }
+    }
+
+    .center {
+      margin-top: 20px;
+    }
+
+    .right-side {
+      justify-content: flex-start;
+      width: 100%;
+      .before-sign-in {
+        margin-top: 20px;
+        flex-direction: column;
+        max-width: unset;
+        width: 100%;
+        div {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          margin-right: 0;
+
+          a {
+            width: 100%;
+            button {
+              width: 100%;
+            }
+          }
+          .loginButton {
+            //border: 1px solid #202023;
+            margin: 0 0 5px 0 ;
+
+            span {
+              //color: #242424;
+            }
+          }
+        }
+      }
+
+      .afterLogin {
+        margin-top: 20px;
+        flex-direction: column;
+        width: 100%;
+        max-width: unset;
+        div {
+         width: 100%;
+        button {
+          width: 100%;
+          margin-bottom: 10px;
+        }
+        }
       }
     }
   }

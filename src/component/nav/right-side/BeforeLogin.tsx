@@ -14,7 +14,7 @@ const BeforeLogin: React.FC<Props> = ({user}) => {
         <div className={styles['before-sign-in']}>
             <div>
                 <NavLink to={{pathname: '/login', state: {backUrl: history.location.pathname}}}>
-                    <Button label="Log in" className="p-button-text"
+                    <Button label="Log in" className={`p-button-text ${styles.loginButton}`}
                             style={{color: 'white', fontWeight: "bold", marginRight: 10}}/>
                 </NavLink>
                 <NavLink to={{pathname: '/signup', state: {backUrl: history.location.pathname}}}>
