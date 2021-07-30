@@ -60,9 +60,58 @@
   }
 }
 
+@media (max-width: 1400px) {
+  .buyTab {
+    right: 5%;
+    width: 20%;
+  }
+}
 
 @media (max-width: 1200px) {
+
+  .sticky {
+    position: fixed !important;
+    top: 0 !important;
+    width: 100%
+  }
+
   .buyTab {
-    display: none;
+    border-radius: 0;
+    //display: none;
+    position: relative;
+    width: 100vw;
+    height: 5rem;
+    top: 0;
+    background-color: #1C1D1F;
+    color: white;
+    margin-right: unset;
+    right: 0;
+
+    .image {
+      display: none;
+      img {
+        display: none;
+        height: 5rem;
+      }
+    }
+    .introduce {
+      display: none;
+    }
+    .priceAndBuy {
+      display: flex;
+      justify-content: space-between;
+      .buttons {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        button {
+          &:first-child {
+            margin-bottom: 0;
+            margin-right: 10px;
+          }
+        }
+      }
+    }
   }
 }

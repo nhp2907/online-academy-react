@@ -18,6 +18,8 @@ import {getInstructorDetail} from '../../service/instructor.service'
 import CourseContentComponent from "./component/course-content/CourseContentComponent";
 import {Card} from "primereact/card";
 import SpinnerComponent from "../../component/common/SpinnerComponent";
+import FbChat from "../../component/fb-chat/FbChat";
+import Footer from "../../component/footer/Footer";
 
 interface Props {
 
@@ -57,8 +59,8 @@ const CourseDetailPage: React.FC<Props> = ({}) => {
         return (
             <div className={styles.courseDetailPage}>
                 <Nav/>
-                <CourseInfoComponent course={course} instructor={instructor}/>
                 <BuyTabComponent course={course}/>
+                <CourseInfoComponent course={course} instructor={instructor}/>
                 <Card title={'Course content'} className={styles.courseContent}>
                     <CourseContentComponent course={course}/>
                 </Card>
@@ -74,6 +76,9 @@ const CourseDetailPage: React.FC<Props> = ({}) => {
                 <ReviewsComponent course={course} requestUpdateFeedBack={() => {
                     getCourseFeedBackApi(course?.id).then(r => setFeedBack(r));
                 }}/>
+                <div style={{marginBottom: 20}} />
+                <Footer/>
+                <FbChat/>
             </div>
         );
     } else {

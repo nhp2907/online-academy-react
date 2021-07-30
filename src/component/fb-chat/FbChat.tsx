@@ -2,6 +2,7 @@ import React, {useEffect} from 'react'
 
 const FbChat = ({}) => {
     useEffect(() => {
+        console.log('init facebook chat script')
         const script = document.createElement("script");
 
         script.innerHTML =

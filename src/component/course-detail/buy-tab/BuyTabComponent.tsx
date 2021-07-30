@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useRef} from 'react'
 import styles from './buy-tab.module.scss'
 import {Card} from 'primereact/card';
 import {Button} from "primereact/button";
@@ -20,10 +20,34 @@ const BuyTabComponent: React.FC<Props> = ({course}) => {
     const isCourseInWatchList = !!user?.watchList.includes(course.id);
     const isCourseInMyLearningList = !!user?.myLearningList.includes(course.id)
     const dispatch = useDispatch();
+    const divRef = useRef(null);
+
     useEffect(() => {
     }, [user])
+
+    useEffect(() => {
+        if (window) {
+            window.onscroll = (e: any) => {
+                if (divRef && divRef.current) {
+                    const div = divRef.current;
+                    // @ts-ignore
+                    console.log(div.classList);
+                    // @ts-ignore
+                    if (window.pageYOffset > div?.offsetTop) {
+                        console.log(true);
+                        // @ts-ignore
+                        div.classList.add(styles.sticky)
+                    } else {
+                        // @ts-ignore
+                        div.classList.remove(styles.sticky);
+                    }
+                }
+            }
+        }
+    }, [])
+
     return (
-        <div className={styles.buyTab}>
+        <div className={styles.buyTab} ref={divRef}>
             <div className={styles.image}>
                 <img src={course.image} alt=""/>
             </div>
@@ -36,9 +60,11 @@ const BuyTabComponent: React.FC<Props> = ({course}) => {
                 </ul>
             </div>
             <div className={styles.priceAndBuy}>
-                <small>on: </small>
-                <span className={styles.priceNumber}>{`${course.price}`}</span>
-                <span>USD</span>
+                <div className={styles.price}>
+                    <small>on: </small>
+                    <span className={styles.priceNumber}>{`${course.price}`}</span>
+                    <span>USD</span>
+                </div>
                 <div className={styles.buttons}>
                     <Button
                         label={isCourseInWatchList ? 'Remove from Watch list' : 'Add to Watch list'}
