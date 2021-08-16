@@ -60,12 +60,13 @@ const ReviewsComponent: React.FC<Props> = ({course, requestUpdateFeedBack}) => {
                                         await updateCourseReviewApi(course.id, {...userReview, rating, content: reviewContent})
                                         showToastMessage({severity: "success", summary: `Update review successfully`})
                                     } else {
-                                        await createCourseReviewApi(course.id, {
+                                        const newReview = await createCourseReviewApi(course.id, {
                                             courseId: course.id,
                                             rating,
                                             userId: user?.id,
                                             content: reviewContent
                                         })
+                                        setUserReview(newReview);
                                         showToastMessage({severity: "success", summary: `Review successfully`})
                                     }
                                     if (requestUpdateFeedBack) {
