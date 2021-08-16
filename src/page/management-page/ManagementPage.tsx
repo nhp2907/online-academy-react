@@ -24,7 +24,7 @@ const ManagementPage: React.FC<Props> = ({routes, defaultRoute, roles, redirectU
         return <Redirect to={{pathname: '/login', state: {backUrl: history.location.pathname}}}/>
     }
     if (user && !roles.find(s => s === user.roleId)) {
-        showToastMessage({severity: "warn", detail: `Page not found`, summary: "Unauthorized"})
+        // showToastMessage({severity: "warn", detail: `Page not found`, summary: "Unauthorized"})
         return <Redirect to={{pathname: redirectUrl}}/>
     }
 

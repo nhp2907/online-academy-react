@@ -10,15 +10,15 @@ import * as userService from '../../../../../service/user.service'
 import {createUserApi, deleteUserApi, updateUserApi} from '../../../../../service/admin.service'
 import {User} from "../../../../../model/User";
 import SpinnerComponent from "../../../../../component/common/SpinnerComponent";
-import UserInputComponent from "./component/user-input/UserInputComponent";
 import {RootState} from "../../../../../redux/store";
 import {InputSwitch} from "primereact/inputswitch";
+import InstructorInputComponent from "../instructor-management/component/user-input/InstructorInputComponent";
 
 interface Props {
 
 }
 
-const UserManagementComponent: React.FC<Props> = ({}) => {
+const StudentManagementComponent: React.FC<Props> = ({}) => {
 
     const [isLoading, setIsLoading] = useState(true);
     const showToastMessage = useSelector((s: RootState) => s.home.showToastMessage)
@@ -56,8 +56,12 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const loadData = async () => {
-        const _users = await userService.findUserApi();
-        setUsers(_users)
+        const _users = await userService.findStudentApi();
+        const mappedUser = _users.map(u => {
+            u.name = `${u.firstName} ${u.lastName}`
+            return u;
+        })
+        setUsers(mappedUser)
     }
 
     const openNew = () => {
@@ -87,8 +91,8 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
         try {
             if (userForm.id) {
                 const index = findIndexById(userForm.id);
-                console.log('user submited')
                 const updateResult = await updateUserApi(userForm);
+                userForm.name = `${userForm.firstName} ${userForm.lastName}`
                 _users[index] = userForm;
                 setUsers(_users);
 
@@ -213,9 +217,9 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
         <div className="table-header">
             <div className={'table-header-left'}>
                 {/*<span>Manage users</span>*/}
-                <Button label="New instructor" icon="pi pi-plus" style={{marginRight: 10, fontSize: 15}}
-                        className=" p-button-success p-mr-2"
-                        onClick={openNew}/>
+                {/*<Button label="New instructor" icon="pi pi-plus" style={{marginRight: 10, fontSize: 15}}*/}
+                {/*        className=" p-button-success p-mr-2"*/}
+                {/*        onClick={openNew}/>*/}
                 {/*<Button label="Delete" icon="pi pi-trash" className="p-button-text p-button-danger" style={{marginRight: 10, fontSize: 15}}*/}
                 {/*        disabled={!selectedUsers || !selectedUsers.length}/>*/}
             </div>
@@ -256,7 +260,8 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
                     {/*<Column header="Image" body={imageBodyTemplate}/>*/}
                     <Column header={''} body={indexTemplate} style={{maxWidth: 50, width: '5%'}}/>
                     <Column field={'username'} header="Username" sortable/>
-                    <Column header="Name" body={nameBodyTemplate}/>
+                    <Column field={'name'} header="Name" sortable/>
+                    {/*<Column header="Name" body={nameBodyTemplate}/>*/}
                     <Column field={'email'} header="Email" sortable/>
                     <Column field={'role'} header="Role" sortable style={{maxWidth: 100, width: '10%'}}/>
                     <Column field={'status'} header="Status" body={statusBody} style={{maxWidth: 100, width: '15%'}}/>
@@ -266,13 +271,10 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
                 </DataTable>
             </div>
 
-            <Dialog header="Create instructor account" visible={userDialog} style={{width: '450px'}} modal className="p-fluid"
+            <Dialog header={user.id ? 'Update account info' : "Create instructor account"} visible={userDialog} style={{width: '450px'}} modal className="p-fluid"
                     onHide={hideDialog}>
-                {user.image && <img src={`showcase/demo/images/user/${user.image}`}
-                                    alt={user.image} className="user-image"/>}
-                <UserInputComponent user={user} onSubmit={saveUser} hideModal={() => setUserDialog(false)}/>
+                <InstructorInputComponent user={user} onSubmit={saveUser} hideModal={() => setUserDialog(false)}/>
             </Dialog>
-
             <Dialog visible={deleteUserDialog} style={{width: '450px'}} header="Confirm" modal
                     onHide={hideDeleteUserDialog}
                     footer={deleteUserDialogFooter}>
@@ -293,4 +295,4 @@ const UserManagementComponent: React.FC<Props> = ({}) => {
     );
 }
 
-export default UserManagementComponent;
+export default StudentManagementComponent;

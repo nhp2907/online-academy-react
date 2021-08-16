@@ -13,6 +13,16 @@ export const findUserApi = async (): Promise<User []> => {
     return data;
 }
 
+export const findStudentApi = async (): Promise<User []> => {
+    const {data} = await api.get<User[]>('/api/admin/student');
+    return data;
+}
+
+export const findInstructorApi = async (): Promise<User []> => {
+    const {data} = await api.get<User[]>('/api/admin/instructor');
+    return data;
+}
+
 export const validateUser = async (body: any): Promise<any> => {
     const queryString = getSearchQueryString(body);
     const {data} = await api.get<any>(`/api/validate/user${queryString}`);

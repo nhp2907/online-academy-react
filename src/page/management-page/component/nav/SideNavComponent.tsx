@@ -34,7 +34,7 @@ const SideNavComponent: React.FC<Props> = ({list}) => {
                 <Link to={'/'}>
                     <img src={logo} alt=""/>
                 </Link>
-                <h1 className={styles.name}>{user?.firstName || '' + user?.lastName || ''}</h1>
+                <h1 className={styles.name}>{`${user?.firstName} ${user?.lastName}`}</h1>
             </div>
             <ul>
                 {

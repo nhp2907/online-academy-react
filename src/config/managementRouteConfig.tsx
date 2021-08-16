@@ -1,4 +1,4 @@
-import UserManagementComponent from "../page/admin/component/controls/user-management/UserManagementComponent";
+import StudentManagementComponent from "../page/admin/component/controls/student-management/StudentManagementComponent";
 import CategoryManagementComponent from "../page/admin/component/controls/category-management/CategoryManagementComponent";
 import CourseManagementComponent from "../page/admin/component/controls/course-management/CourseManagementComponent";
 import ManagementRoute from "../page/management-page/model/ManagementRoute";
@@ -6,36 +6,44 @@ import InstructorCourseManagementComponent from "../page/instructor/controls-com
 import InstructorCourseDetailComponent from "../page/instructor/controls-component/course-detail/InstructorCourseDetailComponent";
 import InstructorProfileComponent from "../page/instructor/controls-component/instructor-profile/InstructorProfile";
 import InstructorCourseDetailHeader from "../page/instructor/controls-component/course-detail/InstructorCourseDetailHeader";
+import InstructorManagementComponent from "../page/admin/component/controls/instructor-management/InstructorManagementComponent";
 
 
 export const adminRouteList: ManagementRoute[] = [
     {
-        path: '/admin/user',
-        component: UserManagementComponent,
-        icon: 'users',
-        redirectUrl: '/login',
-        name: 'User management'
-    },
-    {
         path: '/admin/category',
         icon: 'users',
-        name: 'Category management',
+        name: 'Category',
         redirectUrl: '/login',
         component: CategoryManagementComponent,
     },
     {
+        path: '/admin/student',
+        component: StudentManagementComponent,
+        icon: 'users',
+        redirectUrl: '/login',
+        name: 'Student'
+    },
+    {
+        path: '/admin/instructor',
+        icon: 'users',
+        name: 'Instructor',
+        redirectUrl: '/login',
+        component: InstructorManagementComponent,
+    },
+    {
         path: '/admin/course',
         icon: 'book',
-        name: 'Course management',
+        name: 'Course',
         redirectUrl: '/login',
         component: CourseManagementComponent,
     }
 ]
 export const adminDefaultRoute: ManagementRoute = {
     path: '/admin',
-    component: UserManagementComponent,
+    component: StudentManagementComponent,
     icon: 'users',
-    name: 'User management',
+    name: 'User',
     redirectUrl: '/login'
 }
 

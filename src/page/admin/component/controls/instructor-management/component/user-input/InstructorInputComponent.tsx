@@ -13,7 +13,7 @@ interface Props {
     hideModal?: () => void
 }
 
-const UserInputComponent: React.FC<Props> = ({user, onSubmit, hideModal}) => {
+const InstructorInputComponent: React.FC<Props> = ({user, onSubmit, hideModal}) => {
     const [submitted, setSubmitted] = useState(false);
     const [formUser, setUser] = useState<User>(user);
 
@@ -43,6 +43,7 @@ const UserInputComponent: React.FC<Props> = ({user, onSubmit, hideModal}) => {
         <div className={styles.userInput}>
             <div style={style}>
                 <CommonInput value={formUser.username} name={'Username'} required
+                             disabled={!!user.id}
                              onChange={e => setUser({...formUser, username: e.target.value})}
                              validate={text => validateUsername(text)}/>
             </div>
@@ -78,4 +79,4 @@ const UserInputComponent: React.FC<Props> = ({user, onSubmit, hideModal}) => {
 }
 
 
-export default UserInputComponent;
+export default InstructorInputComponent;
