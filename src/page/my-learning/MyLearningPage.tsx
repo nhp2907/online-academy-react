@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Redirect, useParams, Link} from 'react-router-dom';
+import {Redirect, useParams, Link, useHistory} from 'react-router-dom';
 import VideoPlayer from "../../component/common/VideoPlayer";
 import CourseVideoInfo from "../../model/CourseVideoInfo";
 import CourseContentComponent from "./component/course-content/CourseContentComponent";
@@ -12,7 +12,6 @@ import styles from './my-learning.module.scss'
 import {currentEnv} from "../../config/evironment";
 import {getLastPlayCourseApi, saveLearningStatus} from "../../service/learning.service";
 import './override.scss'
-import logo from '../../assets/img/logo.svg'
 import CourseChapter from "../../model/CourseChapter";
 
 interface Params {
@@ -24,6 +23,7 @@ interface Props {
 }
 
 const MyLearningPage: React.FC<Props> = ({}) => {
+    const history = useHistory();
     const user = useSelector((s: RootState) => s.auth.user);
     const params = useParams<Params>();
     const [playingVideo, setPlayingVideo] = useState<CourseVideoInfo>();
@@ -33,8 +33,6 @@ const MyLearningPage: React.FC<Props> = ({}) => {
     const [lastPlayStatus, setLastPlayStatus] = useState<any>();
     const [playedSeconds, setPlayedSeconds] = useState(0)
     const [chapterIndex, setChapterIndex] = useState(0);
-
-    const courseId = course?.id;
 
     useEffect(() => {
         getCourseById(params.courseId).then(r => {
@@ -65,7 +63,7 @@ const MyLearningPage: React.FC<Props> = ({}) => {
                     playedSeconds,
                     chapterIndex,
                     videoId: playingVideo?.id
-                };
+                }
 
                 console.log(body);
                 callSaveLearningStatus(body);
@@ -93,8 +91,8 @@ const MyLearningPage: React.FC<Props> = ({}) => {
         <div className={`${styles.myLearning} my-learning-page`}>
             <div className={styles.leftSide}>
                 <div className={styles.header}>
-                    <Link to={'/'}>
-                        <img src={logo} alt=""/>
+                    <Link to={'/'} onClick={()=> history.goBack()} className="pi pi-angle-left">
+                        {/*<i className="pi pi-angle-left" style={{'fontSize': '2em'}} />*/}
                     </Link>
                     <h3>{course.name}</h3>
                 </div>
