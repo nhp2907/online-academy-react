@@ -21,7 +21,7 @@ const SideNavComponent: React.FC<Props> = ({list}) => {
             header: 'Logout!',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
-                dispatch(setAuth({token: null, user: null}))
+                dispatch(setAuth({token: null, user: null, refreshToken: null}))
             },
             reject: () => {
             }

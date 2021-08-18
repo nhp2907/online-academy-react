@@ -3,4 +3,5 @@ import {User} from "../../model/User";
 export default interface AuthState {
     user: User | null;
     token?: string | null;
+    refreshToken?: string | null;
 }

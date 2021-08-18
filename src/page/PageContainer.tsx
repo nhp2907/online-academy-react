@@ -31,11 +31,6 @@ function PageContainer() {
     const toastRef: RefObject<Toast> = useRef<Toast>(null);
     const dispatch = useDispatch();
     const token = useSelector((state: RootState) => state.auth.token);
-    useEffect(() => {
-        if (token) {
-            getUserProfile().then((user: User) => dispatch(setUser(user)))
-        }
-    },)
 
     useEffect(() => {
         if (token) {

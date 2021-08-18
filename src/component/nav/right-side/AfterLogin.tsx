@@ -1,13 +1,12 @@
 import React, {MouseEventHandler, useEffect, useRef, useState} from 'react'
 
-import {Badge} from "primereact/badge";
 import ProfileComponent from "./ProfileComponent";
 
 import styles from '../nav.module.scss'
 import {Menu} from 'primereact/menu';
 import {Button} from 'primereact/button';
 import Course from "../../../model/Course";
-import {MenuItem, MenuItemCommandParams, MenuItemOptions} from 'primereact/api';
+import {MenuItem, MenuItemOptions} from 'primereact/api';
 import WatchListItemComponent from "./watch-list-item/WatchListItemComponent";
 import useWindowDimensions from "../../../hook/userWindowDimensions";
 import {useSelector} from "react-redux";
@@ -34,7 +33,7 @@ const AfterLogin: React.FC<Props> = ({}) => {
             getWatchListApi(user.id).then(r => setWatchList(r))
             getMyLearningListApi(user.id).then(r => setMyLearningCourse(r))
         }
-    }, [user])
+    }, [user?.watchList, user?.myLearningList])
 
     const menuRef = useRef(null);
     const myLearningOverlayRef = useRef(null);

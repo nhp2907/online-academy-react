@@ -21,8 +21,9 @@ export const authSlice = createSlice({
         },
         setAuth: (state: AuthState, action: PayloadAction<AuthState>) => {
             state.token = action.payload.token;
-            // @ts-ignore
-            localStorage.setItem("token", action.payload.token);
+            state.refreshToken = action.payload.refreshToken;
+            localStorage.setItem("token", action.payload.token || '');
+            localStorage.setItem("refreshToken", action.payload.refreshToken || '');
             Axios.defaults.headers.authorization = 'Bearer ' + action.payload.token;
             state.user = action.payload.user;
         }
